@@ -27,14 +27,14 @@ const CONFIG = {
   },
 
   destinations: [
-    { month: "Jan–Feb", name: "Varkala",      region: "Kerala",       swell: 5, peak: true  },
-    { month: "Mar",     name: "Pondicherry",  region: "Tamil Nadu",   swell: 3, peak: false },
-    { month: "Apr–May", name: "Gokarna",      region: "Karnataka",    swell: 5, peak: true  },
-    { month: "Jun–Jul", name: "Sri Lanka",    region: "Arugam Bay",   swell: 5, peak: true  },
-    { month: "Aug",     name: "Mulki",        region: "Karnataka",    swell: 3, peak: false },
-    { month: "Sep–Oct", name: "Goa",          region: "North Goa",    swell: 4, peak: false },
-    { month: "Nov",     name: "Covelong",     region: "Tamil Nadu",   swell: 4, peak: false },
-    { month: "Dec",     name: "Indonesia",    region: "Bali / Lombok",swell: 5, peak: true  },
+    { month: "Jan–Feb", name: "Varkala",      region: "Kerala",           swell: 5, peak: true,  coords: "12.17°N / 75.34°E", temp: "26–28°C", difficulty: "Beginner to Intermediate", quote: "Warm waters. Mellow waves. The gateway trip.", svgX: 140, svgY: 480 },
+    { month: "Mar",     name: "Pondicherry",  region: "Tamil Nadu",       swell: 3, peak: false, coords: "12.01°N / 79.83°E", temp: "28–30°C", difficulty: "Intermediate", quote: "Colonial charm meets consistent shorebreak.", svgX: 165, svgY: 510 },
+    { month: "Apr–May", name: "Gokarna",      region: "Karnataka",        swell: 5, peak: true,  coords: "14.55°N / 74.32°E", temp: "26–28°C", difficulty: "Intermediate to Advanced", quote: "Rocky reefs. Deep soul.", svgX: 125, svgY: 430 },
+    { month: "Jun–Jul", name: "Sri Lanka",    region: "Arugam Bay",       swell: 5, peak: true,  coords: "7.72°N / 81.82°E", temp: "27–29°C", difficulty: "Intermediate", quote: "Tropical perfection. Island vibe.", svgX: 200, svgY: 550 },
+    { month: "Aug",     name: "Mulki",        region: "Karnataka",        swell: 3, peak: false, coords: "13.31°N / 74.82°E", temp: "24–26°C", difficulty: "Beginner to Intermediate", quote: "Monsoon swells. Hidden gem.", svgX: 130, svgY: 460 },
+    { month: "Sep–Oct", name: "Goa",          region: "North Goa",        swell: 4, peak: false, coords: "15.48°N / 73.83°E", temp: "26–28°C", difficulty: "All levels", quote: "Party vibe. Reliable waves. Community hub.", svgX: 110, svgY: 410 },
+    { month: "Nov",     name: "Covelong",     region: "Tamil Nadu",       swell: 4, peak: false, coords: "12.40°N / 80.25°E", temp: "27–29°C", difficulty: "Intermediate to Advanced", quote: "South coast swell season starts.", svgX: 170, svgY: 525 },
+    { month: "Dec",     name: "Indonesia",    region: "Bali / Lombok",    swell: 5, peak: true,  coords: "-8.65°S / 115.21°E", temp: "28–30°C", difficulty: "Intermediate to Advanced", quote: "Tropical perfection. Perfect peelers.", svgX: 240, svgY: 580 },
   ],
 
   calendar: [
@@ -74,6 +74,12 @@ const CONFIG = {
       body: "Open to anyone. But built for people who make things — and know when to put it all down and get in the water."
     },
   ],
+
+  swellMap: {
+    overline: "The swell",
+    heading: "Follow the waves. The geography writes the calendar.",
+    sub: "Tap or click any destination to explore seasonal conditions, water temperature, and difficulty level. Every coast has a reason.",
+  },
 
   joinForm: {
     title: "Join the club",
@@ -184,9 +190,9 @@ body {
   text-transform: uppercase;
   color: var(--mist);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color 0.2s, opacity 0.2s;
 }
-.nav__links a:hover { color: var(--ink); }
+.nav__links a:hover { color: var(--ink); opacity: 1; }
 
 .nav__hamburger {
   display: none;
@@ -316,6 +322,9 @@ body {
   width: max-content;
 }
 .ticker__track:hover { animation-play-state: paused; }
+@media (max-width: 767px) {
+  .ticker__track { animation: none; }
+}
 .ticker__item {
   display: flex;
   align-items: center;
@@ -370,7 +379,7 @@ body {
 
 .cal-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1px;
   background: var(--border);
   border-top: 1px solid var(--border);
@@ -380,6 +389,7 @@ body {
   padding: 22px 20px 20px;
   cursor: default;
   transition: background 0.2s var(--ease);
+  user-select: none;
 }
 .cal-cell:hover { background: #ede8df; }
 .cal-cell--hi {
@@ -427,6 +437,281 @@ body {
 .cal-cell__bar--on { background: var(--wave); }
 .cal-cell--hi .cal-cell__bar { background: rgba(255,255,255,0.12); }
 .cal-cell--hi .cal-cell__bar--on { background: var(--wave); }
+
+/* ---- SWELL MAP ---- */
+.section--swell {
+  background: var(--sand);
+  padding: 80px 0 60px;
+}
+.section--swell .section__intro { padding: 0 40px 48px; }
+
+.swell-map-wrap {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.swell-map {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--border);
+  background: #fefdfb;
+}
+
+.swell-map-note {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--mist);
+  letter-spacing: 0.12em;
+  margin: 12px 0 0;
+}
+
+.swell-map-coastline {
+  stroke: var(--mist);
+  stroke-width: 1;
+  fill: none;
+}
+
+.swell-map-grid {
+  stroke: rgba(14, 14, 14, 0.04);
+  stroke-width: 0.5;
+  fill: none;
+}
+
+.swell-map-pin {
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+  user-select: none;
+}
+
+.swell-map-pin circle {
+  fill: var(--wave);
+  opacity: 0.7;
+  transition: opacity 0.2s, r 0.2s;
+}
+
+.swell-map-pin text {
+  font-family: var(--mono);
+  font-size: 9px;
+  fill: var(--ink);
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+  text-anchor: middle;
+}
+
+.swell-map-pin:hover circle {
+  opacity: 1;
+  r: 5.5;
+}
+
+.swell-map-pin:hover text {
+  opacity: 1;
+}
+
+.swell-map-pin.active circle {
+  fill: var(--wave-d);
+  opacity: 1;
+  r: 6;
+}
+
+.swell-info-panel {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 320px;
+  background: #fff;
+  border: 1px solid var(--border);
+  padding: 24px;
+  border-radius: 2px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(20px);
+  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
+  z-index: 10;
+  box-shadow: 0 8px 24px rgba(14, 14, 14, 0.08);
+}
+
+.swell-info-panel.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+.swell-info__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: var(--mist);
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px;
+  transition: color 0.2s;
+}
+
+.swell-info__close:hover {
+  color: var(--ink);
+}
+
+.swell-info__name {
+  font-family: var(--serif);
+  font-size: 24px;
+  color: var(--ink);
+  margin-bottom: 4px;
+  letter-spacing: -0.02em;
+}
+
+.swell-info__coords {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--mist);
+  letter-spacing: 0.08em;
+  margin-bottom: 18px;
+}
+
+.swell-info__swell {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.swell-info__label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-bottom: 10px;
+}
+
+.swell-info__bars {
+  display: flex;
+  gap: 4px;
+}
+
+.swell-info__bar {
+  width: 5px;
+  height: 18px;
+  background: rgba(14, 14, 14, 0.1);
+  border-radius: 2px;
+}
+
+.swell-info__bar--on {
+  background: var(--wave);
+}
+
+.swell-info__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.swell-info__item {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 11px;
+}
+
+.swell-info__key {
+  color: var(--mist);
+  letter-spacing: 0.06em;
+}
+
+.swell-info__value {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.swell-info__hint {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--mist);
+  line-height: 1.5;
+  margin: 14px 0 0;
+  letter-spacing: 0.08em;
+}
+
+.swell-info__refs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--mist);
+  line-height: 1.5;
+  margin: 10px 0 0;
+  letter-spacing: 0.08em;
+}
+
+.swell-info__refs a {
+  color: var(--mist);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.swell-info__refs a:hover {
+  color: var(--wave);
+}
+
+.swell-info__quote {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-style: italic;
+  color: var(--wave);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Mobile swell map */
+@media (max-width: 1199px) {
+  .swell-info-panel {
+    width: 100%;
+    max-width: 280px;
+    right: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .swell-map-wrap {
+    padding: 0 20px;
+  }
+  
+  .swell-info-panel {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 8px 8px 0 0;
+    padding: 28px 24px 24px;
+    transform: translateY(100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s var(--ease), opacity 0.3s;
+    z-index: 150;
+  }
+
+  .swell-info-panel.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .swell-info__close {
+    display: none;
+  }
+}
 
 /* ---- ETHOS SECTION ---- */
 .section--ethos {
@@ -498,10 +783,10 @@ body {
   background: transparent;
   cursor: pointer;
   border-radius: 2px;
-  transition: background 0.2s, border-color 0.2s;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
   white-space: nowrap;
 }
-.join-bar__btn:hover { background: rgba(255,255,255,0.12); border-color: #fff; }
+.join-bar__btn:hover { background: rgba(255,255,255,0.12); border-color: #fff; transform: translateY(-2px); }
 
 /* ---- FOOTER ---- */
 .footer {
@@ -669,7 +954,7 @@ body {
 }
 
 /* ---- RESPONSIVE ---- */
-@media (max-width: 900px) {
+@media (max-width: 1199px) {
   .nav { padding: 0 24px; }
   .nav__links { display: none; }
   .nav__hamburger { display: flex; }
@@ -694,12 +979,16 @@ body {
   .footer { padding: 24px; }
 }
 
-@media (max-width: 540px) {
+@media (max-width: 767px) {
   .hero__h1 { font-size: 34px; }
-  .cal-grid { grid-template-columns: 1fr 1fr; }
+  .cal-grid { grid-template-columns: 1fr; }
   .modal { padding: 28px 22px 24px; }
-  .join-bar { flex-direction: column; align-items: flex-start; }
+  .join-bar { flex-direction: column; align-items: stretch; }
+  .join-bar__text { font-size: 18px; margin-bottom: 12px; }
   .join-bar__btn { width: 100%; text-align: center; }
+  .ticker__item { padding: 10px 16px; border-right-width: 0; font-size: 11px; }
+  .ticker__dest { font-size: 11px; }
+  .ticker__month { font-size: 9px; }
 }
 </style>
 </head>
@@ -787,6 +1076,46 @@ body {
   <div class="ethos-grid" id="ethosGrid"></div>
 </section>
 
+<!-- SWELL MAP -->
+<section class="section--swell" id="swell" aria-labelledby="swellHeading">
+  <div class="section__intro" style="max-width: 100%; padding: 0 40px 36px;">
+    <p class="overline">The swell</p>
+    <h2 class="serif-display section__h" id="swellHeading"></h2>
+    <p class="section__sub" id="swellSub" style="max-width: 620px;"></p>
+  </div>
+  <div class="swell-map-wrap">
+    <svg class="swell-map" id="swellMap" viewBox="0 0 600 700" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-label="Coastal destinations map"></svg>
+    <div class="swell-map-note">Tap any pin to reveal seasonal swell, water temperature, and recommended surf level.</div>
+    <div class="swell-info-panel" id="swellInfoPanel">
+      <button class="swell-info__close" onclick="closeSwellInfo()" aria-label="Close">&times;</button>
+      <h3 class="swell-info__name" id="swellInfoName"></h3>
+      <p class="swell-info__coords" id="swellInfoCoords"></p>
+      <div class="swell-info__swell">
+        <div class="swell-info__label">Peak season swell</div>
+        <div class="swell-info__bars" id="swellInfoBars"></div>
+      </div>
+      <div class="swell-info__meta">
+        <div class="swell-info__item">
+          <span class="swell-info__key">Water temperature</span>
+          <span class="swell-info__value" id="swellInfoTemp"></span>
+        </div>
+        <div class="swell-info__item">
+          <span class="swell-info__key">Difficulty</span>
+          <span class="swell-info__value" id="swellInfoDiff"></span>
+        </div>
+      </div>
+      <p class="swell-info__hint">5 bars = strongest seasonal swell for this coast. Difficulty is a practical guide based on wave power, takeoff angle, and shoreline exposure.</p>
+      <div class="swell-info__refs">
+        <span>Sources:</span>
+        <a href="https://www.surfline.com/surf-forecasts" target="_blank" rel="noopener">Surfline swell guide</a>
+        <span>•</span>
+        <a href="https://magicseaweed.com/Surfing-Guide" target="_blank" rel="noopener">Magicseaweed difficulty guide</a>
+      </div>
+      <p class="swell-info__quote" id="swellInfoQuote"></p>
+    </div>
+  </div>
+</section>
+
 <!-- JOIN BAR -->
 <div class="join-bar" id="join">
   <p class="join-bar__text" id="joinBarText"></p>
@@ -847,6 +1176,7 @@ body {
   const M = C.calendar;
   const E = C.ethos;
   const F = C.joinForm;
+  const SM = C.swellMap;
 
   // Hero
   document.getElementById('heroKicker').textContent = C.club.name + ' — ' + C.club.established;
@@ -862,7 +1192,7 @@ body {
   let track1 = '<div class="ticker__track" aria-hidden="true">';
   let track2 = '<div class="ticker__track" aria-hidden="true">';
   D.forEach(d => {
-    const item = '<div class="ticker__item"><div class="ticker__dot"></div>'
+    const item = '<div class="ticker__item" data-dest="' + d.name + '" onclick="scrollToSwellMap(\'' + d.name + '\')"><div class="ticker__dot"></div>'
       + '<span class="ticker__dest">' + d.name + '</span>'
       + '<span class="ticker__month">' + d.month + '</span></div>';
     track1 += item;
@@ -880,6 +1210,8 @@ body {
     cell.className = 'cal-cell' + (c.highlight ? ' cal-cell--hi' : '');
     cell.setAttribute('role', 'listitem');
     cell.setAttribute('aria-label', c.month + ': ' + c.dest + ', ' + c.region);
+    cell.style.cursor = 'pointer';
+    cell.onclick = function() { scrollToSwellMap(c.dest); };
     let bars = '';
     for (let i = 0; i < 5; i++) {
       bars += '<div class="cal-cell__bar' + (i < c.swell ? ' cal-cell__bar--on' : '') + '"></div>';
@@ -904,6 +1236,13 @@ body {
       + '<div class="ethos-cell__body">' + e.body + '</div>';
     ethosGrid.appendChild(cell);
   });
+
+  // Swell map section
+  document.getElementById('swellHeading').textContent = SM.heading;
+  document.getElementById('swellSub').textContent = SM.sub;
+  
+  // Generate swell map SVG
+  generateSwellMap(D);
 
   // Join bar
   document.getElementById('joinBarText').textContent = C.club.nextTrip;
@@ -933,6 +1272,137 @@ body {
   document.getElementById('joinForm').action = 'https://formspree.io/' + C.club.formspreeId;
   document.getElementById('joinForm').method = 'POST';
 })();
+
+/* ---- Swell Map Functions ---- */
+let currentSwellDest = null;
+
+function generateSwellMap(destinations) {
+  const svg = document.getElementById('swellMap');
+  const ns = 'http://www.w3.org/2000/svg';
+  
+  // Clear existing content
+  svg.innerHTML = '';
+  
+  // Background
+  const bg = document.createElementNS(ns, 'rect');
+  bg.setAttribute('width', '600');
+  bg.setAttribute('height', '700');
+  bg.setAttribute('fill', '#fefdfb');
+  svg.appendChild(bg);
+  
+  // Grid lines
+  for (let i = 0; i < 7; i++) {
+    const line = document.createElementNS(ns, 'line');
+    line.setAttribute('x1', String(100 + i * 80));
+    line.setAttribute('y1', '0');
+    line.setAttribute('x2', String(100 + i * 80));
+    line.setAttribute('y2', '700');
+    line.setAttribute('class', 'swell-map-grid');
+    svg.appendChild(line);
+  }
+  for (let i = 0; i < 8; i++) {
+    const line = document.createElementNS(ns, 'line');
+    line.setAttribute('x1', '0');
+    line.setAttribute('y1', String(100 + i * 75));
+    line.setAttribute('x2', '600');
+    line.setAttribute('y2', String(100 + i * 75));
+    line.setAttribute('class', 'swell-map-grid');
+    svg.appendChild(line);
+  }
+  
+  // Simplified coastline (India + Sri Lanka + Indonesia)
+  const coastPath = 'M 40 400 Q 80 380 120 420 Q 180 460 200 500 Q 220 540 200 580 Q 180 600 150 620 L 200 650 Q 220 640 240 650 L 280 620 Q 300 580 320 540 Q 340 480 340 420 Q 350 380 300 350 Q 250 340 200 360 Q 140 350 100 340 L 80 360 Z';
+  const coast = document.createElementNS(ns, 'path');
+  coast.setAttribute('d', coastPath);
+  coast.setAttribute('class', 'swell-map-coastline');
+  coast.setAttribute('stroke-width', '1.5');
+  svg.appendChild(coast);
+  
+  // Create pins for each destination
+  destinations.forEach(function(dest) {
+    const g = document.createElementNS(ns, 'g');
+    g.setAttribute('class', 'swell-map-pin');
+    g.setAttribute('data-dest', dest.name);
+    g.onclick = function(e) { 
+      e.stopPropagation(); 
+      displaySwellInfo(dest.name);
+      scrollToSwellMap(dest.name);
+    };
+    
+    // Circle pin
+    const circle = document.createElementNS(ns, 'circle');
+    circle.setAttribute('cx', String(dest.svgX));
+    circle.setAttribute('cy', String(dest.svgY));
+    circle.setAttribute('r', '4');
+    g.appendChild(circle);
+    
+    // Text label (hidden by default)
+    const text = document.createElementNS(ns, 'text');
+    text.setAttribute('x', String(dest.svgX));
+    text.setAttribute('y', String(dest.svgY - 12));
+    text.textContent = dest.name;
+    g.appendChild(text);
+    
+    svg.appendChild(g);
+  });
+}
+
+function scrollToSwellMap(destName) {
+  const swellSection = document.getElementById('swell');
+  if (swellSection) {
+    swellSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Display info after scroll
+    setTimeout(function() {
+      displaySwellInfo(destName);
+    }, 400);
+  }
+}
+
+function displaySwellInfo(destName) {
+  const dest = CONFIG.destinations.find(d => d.name === destName);
+  if (!dest) return;
+  
+  currentSwellDest = destName;
+  
+  // Update active pin
+  document.querySelectorAll('.swell-map-pin').forEach(function(pin) {
+    pin.classList.remove('active');
+  });
+  const activePin = document.querySelector('.swell-map-pin[data-dest="' + destName + '"]');
+  if (activePin) activePin.classList.add('active');
+  
+  // Update panel content
+  document.getElementById('swellInfoName').textContent = dest.name;
+  document.getElementById('swellInfoCoords').textContent = dest.coords;
+  document.getElementById('swellInfoTemp').textContent = dest.temp;
+  document.getElementById('swellInfoDiff').textContent = dest.difficulty;
+  document.getElementById('swellInfoQuote').textContent = dest.quote;
+  
+  // Swell bars
+  const barsContainer = document.getElementById('swellInfoBars');
+  barsContainer.innerHTML = '';
+  for (let i = 0; i < 5; i++) {
+    const bar = document.createElement('div');
+    bar.className = 'swell-info__bar' + (i < dest.swell ? ' swell-info__bar--on' : '');
+    barsContainer.appendChild(bar);
+  }
+  
+  // Open panel
+  const panel = document.getElementById('swellInfoPanel');
+  panel.classList.add('open');
+}
+
+function closeSwellInfo() {
+  const panel = document.getElementById('swellInfoPanel');
+  panel.classList.remove('open');
+  
+  // Remove active state from pins
+  document.querySelectorAll('.swell-map-pin').forEach(function(pin) {
+    pin.classList.remove('active');
+  });
+  
+  currentSwellDest = null;
+}
 
 /* ---- Nav hamburger ---- */
 const hamburger = document.getElementById('hamburger');
