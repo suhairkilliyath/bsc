@@ -1,2 +1,0 @@
-# bsc
-bangalore surf club
