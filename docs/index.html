@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bangalore Surf Club</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- ============================================================
+     CONTENT CONFIG — Edit everything here
+     ============================================================ -->
+<script>
+const CONFIG = {
+  club: {
+    name: "Bangalore Surf Club",
+    shortName: "BSC",
+    tagline: "The ocean is only a night away.",
+    taglineAccent: "night away.",
+    established: "Est. 2025",
+    heroSub: "We follow the swell. One booking. No logistics. Just show up.",
+    coords: "12.9716° N / 77.5946° E → coast",
+    nextTrip: "Next trip: Varkala — January 2026",
+    instagram: "https://instagram.com/bangaloresurfclub",
+    formspreeId: "YOUR_FORMSPREE_ID",
+  },
+
+  destinations: [
+    { month: "Jan–Feb", name: "Varkala",      region: "Kerala",       swell: 5, peak: true  },
+    { month: "Mar",     name: "Pondicherry",  region: "Tamil Nadu",   swell: 3, peak: false },
+    { month: "Apr–May", name: "Gokarna",      region: "Karnataka",    swell: 5, peak: true  },
+    { month: "Jun–Jul", name: "Sri Lanka",    region: "Arugam Bay",   swell: 5, peak: true  },
+    { month: "Aug",     name: "Mulki",        region: "Karnataka",    swell: 3, peak: false },
+    { month: "Sep–Oct", name: "Goa",          region: "North Goa",    swell: 4, peak: false },
+    { month: "Nov",     name: "Covelong",     region: "Tamil Nadu",   swell: 4, peak: false },
+    { month: "Dec",     name: "Indonesia",    region: "Bali / Lombok",swell: 5, peak: true  },
+  ],
+
+  calendar: [
+    { month: "Jan", dest: "Varkala",     region: "Kerala",        swell: 5, highlight: true  },
+    { month: "Feb", dest: "Varkala",     region: "Kerala",        swell: 4, highlight: false },
+    { month: "Mar", dest: "Pondicherry", region: "Tamil Nadu",    swell: 3, highlight: false },
+    { month: "Apr", dest: "Gokarna",     region: "Karnataka",     swell: 4, highlight: false },
+    { month: "May", dest: "Gokarna",     region: "Karnataka",     swell: 5, highlight: true  },
+    { month: "Jun", dest: "Sri Lanka",   region: "Arugam Bay",    swell: 5, highlight: true  },
+    { month: "Jul", dest: "Sri Lanka",   region: "Arugam Bay",    swell: 5, highlight: false },
+    { month: "Aug", dest: "Mulki",       region: "Karnataka",     swell: 3, highlight: false },
+    { month: "Sep", dest: "Goa",         region: "North Goa",     swell: 4, highlight: false },
+    { month: "Oct", dest: "Goa",         region: "North Goa",     swell: 4, highlight: false },
+    { month: "Nov", dest: "Covelong",    region: "Tamil Nadu",    swell: 4, highlight: false },
+    { month: "Dec", dest: "Indonesia",   region: "Bali / Lombok", swell: 5, highlight: true  },
+  ],
+
+  ethos: [
+    {
+      n: "01",
+      title: "Design-forward",
+      body: "From the trip brief to the playlist to the way we document each journey — everything is made with intention."
+    },
+    {
+      n: "02",
+      title: "Music is infrastructure",
+      body: "The drive down. The beach fire. The dawn session. Every moment has a soundtrack that was thought about in advance."
+    },
+    {
+      n: "03",
+      title: "Zero friction",
+      body: "Transport, stay, surf instructor, meals — sorted. You bring your energy. We handle everything else."
+    },
+    {
+      n: "04",
+      title: "The right people",
+      body: "Open to anyone. But built for people who make things — and know when to put it all down and get in the water."
+    },
+  ],
+
+  joinForm: {
+    title: "Join the club",
+    sub: "Tell us about yourself. We'll reach out with details on the next trip.",
+    fields: {
+      name: "Your name",
+      link: "Instagram or portfolio (optional)",
+      roleOptions: [
+        { value: "",        label: "Who are you?" },
+        { value: "surfer",  label: "I surf — this is my world" },
+        { value: "creator", label: "I make things — design, music, film" },
+        { value: "both",    label: "Both, honestly" },
+        { value: "neither", label: "Neither — I'm just curious" },
+      ],
+      message: "What draws you to this? (2–3 lines is enough)",
+    },
+    cta: "Send it →",
+    success: "Got it. We'll be in touch before the next trip.",
+  },
+};
+</script>
+<!-- ============================================================ -->
+
+<style>
+/* ---- Reset ---- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+img, svg { display: block; }
+button, input, select, textarea { font-family: inherit; }
+
+/* ---- Tokens ---- */
+:root {
+  --ink:    #0e0e0e;
+  --sand:   #f5f0e8;
+  --tide:   #1a3a2e;
+  --wave:   #1D9E75;
+  --wave-d: #0F6E56;
+  --mist:   #8a9a92;
+  --salt:   #e8e2d6;
+  --deep:   #0a1f17;
+  --serif:  'DM Serif Display', Georgia, serif;
+  --mono:   'DM Mono', 'Courier New', monospace;
+  --border: rgba(14,14,14,0.10);
+  --border-light: rgba(255,255,255,0.08);
+  --ease:   cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ---- Base ---- */
+body {
+  background: var(--sand);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ---- Utilities ---- */
+.overline {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--wave);
+}
+.overline--ghost { color: rgba(255,255,255,0.30); }
+
+.serif-display {
+  font-family: var(--serif);
+  line-height: 1.10;
+  letter-spacing: -0.02em;
+}
+
+/* ---- NAV ---- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 60px;
+  background: var(--sand);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s var(--ease);
+}
+.nav__logo {
+  font-family: var(--serif);
+  font-size: 20px;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  text-decoration: none;
+}
+.nav__logo span { color: var(--wave); }
+
+.nav__links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+.nav__links a {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mist);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav__links a:hover { color: var(--ink); }
+
+.nav__hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+.nav__hamburger span {
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--ink);
+  transition: transform 0.3s var(--ease), opacity 0.3s;
+}
+.nav__hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav__hamburger.open span:nth-child(2) { opacity: 0; }
+.nav__hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+.nav__drawer {
+  display: none;
+  position: fixed;
+  top: 60px; left: 0; right: 0; bottom: 0;
+  background: var(--sand);
+  z-index: 99;
+  padding: 48px 40px;
+  flex-direction: column;
+  gap: 32px;
+}
+.nav__drawer.open { display: flex; }
+.nav__drawer a {
+  font-family: var(--serif);
+  font-size: 36px;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+.nav__drawer a:hover { color: var(--wave); }
+
+/* ---- HERO ---- */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 60px);
+}
+.hero__left {
+  background: var(--deep);
+  padding: 64px 48px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+}
+.hero__kicker {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--wave);
+  margin-bottom: 28px;
+}
+.hero__h1 {
+  font-family: var(--serif);
+  font-size: clamp(36px, 4vw, 54px);
+  line-height: 1.08;
+  color: #fff;
+  letter-spacing: -0.03em;
+}
+.hero__h1 em {
+  color: var(--wave);
+  font-style: italic;
+}
+.hero__coords {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: rgba(255,255,255,0.22);
+  margin-top: auto;
+}
+
+.hero__right {
+  background: var(--tide);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.hero__art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.hero__stat {
+  position: relative;
+  z-index: 2;
+  padding: 0 40px 48px;
+}
+.hero__stat-n {
+  font-family: var(--serif);
+  font-size: 80px;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.hero__stat-l {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.40);
+  margin-top: 6px;
+}
+
+/* ---- TICKER ---- */
+.ticker {
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+  background: var(--sand);
+}
+.ticker__track {
+  display: flex;
+  animation: ticker-scroll 28s linear infinite;
+  width: max-content;
+}
+.ticker__track:hover { animation-play-state: paused; }
+.ticker__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-right: 1px solid var(--border);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.ticker__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--wave);
+  flex-shrink: 0;
+}
+.ticker__dest {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.ticker__month {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ---- CALENDAR SECTION ---- */
+.section--calendar {
+  padding: 80px 0 0;
+  background: var(--sand);
+}
+.section__intro {
+  padding: 0 40px 48px;
+}
+.section__h { font-size: clamp(28px, 3vw, 40px); margin-top: 14px; }
+.section__sub {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--mist);
+  max-width: 540px;
+  margin-top: 14px;
+  line-height: 1.75;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border-top: 1px solid var(--border);
+}
+.cal-cell {
+  background: var(--sand);
+  padding: 22px 20px 20px;
+  cursor: default;
+  transition: background 0.2s var(--ease);
+}
+.cal-cell:hover { background: #ede8df; }
+.cal-cell--hi {
+  background: var(--deep);
+}
+.cal-cell--hi:hover { background: #0d2a1e; }
+
+.cal-cell__month {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-bottom: 10px;
+}
+.cal-cell--hi .cal-cell__month { color: rgba(255,255,255,0.35); }
+
+.cal-cell__dest {
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--ink);
+  line-height: 1.1;
+  margin-bottom: 3px;
+}
+.cal-cell--hi .cal-cell__dest { color: #fff; }
+
+.cal-cell__region {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--mist);
+}
+.cal-cell--hi .cal-cell__region { color: rgba(255,255,255,0.40); }
+
+.cal-cell__swell {
+  display: flex;
+  gap: 3px;
+  margin-top: 14px;
+}
+.cal-cell__bar {
+  width: 4px;
+  height: 14px;
+  border-radius: 2px;
+  background: rgba(14,14,14,0.10);
+}
+.cal-cell__bar--on { background: var(--wave); }
+.cal-cell--hi .cal-cell__bar { background: rgba(255,255,255,0.12); }
+.cal-cell--hi .cal-cell__bar--on { background: var(--wave); }
+
+/* ---- ETHOS SECTION ---- */
+.section--ethos {
+  background: var(--ink);
+  padding: 80px 40px 0;
+}
+.section--ethos .section__h { color: #fff; }
+.section--ethos .section__h em { color: var(--wave); font-style: italic; }
+
+.ethos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(255,255,255,0.07);
+  margin-top: 48px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+.ethos-cell {
+  background: var(--ink);
+  padding: 36px 32px;
+}
+.ethos-cell__n {
+  font-family: var(--serif);
+  font-size: 48px;
+  color: rgba(255,255,255,0.07);
+  line-height: 1;
+  margin-bottom: 14px;
+  letter-spacing: -0.04em;
+}
+.ethos-cell__title {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: 0.02em;
+  margin-bottom: 10px;
+}
+.ethos-cell__body {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: rgba(255,255,255,0.38);
+  line-height: 1.75;
+}
+
+/* ---- JOIN BAR ---- */
+.join-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 26px 40px;
+  background: var(--wave);
+  flex-wrap: wrap;
+}
+.join-bar__text {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+.join-bar__btn {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  border: 1px solid rgba(255,255,255,0.60);
+  color: #fff;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+.join-bar__btn:hover { background: rgba(255,255,255,0.12); border-color: #fff; }
+
+/* ---- FOOTER ---- */
+.footer {
+  background: var(--deep);
+  padding: 28px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer__logo {
+  font-family: var(--serif);
+  font-size: 15px;
+  color: rgba(255,255,255,0.30);
+  letter-spacing: -0.02em;
+}
+.footer__right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.footer__copy {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: rgba(255,255,255,0.15);
+}
+.footer__ig {
+  display: flex;
+  align-items: center;
+  color: rgba(255,255,255,0.25);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer__ig:hover { color: var(--wave); }
+.footer__ig svg { width: 16px; height: 16px; }
+
+/* ---- MODAL ---- */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(10,31,23,0.75);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: var(--sand);
+  border-radius: 4px;
+  width: 100%;
+  max-width: 480px;
+  padding: 36px 36px 32px;
+  position: relative;
+}
+.modal__close {
+  position: absolute;
+  top: 20px; right: 20px;
+  background: none; border: none;
+  font-size: 20px;
+  color: var(--mist);
+  cursor: pointer;
+  line-height: 1;
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 2px;
+  transition: background 0.15s, color 0.15s;
+}
+.modal__close:hover { background: var(--salt); color: var(--ink); }
+
+.modal__title {
+  font-family: var(--serif);
+  font-size: 28px;
+  color: var(--ink);
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+.modal__sub {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--mist);
+  margin-bottom: 26px;
+  line-height: 1.65;
+}
+.modal__form { display: flex; flex-direction: column; gap: 10px; }
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.form-field label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+.form-field input,
+.form-field select,
+.form-field textarea {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--salt);
+  border-radius: 2px;
+  padding: 10px 12px;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus { border-color: var(--wave); }
+.form-field textarea { resize: none; height: 88px; line-height: 1.65; }
+
+.form-select-wrap { position: relative; }
+.form-select-wrap select { padding-right: 32px; }
+.form-select-wrap::after {
+  content: '';
+  position: absolute;
+  right: 12px; top: 50%;
+  transform: translateY(-50%);
+  width: 0; height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid var(--mist);
+  pointer-events: none;
+}
+
+.form-submit {
+  margin-top: 6px;
+  width: 100%;
+  padding: 13px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--wave);
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.form-submit:hover { background: var(--wave-d); }
+
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 24px 0 8px;
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--wave);
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 900px) {
+  .nav { padding: 0 24px; }
+  .nav__links { display: none; }
+  .nav__hamburger { display: flex; }
+
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero__left { padding: 48px 24px 40px; min-height: 55vh; }
+  .hero__right { min-height: 45vh; }
+  .hero__stat { padding: 0 24px 32px; }
+  .hero__stat-n { font-size: 60px; }
+
+  .section--calendar { padding: 60px 0 0; }
+  .section__intro { padding: 0 24px 36px; }
+
+  .cal-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .section--ethos { padding: 60px 24px 0; }
+  .ethos-grid { grid-template-columns: 1fr; }
+
+  .join-bar { padding: 22px 24px; }
+  .join-bar__text { font-size: 18px; }
+
+  .footer { padding: 24px; }
+}
+
+@media (max-width: 540px) {
+  .hero__h1 { font-size: 34px; }
+  .cal-grid { grid-template-columns: 1fr 1fr; }
+  .modal { padding: 28px 22px 24px; }
+  .join-bar { flex-direction: column; align-items: flex-start; }
+  .join-bar__btn { width: 100%; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header>
+  <nav class="nav" role="navigation" aria-label="Main">
+    <a class="nav__logo" href="#" aria-label="Bangalore Surf Club home">
+      BSC<span>.</span>
+    </a>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="#trips">Trips</a></li>
+      <li><a href="#calendar">Calendar</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#join">Join</a></li>
+    </ul>
+    <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <nav class="nav__drawer" id="drawer" aria-label="Mobile menu">
+    <a href="#trips"    onclick="closeDrawer()">Trips</a>
+    <a href="#calendar" onclick="closeDrawer()">Calendar</a>
+    <a href="#about"    onclick="closeDrawer()">About</a>
+    <a href="#join"     onclick="closeDrawer()">Join</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="trips" aria-label="Hero">
+  <div class="hero__left">
+    <div>
+      <p class="hero__kicker" id="heroKicker"></p>
+      <h1 class="hero__h1" id="heroH1"></h1>
+    </div>
+    <p class="hero__coords" id="heroCoords"></p>
+  </div>
+  <div class="hero__right">
+    <svg class="hero__art" viewBox="0 0 600 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect width="600" height="700" fill="#1a3a2e"/>
+      <!-- vertical grid lines -->
+      <line x1="80"  y1="0" x2="80"  y2="700" stroke="rgba(29,158,117,0.07)" stroke-width="0.5"/>
+      <line x1="160" y1="0" x2="160" y2="700" stroke="rgba(29,158,117,0.07)" stroke-width="0.5"/>
+      <line x1="240" y1="0" x2="240" y2="700" stroke="rgba(29,158,117,0.07)" stroke-width="0.5"/>
+      <line x1="320" y1="0" x2="320" y2="700" stroke="rgba(29,158,117,0.09)" stroke-width="0.5"/>
+      <line x1="400" y1="0" x2="400" y2="700" stroke="rgba(29,158,117,0.07)" stroke-width="0.5"/>
+      <line x1="480" y1="0" x2="480" y2="700" stroke="rgba(29,158,117,0.07)" stroke-width="0.5"/>
+      <line x1="560" y1="0" x2="560" y2="700" stroke="rgba(29,158,117,0.05)" stroke-width="0.5"/>
+      <!-- concentric circles -->
+      <circle cx="300" cy="320" r="60"  fill="none" stroke="rgba(29,158,117,0.06)" stroke-width="0.5"/>
+      <circle cx="300" cy="320" r="120" fill="none" stroke="rgba(29,158,117,0.05)" stroke-width="0.5"/>
+      <circle cx="300" cy="320" r="180" fill="none" stroke="rgba(29,158,117,0.04)" stroke-width="0.5"/>
+      <circle cx="300" cy="320" r="240" fill="none" stroke="rgba(29,158,117,0.03)" stroke-width="0.5"/>
+      <circle cx="300" cy="320" r="300" fill="none" stroke="rgba(29,158,117,0.03)" stroke-width="0.5"/>
+      <!-- wave layers -->
+      <path d="M-10 500 Q80 460 160 485 Q260 518 360 470 Q440 432 620 458 L620 700 L-10 700Z" fill="#0d2a1e"/>
+      <path d="M-10 540 Q100 508 200 526 Q310 548 420 510 Q500 480 620 500 L620 700 L-10 700Z" fill="#0a2019"/>
+      <path d="M-10 590 Q120 565 240 578 Q360 594 480 568 Q550 552 620 562 L620 700 L-10 700Z" fill="#071510"/>
+    </svg>
+    <div class="hero__stat">
+      <div class="hero__stat-n" id="heroStatN"></div>
+      <div class="hero__stat-l" id="heroStatL"></div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" id="tickerWrap" role="marquee" aria-label="Destinations"></div>
+
+<!-- CALENDAR -->
+<section class="section--calendar" id="calendar" aria-labelledby="calHeading">
+  <div class="section__intro">
+    <p class="overline">The calendar</p>
+    <h2 class="serif-display section__h" id="calHeading">Every month.<br>A different coast.</h2>
+    <p class="section__sub" id="calSub"></p>
+  </div>
+  <div class="cal-grid" id="calGrid" role="list" aria-label="Monthly surf destinations"></div>
+</section>
+
+<!-- ETHOS -->
+<section class="section--ethos" id="about" aria-labelledby="ethosHeading">
+  <p class="overline overline--ghost">The club</p>
+  <h2 class="serif-display section__h" id="ethosHeading"></h2>
+  <div class="ethos-grid" id="ethosGrid"></div>
+</section>
+
+<!-- JOIN BAR -->
+<div class="join-bar" id="join">
+  <p class="join-bar__text" id="joinBarText"></p>
+  <button class="join-bar__btn" onclick="openModal()" aria-haspopup="dialog">Join the club</button>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <span class="footer__logo" id="footerLogo"></span>
+  <div class="footer__right">
+    <span class="footer__copy">BLR → COAST — EVERY MONTH</span>
+    <a class="footer__ig" id="footerIg" href="#" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <circle cx="12" cy="12" r="4"/>
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+    </a>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <button class="modal__close" onclick="closeModal()" aria-label="Close">&times;</button>
+    <h2 class="modal__title" id="modalTitle"></h2>
+    <p class="modal__sub"   id="modalSub"></p>
+    <form class="modal__form" id="joinForm" novalidate>
+      <div class="form-field">
+        <label for="f-name" id="labelName"></label>
+        <input type="text" id="f-name" autocomplete="name" required/>
+      </div>
+      <div class="form-field">
+        <label for="f-link" id="labelLink"></label>
+        <input type="text" id="f-link" autocomplete="url"/>
+      </div>
+      <div class="form-field">
+        <label for="f-role">Who are you?</label>
+        <div class="form-select-wrap">
+          <select id="f-role" required></select>
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="f-msg" id="labelMsg"></label>
+        <textarea id="f-msg"></textarea>
+      </div>
+      <button type="submit" class="form-submit" id="formSubmit"></button>
+    </form>
+    <div class="form-success" id="formSuccess"></div>
+  </div>
+</div>
+
+<script>
+/* ---- Render from CONFIG ---- */
+(function() {
+  const C = CONFIG;
+  const D = C.destinations;
+  const M = C.calendar;
+  const E = C.ethos;
+  const F = C.joinForm;
+
+  // Hero
+  document.getElementById('heroKicker').textContent = C.club.name + ' — ' + C.club.established;
+  const h1 = document.getElementById('heroH1');
+  const before = C.club.tagline.replace(C.club.taglineAccent, '');
+  h1.innerHTML = before + '<em>' + C.club.taglineAccent + '</em>';
+  document.getElementById('heroCoords').textContent = C.club.coords;
+  document.getElementById('heroStatN').textContent = D.length;
+  document.getElementById('heroStatL').textContent = 'Destinations this year';
+
+  // Ticker — duplicate for seamless loop
+  const ticker = document.getElementById('tickerWrap');
+  let track1 = '<div class="ticker__track" aria-hidden="true">';
+  let track2 = '<div class="ticker__track" aria-hidden="true">';
+  D.forEach(d => {
+    const item = '<div class="ticker__item"><div class="ticker__dot"></div>'
+      + '<span class="ticker__dest">' + d.name + '</span>'
+      + '<span class="ticker__month">' + d.month + '</span></div>';
+    track1 += item;
+    track2 += item;
+  });
+  track1 += '</div>';
+  track2 += '</div>';
+  ticker.innerHTML = track1 + track2;
+
+  // Calendar section
+  document.getElementById('calSub').textContent = C.club.heroSub;
+  const grid = document.getElementById('calGrid');
+  M.forEach(function(c) {
+    const cell = document.createElement('div');
+    cell.className = 'cal-cell' + (c.highlight ? ' cal-cell--hi' : '');
+    cell.setAttribute('role', 'listitem');
+    cell.setAttribute('aria-label', c.month + ': ' + c.dest + ', ' + c.region);
+    let bars = '';
+    for (let i = 0; i < 5; i++) {
+      bars += '<div class="cal-cell__bar' + (i < c.swell ? ' cal-cell__bar--on' : '') + '"></div>';
+    }
+    cell.innerHTML =
+      '<div class="cal-cell__month">' + c.month + '</div>'
+      + '<div class="cal-cell__dest">' + c.dest + '</div>'
+      + '<div class="cal-cell__region">' + c.region + '</div>'
+      + '<div class="cal-cell__swell">' + bars + '</div>';
+    grid.appendChild(cell);
+  });
+
+  // Ethos heading
+  document.getElementById('ethosHeading').innerHTML = 'Not a tour.<br>Not a class.<br><em>A frequency.</em>';
+  const ethosGrid = document.getElementById('ethosGrid');
+  E.forEach(function(e) {
+    const cell = document.createElement('div');
+    cell.className = 'ethos-cell';
+    cell.innerHTML =
+      '<div class="ethos-cell__n">' + e.n + '</div>'
+      + '<div class="ethos-cell__title">' + e.title + '</div>'
+      + '<div class="ethos-cell__body">' + e.body + '</div>';
+    ethosGrid.appendChild(cell);
+  });
+
+  // Join bar
+  document.getElementById('joinBarText').textContent = C.club.nextTrip;
+  document.getElementById('footerLogo').textContent = C.club.name;
+  document.getElementById('footerIg').href = C.club.instagram;
+
+  // Modal
+  document.getElementById('modalTitle').textContent = F.title;
+  document.getElementById('modalSub').textContent = F.sub;
+  document.getElementById('labelName').textContent = F.fields.name;
+  document.getElementById('labelLink').textContent = F.fields.link;
+  document.getElementById('labelMsg').textContent = F.fields.message;
+  document.getElementById('formSubmit').textContent = F.cta;
+  document.getElementById('formSuccess').textContent = F.success;
+  document.getElementById('f-name').placeholder = F.fields.name;
+  document.getElementById('f-link').placeholder = F.fields.link;
+  document.getElementById('f-msg').placeholder = F.fields.message;
+  const sel = document.getElementById('f-role');
+  F.fields.roleOptions.forEach(function(o) {
+    const opt = document.createElement('option');
+    opt.value = o.value;
+    opt.textContent = o.label;
+    sel.appendChild(opt);
+  });
+
+  // Form action
+  document.getElementById('joinForm').action = 'https://formspree.io/' + C.club.formspreeId;
+  document.getElementById('joinForm').method = 'POST';
+})();
+
+/* ---- Nav hamburger ---- */
+const hamburger = document.getElementById('hamburger');
+const drawer = document.getElementById('drawer');
+hamburger.addEventListener('click', function() {
+  const open = drawer.classList.toggle('open');
+  hamburger.classList.toggle('open', open);
+  hamburger.setAttribute('aria-expanded', String(open));
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+function closeDrawer() {
+  drawer.classList.remove('open');
+  hamburger.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+
+/* ---- Modal ---- */
+function openModal() {
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('f-name').focus();
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
+
+/* ---- Form submit ---- */
+document.getElementById('joinForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const name = document.getElementById('f-name').value.trim();
+  const role = document.getElementById('f-role').value;
+  if (!name || !role) {
+    document.getElementById('f-name').focus();
+    return;
+  }
+  const formId = CONFIG.club.formspreeId;
+  if (formId === 'YOUR_FORMSPREE_ID') {
+    // Dev mode — just show success
+    document.getElementById('joinForm').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+    return;
+  }
+  const data = new FormData(this);
+  fetch(this.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+    .then(function(r) {
+      if (r.ok) {
+        document.getElementById('joinForm').style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+      }
+    })
+    .catch(function() {
+      document.getElementById('joinForm').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    });
+});
+</script>
+</body>
+</html>
