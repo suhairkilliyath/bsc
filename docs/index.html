@@ -18,83 +18,127 @@ const CONFIG = {
     shortName: "BSC",
     tagline: "The ocean is only a night away.",
     taglineAccent: "night away.",
-    established: "Est. 2025",
-    heroSub: "We follow the swell. One crew. Split costs. Just show up.",
+    established: "Est. 2026",
+    // heroSub: "We pile into a van every month and go find waves. Open to anyone in Bangalore.",
     coords: "12.9716° N / 77.5946° E → coast",
-    nextTrip: "Next trip: Varkala — January 2026",
+    nextTrip: "Next up: Pondicherry — May 2026",
+    contactEmail: "hello@blsurf.club",
     instagram: "https://instagram.com/bangaloresurfclub",
     formspreeId: "YOUR_FORMSPREE_ID",
   },
 
   destinations: [
-    { month: "Jan–Feb", name: "Varkala",      region: "Kerala",           swell: 5, peak: true,  coords: "12.17°N / 75.34°E", temp: "26–28°C", difficulty: "Beginner to Intermediate", quote: "12am pickup. 4am lineup. Warm water and good crew.", svgX: 140, svgY: 480 },
-    { month: "Mar",     name: "Pondicherry",  region: "Tamil Nadu",       swell: 3, peak: false, coords: "12.01°N / 79.83°E", temp: "28–30°C", difficulty: "Intermediate", quote: "Shoulder season. Chill waves. Perfect for skill building.", svgX: 165, svgY: 510 },
-    { month: "Apr–May", name: "Gokarna",      region: "Karnataka",        swell: 5, peak: true,  coords: "14.55°N / 74.32°E", temp: "26–28°C", difficulty: "Intermediate to Advanced", quote: "Reefs that reward commitment. Crew stays longer here.", svgX: 125, svgY: 430 },
-    { month: "Jun–Jul", name: "Sri Lanka",    region: "Arugam Bay",       swell: 5, peak: true,  coords: "7.72°N / 81.82°E", temp: "27–29°C", difficulty: "Intermediate", quote: "The best trip. Tropical swell. Everyone connects here.", svgX: 200, svgY: 550 },
-    { month: "Aug",     name: "Mulki",        region: "Karnataka",        swell: 3, peak: false, coords: "13.31°N / 74.82°E", temp: "24–26°C", difficulty: "Beginner to Intermediate", quote: "Monsoon season. Fewer crowds. Home cooking and early sessions.", svgX: 130, svgY: 460 },
-    { month: "Sep–Oct", name: "Goa",          region: "North Goa",        swell: 4, peak: false, coords: "15.48°N / 73.83°E", temp: "26–28°C", difficulty: "All levels", quote: "Where new people find their people. The social heart of the year.", svgX: 110, svgY: 410 },
-    { month: "Nov",     name: "Covelong",     region: "Tamil Nadu",       swell: 4, peak: false, coords: "12.40°N / 80.25°E", temp: "27–29°C", difficulty: "Intermediate to Advanced", quote: "South swell wakes up. Quieter. Proper line-ups.", svgX: 170, svgY: 525 },
-    { month: "Dec",     name: "Indonesia",    region: "Bali / Lombok",    swell: 5, peak: true,  coords: "-8.65°S / 115.21°E", temp: "28–30°C", difficulty: "Intermediate to Advanced", quote: "Everything peaks. This is what we planned for.", svgX: 240, svgY: 580 },
+    { month: "Oct–Mar", name: "Varkala",      region: "Kerala",            lat:  8.74, lng: 76.71, swell: 5, peak: true,  coords: "8.74°N / 76.71°E",   temp: "26–28°C", difficulty: "Beginner to Intermediate", quote: "Cliffs and a long sand point. Warm water year-round, season runs through winter.",        sourceUrl: "https://www.surf-forecast.com/breaks/Varkala"        },
+    { month: "Mar–Apr", name: "Pondicherry",  region: "Tamil Nadu",        lat: 11.93, lng: 79.83, swell: 3, peak: false, coords: "11.93°N / 79.83°E",  temp: "28–30°C", difficulty: "Intermediate",            quote: "Shoulder-season east coast. Mellow days, good for stepping up.",                          sourceUrl: "https://www.surf-forecast.com/breaks/Pondicherry"   },
+    { month: "Apr–May", name: "Gokarna",      region: "Karnataka",         lat: 14.55, lng: 74.32, swell: 5, peak: true,  coords: "14.55°N / 74.32°E",  temp: "26–28°C", difficulty: "Intermediate to Advanced", quote: "Reef breaks. Quieter than Goa, fewer kooks.",                           sourceUrl: "https://www.surf-forecast.com/breaks/Gokarna"       },
+    { month: "Jun–Aug", name: "Arugam Bay",   region: "Sri Lanka (East)",  lat:  6.84, lng: 81.83, swell: 5, peak: true,  coords: "6.84°N / 81.83°E",   temp: "27–29°C", difficulty: "Intermediate",            quote: "Long peeling rights. Indian-coast monsoon = Sri Lankan east-coast peak season.",         sourceUrl: "https://www.surf-forecast.com/breaks/Arugam-Bay"    },
+    { month: "Jun–Oct", name: "Mulki",        region: "Karnataka",         lat: 13.09, lng: 74.78, swell: 5, peak: true,  coords: "13.09°N / 74.78°E",  temp: "26–28°C", difficulty: "Beginner to Intermediate", quote: "India's monsoon surf spot. Mantra Surf Club runs here year-round — dawn sessions before the wind comes up.", sourceUrl: "https://www.surf-forecast.com/breaks/Mulki"         },
+    { month: "Oct–Dec", name: "Goa",          region: "North Goa",         lat: 15.55, lng: 73.75, swell: 4, peak: false, coords: "15.55°N / 73.75°E",  temp: "27–29°C", difficulty: "All levels",              quote: "Easy waves, decent crowd, plenty going on after the surf.",                    sourceUrl: "https://www.surf-forecast.com/breaks/Anjuna"        },
+    { month: "Sep–Apr", name: "Covelong",     region: "Tamil Nadu",        lat: 12.79, lng: 80.25, swell: 4, peak: true,  coords: "12.79°N / 80.25°E",  temp: "27–29°C", difficulty: "Intermediate to Advanced", quote: "East-coast season. Proper line-ups when the NE monsoon swell wakes up.",                  sourceUrl: "https://www.surf-forecast.com/breaks/Kovalam-Beach" },
+    { month: "Nov–Apr", name: "Weligama",     region: "Sri Lanka (South)", lat:  5.97, lng: 80.43, swell: 4, peak: true,  coords: "5.97°N / 80.43°E",   temp: "27–29°C", difficulty: "All levels",              quote: "Sandy bottom, gentle reform. Surf schools everywhere. Easy first trip abroad.", sourceUrl: "https://www.surf-forecast.com/breaks/Weligama-Bay"   },
   ],
 
   calendar: [
-    { month: "Jan", dest: "Varkala",     region: "Kerala",        swell: 5, highlight: true  },
-    { month: "Feb", dest: "Varkala",     region: "Kerala",        swell: 4, highlight: false },
-    { month: "Mar", dest: "Pondicherry", region: "Tamil Nadu",    swell: 3, highlight: false },
-    { month: "Apr", dest: "Gokarna",     region: "Karnataka",     swell: 4, highlight: false },
-    { month: "May", dest: "Gokarna",     region: "Karnataka",     swell: 5, highlight: true  },
-    { month: "Jun", dest: "Sri Lanka",   region: "Arugam Bay",    swell: 5, highlight: true  },
-    { month: "Jul", dest: "Sri Lanka",   region: "Arugam Bay",    swell: 5, highlight: false },
-    { month: "Aug", dest: "Mulki",       region: "Karnataka",     swell: 3, highlight: false },
-    { month: "Sep", dest: "Goa",         region: "North Goa",     swell: 4, highlight: false },
-    { month: "Oct", dest: "Goa",         region: "North Goa",     swell: 4, highlight: false },
-    { month: "Nov", dest: "Covelong",    region: "Tamil Nadu",    swell: 4, highlight: false },
-    { month: "Dec", dest: "Indonesia",   region: "Bali / Lombok", swell: 5, highlight: true  },
+    { month: "Jan", dest: "Varkala",     swell: 5, highlight: true,  audience: "beginner",     forWho: "First-timers welcome. Schools running every morning along the cliffs." },
+    { month: "Feb", dest: "Varkala",     swell: 4, highlight: false, audience: "intermediate", forWho: "Picks up. Cleaner lines, fewer learners in the way." },
+    { month: "Mar", dest: "Pondicherry", swell: 3, highlight: false, audience: "beginner",     forWho: "Small east-coast days. Soft sand, easy reform — good for your first wave." },
+    { month: "Apr", dest: "Mulki",       swell: 4, highlight: false, audience: "intermediate", forWho: "Pre-monsoon clean windows. Confident paddlers and up." },
+    { month: "May", dest: "Gokarna",     swell: 5, highlight: true,  audience: "advanced",     forWho: "Reefs firing before the monsoon hits. Bring your shortboard." },
+    { month: "Jun", dest: "Mulki",       swell: 4, highlight: false, audience: "intermediate", forWho: "Monsoon power. Dawn sessions only — wind kills it by 9am." },
+    { month: "Jul", dest: "Arugam Bay",  swell: 5, highlight: true,  audience: "all",          forWho: "Main Point for everyone. Baby Point if it's your first overseas trip." },
+    { month: "Aug", dest: "Arugam Bay",  swell: 5, highlight: false, audience: "advanced",     forWho: "Peak season. Head-high days, crowded lineup." },
+    { month: "Sep", dest: "Mulki",       swell: 4, highlight: true,  audience: "beginner",     forWho: "Post-monsoon. Cleanest waves the west coast sees all year." },
+    { month: "Oct", dest: "Goa",         swell: 4, highlight: false, audience: "beginner",     forWho: "Small fun waves. Mellow crowd. Easy month for anyone." },
+    { month: "Nov", dest: "Covelong",    swell: 4, highlight: false, audience: "intermediate", forWho: "NE monsoon wakes the east coast. Proper lineups, low crowds." },
+    { month: "Dec", dest: "Weligama",    swell: 4, highlight: true,  audience: "beginner",     forWho: "Friendly bay, gentle reform. Most people's first surf trip abroad." },
   ],
+
+  logbook: {
+    overline: "The logbook",
+    heading: "Where we've been.\nWhere we're going.",
+    sub: "Updated when we get back from each trip.",
+    entries: [
+      {
+        month: "Apr 2026",
+        location: "Mulki, Karnataka",
+        status: "logged",
+        headline: "First proper south-swell session of the year.",
+        notes: "Two days, dawn patrols, home-cooked thalis at the camp. Small crew — exactly the right size.",
+        instagram: "https://www.instagram.com/bhoomiiexplores/p/DXJqE-8CPBx/",
+        photo: "images/mulki-apr26.jpg",
+        spotlight: null
+      },
+      {
+        month: "May 2026",
+        location: "Pondicherry, Tamil Nadu",
+        status: "upcoming",
+        headline: "Shoulder-season run. Long weekend.",
+        notes: "Chiller waves, good for anyone wanting to ease in. Reach out if you want to ride along.",
+        instagram: "",
+        photo: "",
+        spotlight: null
+      },
+      {
+        month: "Jun 2026",
+        location: "Covelong, Tamil Nadu",
+        status: "upcoming",
+        headline: "Off-season scouting run.",
+        notes: "East coast is mostly flat in June — we're going to scout the village, meet the local surf school, and ride whatever shows up. Recon for the November NE-monsoon trip.",
+        instagram: "",
+        photo: "",
+        spotlight: null
+      }
+    ]
+  },
 
   ethos: [
     {
       n: "01",
-      title: "A proper club - no sales, no itineraries. Just a place to find your next crew",
-      body: "Subscribe for access to the group. We scout breaks, coordinate stays, find instructors. Everyone splits costs directly—no markups. Your subscription supports the community"
+      title: "A proper club. Not a tour operator.",
+      body: "We figure out the spot, the stay, the instructor if anyone needs one. Costs split inside the group, no markups. Receipts on request."
     },
     {
       n: "02",
-      title: "The van ride matters",
-      body: "Monthly trips for you to join if you want. Or just do your thing and meet at the coast"
+      title: "The van ride is half of it.",
+      body: "Trips are what we actually do. Come on the overnight drive or meet us there. Either works — the drive is usually the best part anyway."
     },
     {
       n: "03",
       title: "You show up. You belong.",
-      body: "No invites. No credentials. Just people who want to be in the water and in good company. One crew. The only filter is showing up."
+      body: "Anyone from Bangalore who wants to surf. That's it."
     },
     {
       n: "04",
-      title: "Progress and get better with the crew",
-      body: "Everyone's at a different point in their surf journey, and that's the point. We share tips, celebrate wins, and learn from wipeouts together."
+      title: "Get better, with the crew.",
+      body: "Everyone's at a different level. Share boards, swap tips, learn from each other's wipeouts."
     },
   ],
 
   swellMap: {
     overline: "The swell",
-    heading: "Follow the waves. The geography writes the calendar.",
-    sub: "Tap or click any destination to explore seasonal conditions, water temperature, and difficulty level. Every coast has a reason.",
+    heading: "Where the waves are, when.",
+    sub: "Ratings come from surf-forecast.com and SFI regional guides, plus what we've actually paddled out into.",
+  },
+
+  joinBar: {
+    text: "Next trip is forming. Want in?",
+    cta: "Talk to us →"
   },
 
   joinForm: {
-    title: "Join the club",
-    sub: "Monthly subscription gets you access to the group, swell research, and coordination for every trip. Costs split within the crew—no markups, no surprises.",
+    title: "Talk to us.",
+    sub: "Tell us which trip you're eyeing, or just say hi. We'll write back in a day or two.",
     fields: {
       name: "Your name",
-      link: "Instagram or portfolio (optional)",
+      link: "Instagram or phone (optional)",
       roleOptions: [
-        { value: "",        label: "Who are you?" },
-        { value: "surfer",  label: "I surf — this is my world" },
-        { value: "creator", label: "I make things — design, music, film" },
-        { value: "both",    label: "Both, honestly" },
-        { value: "neither", label: "Neither — I'm just curious" },
+        { value: "",            label: "Where are you at?" },
+        { value: "new",         label: "I've never surfed — want to try" },
+        { value: "learning",    label: "I've had a lesson or two" },
+        { value: "intermediate",label: "I can paddle out and catch waves" },
+        { value: "experienced", label: "I surf regularly — looking for crew" },
       ],
-      message: "What draws you to this? (2–3 lines is enough)",
+      message: "Which trip are you thinking about? Or what should we know? (a few lines is plenty)",
     },
     cta: "Send it →",
     success: "Got it. We'll be in touch before the next trip.",
@@ -236,17 +280,32 @@ body {
 
 /* ---- HERO ---- */
 .hero {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: calc(100vh - 60px);
-}
-.hero__left {
+  position: relative;
   background: var(--deep);
-  padding: 64px 48px 48px;
+  min-height: calc(100vh - 60px);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 40px;
+}
+.hero__art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.45;
+  z-index: 0;
+  pointer-events: none;
+}
+.hero__inner {
+  position: relative;
+  z-index: 2;
+  padding: 80px 64px 48px;
+  max-width: 880px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
 }
 .hero__kicker {
   font-family: var(--mono);
@@ -254,98 +313,53 @@ body {
   letter-spacing: 0.20em;
   text-transform: uppercase;
   color: var(--wave);
-  margin-bottom: 28px;
+  margin: 0;
 }
 .hero__h1 {
   font-family: var(--serif);
-  font-size: clamp(36px, 4vw, 54px);
-  line-height: 1.08;
+  font-size: clamp(40px, 6vw, 76px);
+  line-height: 1.05;
   color: #fff;
   letter-spacing: -0.03em;
+  margin: 0;
 }
 .hero__h1 em {
   color: var(--wave);
   font-style: italic;
 }
+.hero__sub {
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.55);
+  max-width: 540px;
+  margin: 0;
+}
+.hero__meta {
+  position: relative;
+  z-index: 2;
+  padding: 0 64px 56px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+}
 .hero__coords {
   font-family: var(--mono);
   font-size: 10px;
   letter-spacing: 0.14em;
-  color: rgba(255,255,255,0.22);
-  margin-top: auto;
-}
-
-.hero__micro-animation {
-  margin-top: 28px;
-  width: 220px;
-}
-
-.hero__micro-animation .micro-illustration {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.hero__micro-animation .figure {
-  transform-origin: 0 44;
-  animation: body-lift 4s ease-in-out infinite;
-}
-
-.hero__micro-animation .arm {
-  transform-origin: 0 32;
-  animation: arm-reach 4s ease-in-out infinite;
-}
-
-.hero__micro-animation .board {
-  animation: board-slide 4s ease-in-out infinite;
-}
-
-.hero__micro-animation .cup {
-  animation: cup-fade 4s ease-in-out infinite;
-}
-
-@keyframes arm-reach {
-  0%, 20%, 100% { transform: translate(0, 0); }
-  40%, 60% { transform: translate(4px, -2px); }
-}
-
-@keyframes body-lift {
-  0%, 20%, 100% { transform: translateY(0); }
-  40%, 60% { transform: translateY(-3px); }
-}
-
-@keyframes board-slide {
-  0%, 20%, 100% { transform: translateX(0); }
-  40%, 60% { transform: translateX(-4px); }
-}
-
-@keyframes cup-fade {
-  0%, 20%, 100% { opacity: 0.9; }
-  40%, 60% { opacity: 0.4; }
-}
-
-.hero__right {
-  background: var(--tide);
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-.hero__art {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  color: rgba(255,255,255,0.32);
+  margin: 0;
 }
 .hero__stat {
-  position: relative;
-  z-index: 2;
-  padding: 0 40px 48px;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
 }
 .hero__stat-n {
   font-family: var(--serif);
-  font-size: 80px;
+  font-size: clamp(44px, 5vw, 64px);
   color: #fff;
   line-height: 1;
   letter-spacing: -0.04em;
@@ -353,59 +367,119 @@ body {
 .hero__stat-l {
   font-family: var(--mono);
   font-size: 10px;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.40);
-  margin-top: 6px;
+  max-width: 120px;
+  line-height: 1.4;
 }
 
-/* ---- TICKER ---- */
-.ticker {
-  border-bottom: 1px solid var(--border);
-  overflow: hidden;
-  background: var(--sand);
+/* ---- HERO LIVE PULSE ---- */
+.hero__pulse {
+  padding: 16px 18px;
+  border: 1px solid rgba(29,158,117,0.30);
+  border-radius: 2px;
+  background: rgba(10,31,23,0.55);
+  backdrop-filter: blur(2px);
+  max-width: 460px;
+  font-family: var(--mono);
+  color: rgba(255,255,255,0.80);
 }
-.ticker__track {
-  display: flex;
-  animation: ticker-scroll 28s linear infinite;
-  width: max-content;
-}
-.ticker__track:hover { animation-play-state: paused; }
-@media (max-width: 767px) {
-  .ticker__track { animation: none; }
-}
-.ticker__item {
+.hero__pulse-head {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 14px 28px;
-  border-right: 1px solid var(--border);
-  white-space: nowrap;
-  flex-shrink: 0;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 14px;
 }
-.ticker__dot {
-  width: 6px;
-  height: 6px;
+.hero__pulse-dot {
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: var(--wave);
+  box-shadow: 0 0 0 0 rgba(29,158,117,0.55);
+  animation: hero-pulse 2.4s ease-out infinite;
   flex-shrink: 0;
 }
-.ticker__dest {
-  font-family: var(--mono);
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--ink);
+@keyframes hero-pulse {
+  0%   { box-shadow: 0 0 0 0   rgba(29,158,117,0.55); }
+  70%  { box-shadow: 0 0 0 10px rgba(29,158,117,0); }
+  100% { box-shadow: 0 0 0 0   rgba(29,158,117,0); }
 }
-.ticker__month {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.10em;
-  text-transform: uppercase;
-  color: var(--mist);
+@media (prefers-reduced-motion: reduce) {
+  .hero__pulse-dot { animation: none; }
 }
-@keyframes ticker-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+.hero__pulse-sep {
+  opacity: 0.45;
+}
+.hero__pulse-count {
+  font-family: var(--serif);
+  font-size: 26px;
+  line-height: 1.1;
+  color: #fff;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+.hero__pulse-count em {
+  color: var(--wave);
+  font-style: italic;
+}
+.hero__pulse-list {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.5;
+}
+.hero__pulse-list a {
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(255,255,255,0.25);
+  transition: color 0.2s, border-color 0.2s;
+}
+.hero__pulse-list a:hover {
+  color: var(--wave);
+  border-bottom-color: var(--wave);
+}
+
+/* ---- HERO COMPASS (decorative) ---- */
+.hero__compass {
+  position: absolute;
+  top: 7%;
+  right: 6%;
+  width: clamp(200px, 24vw, 340px);
+  height: clamp(200px, 24vw, 340px);
+  pointer-events: none;
+  opacity: 0.65;
+  z-index: 1;
+}
+.hero__compass-rose {
+  width: 100%;
+  height: 100%;
+  animation: compass-rotate 180s linear infinite;
+  transform-origin: center;
+}
+.hero__compass-needle {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: compass-needle 240s linear infinite;
+  transform-origin: center;
+}
+@keyframes compass-rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes compass-needle {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__compass-rose,
+  .hero__compass-needle { animation: none; }
 }
 
 /* ---- CALENDAR SECTION ---- */
@@ -487,6 +561,48 @@ body {
 .cal-cell--hi .cal-cell__bar { background: rgba(255,255,255,0.12); }
 .cal-cell--hi .cal-cell__bar--on { background: var(--wave); }
 
+/* ---- Audience pill + for-who one-liner ---- */
+.cal-cell__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px 4px;
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-top: 14px;
+  width: fit-content;
+  line-height: 1;
+}
+.cal-cell__pill::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.85;
+}
+.cal-cell__pill--beginner     { background: rgba(29,158,117,0.14); color: var(--wave-d); }
+.cal-cell__pill--intermediate { background: rgba(14,14,14,0.06);   color: var(--ink); }
+.cal-cell__pill--advanced     { background: var(--ink);            color: #fff; }
+.cal-cell__pill--all          { background: transparent;            color: var(--mist); border: 1px solid var(--border); }
+
+.cal-cell--hi .cal-cell__pill--beginner     { background: rgba(29,158,117,0.30); color: #fff; }
+.cal-cell--hi .cal-cell__pill--intermediate { background: rgba(255,255,255,0.10); color: rgba(255,255,255,0.90); }
+.cal-cell--hi .cal-cell__pill--advanced     { background: #fff; color: var(--ink); }
+.cal-cell--hi .cal-cell__pill--all          { color: rgba(255,255,255,0.55); border-color: rgba(255,255,255,0.22); }
+
+.cal-cell__forwho {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--mist);
+  line-height: 1.55;
+  margin-top: 10px;
+}
+.cal-cell--hi .cal-cell__forwho { color: rgba(255,255,255,0.55); }
+
 /* ---- SWELL MAP ---- */
 .section--swell {
   background: var(--sand);
@@ -504,7 +620,7 @@ body {
 .swell-map {
   width: 100%;
   max-width: 1040px;
-  height: 520px;
+  height: clamp(320px, 50vw, 540px);
   display: block;
   border: 1px solid var(--border);
   background: #fefdfb;
@@ -525,11 +641,54 @@ body {
   fill: none;
 }
 
+.swell-map-coast {
+  stroke: rgba(15,110,86,0.45);
+  stroke-width: 0.8;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  fill: none;
+}
+.swell-map-coast--fill {
+  fill: rgba(29,158,117,0.06);
+}
+
 .swell-map-grid {
-  stroke: rgba(14, 14, 14, 0.12);
+  stroke: rgba(14, 14, 14, 0.10);
   stroke-width: 1;
   fill: none;
 }
+.swell-map-grid--major {
+  stroke: rgba(14, 14, 14, 0.18);
+}
+.swell-map-graticule-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.10em;
+  fill: var(--mist);
+  pointer-events: none;
+}
+
+.swell-map-ref {
+  pointer-events: none;
+}
+.swell-map-ref circle {
+  fill: var(--ink);
+  opacity: 0.55;
+}
+.swell-map-ref text {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.10em;
+  fill: var(--mist);
+  text-transform: uppercase;
+  text-anchor: start;
+  paint-order: stroke fill;
+  stroke: #fefdfb;
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+.swell-map-ref--home circle { fill: var(--wave); opacity: 1; r: 5; }
+.swell-map-ref--home text { fill: var(--wave-d); font-weight: 500; }
 
 .swell-map-pin {
   cursor: pointer;
@@ -539,32 +698,116 @@ body {
 
 .swell-map-pin circle {
   fill: var(--wave);
-  opacity: 0.85;
-  r: 5.5;
-  transition: opacity 0.2s, r 0.2s;
+  transition: opacity 0.2s, r 0.2s, fill 0.2s;
 }
 
+.swell-map-pin--off circle {
+  fill: var(--mist);
+  opacity: 0.32;
+}
+.swell-map-pin--off text {
+  fill: var(--mist);
+  opacity: 0.55;
+}
+
+.swell-map-pin--on circle {
+  fill: var(--wave);
+  opacity: 1;
+}
+.swell-map-pin--on .pin-pulse {
+  fill: var(--wave);
+  opacity: 0.30;
+  animation: pin-pulse 2.4s ease-out infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+@keyframes pin-pulse {
+  0%   { transform: scale(0.6); opacity: 0.55; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .swell-map-pin--on .pin-pulse { animation: none; opacity: 0.20; }
+}
 
 .swell-map-pin text {
   font-family: var(--mono);
   font-size: 11px;
+  letter-spacing: 0.04em;
   fill: var(--ink);
-  opacity: 1;
-  transition: opacity 0.2s;
   pointer-events: none;
   text-anchor: middle;
+  paint-order: stroke fill;
+  stroke: #fefdfb;
+  stroke-width: 3.5;
+  stroke-linejoin: round;
+  transition: opacity 0.2s, fill 0.2s;
 }
 
 .swell-map-pin:hover circle {
   opacity: 1;
-  r: 7;
 }
 
-.swell-map-pin.active circle {
+.swell-map-pin--on.active circle {
   fill: var(--wave-d);
   opacity: 1;
-  r: 6;
 }
+.swell-map-pin--off.active circle {
+  fill: var(--ink);
+  opacity: 1;
+  stroke: var(--wave-d);
+  stroke-width: 1.5;
+}
+.swell-map-pin--off.active text {
+  fill: var(--ink);
+  opacity: 1;
+}
+
+/* In-season ribbon above the map */
+.swell-map-now {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin: 0 0 14px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: #fff;
+}
+.swell-map-now__dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--wave);
+  box-shadow: 0 0 0 4px rgba(29,158,117,0.18);
+  flex-shrink: 0;
+}
+.swell-map-now__label { color: var(--mist); }
+.swell-map-now__list { color: var(--ink); letter-spacing: 0.10em; }
+.swell-map-now__list a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--border); }
+.swell-map-now__list a:hover { color: var(--wave); border-color: var(--wave); }
+
+/* Legend */
+.swell-map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.10em;
+  color: var(--mist);
+  margin: 12px 0 0;
+}
+.swell-map-legend__item { display: inline-flex; align-items: center; gap: 7px; }
+.swell-map-legend__dot { width: 9px; height: 9px; border-radius: 50%; }
+.swell-map-legend__dot--on { background: var(--wave); }
+.swell-map-legend__dot--off { background: var(--mist); opacity: 0.45; }
+.swell-map-legend__dot--small { width: 5px; height: 5px; background: var(--wave); }
+.swell-map-legend__dot--large { width: 11px; height: 11px; background: var(--wave); }
+
 
 .swell-info-panel {
   position: absolute;
@@ -762,6 +1005,161 @@ body {
   }
 }
 
+/* ---- LOGBOOK SECTION (Letterboxd-style archive) ---- */
+.section--logbook {
+  background: var(--sand);
+  padding: 80px 0 72px;
+  border-top: 1px solid var(--border);
+}
+.section--logbook .section__intro { padding: 0 40px 40px; }
+
+.log-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px 20px;
+  padding: 0 40px;
+}
+.log-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  transition: transform 0.25s var(--ease);
+}
+.log-cell--link { cursor: pointer; }
+.log-cell--link:hover { transform: translateY(-2px); }
+.log-cell--link:hover .log-cell__tile { box-shadow: 0 4px 16px rgba(10,31,23,0.10); }
+
+.log-cell__tile {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--salt);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  transition: box-shadow 0.25s var(--ease);
+}
+.log-cell__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  image-rendering: auto;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+.log-cell__placeholder {
+  position: absolute;
+  inset: 0;
+  background-color: #f1ece2;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(15,110,86,0.08) 0 1px, transparent 1px 12px),
+    repeating-linear-gradient(-45deg, rgba(15,110,86,0.05) 0 1px, transparent 1px 12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-size: 64px;
+  color: rgba(15,110,86,0.20);
+  font-style: italic;
+  letter-spacing: -0.02em;
+}
+
+.log-cell__pip {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: rgba(254,253,251,0.92);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--ink);
+  z-index: 2;
+}
+.log-cell__pip::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--wave);
+}
+.log-cell--upcoming .log-cell__pip {
+  color: var(--mist);
+}
+.log-cell--upcoming .log-cell__pip::before {
+  background: transparent;
+  border: 1px solid var(--mist);
+  width: 5px;
+  height: 5px;
+}
+
+.log-cell__ig-corner {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(254,253,251,0.92);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--wave);
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.2s var(--ease);
+}
+.log-cell--link:hover .log-cell__ig-corner { opacity: 1; }
+.log-cell__ig-corner svg { width: 14px; height: 14px; }
+
+.log-cell__caption {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 2px;
+}
+.log-cell__month {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+.log-cell__location {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  line-height: 1.2;
+}
+.log-cell--upcoming .log-cell__location {
+  color: var(--mist);
+}
+
+@media (max-width: 1199px) {
+  .section--logbook { padding: 60px 0 48px; }
+  .log-grid { grid-template-columns: repeat(2, 1fr); padding: 0 24px; gap: 24px 16px; }
+}
+@media (max-width: 480px) {
+  .log-grid { grid-template-columns: 1fr; }
+}
+
 /* ---- ETHOS SECTION ---- */
 .section--ethos {
   background: var(--ink);
@@ -805,6 +1203,55 @@ body {
   line-height: 1.75;
 }
 
+/* ---- ETHOS MISSION (closing block) ---- */
+.ethos-mission {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 80px 24px 96px;
+  text-align: left;
+}
+.ethos-mission__overline {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--wave);
+  margin-bottom: 24px;
+}
+.ethos-mission__h {
+  font-family: var(--serif);
+  font-size: clamp(26px, 3vw, 36px);
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin-bottom: 28px;
+}
+.ethos-mission__h em {
+  color: var(--wave);
+  font-style: italic;
+}
+.ethos-mission__body {
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.85;
+  color: rgba(255,255,255,0.55);
+}
+.ethos-mission__body p + p { margin-top: 16px; }
+.ethos-mission__note {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.10);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.40);
+  line-height: 1.7;
+}
+.ethos-mission__note em { color: rgba(255,255,255,0.75); font-style: italic; }
+@media (max-width: 720px) {
+  .ethos-mission { padding: 56px 16px 72px; }
+}
+
 /* ---- JOIN BAR ---- */
 .join-bar {
   display: flex;
@@ -821,21 +1268,47 @@ body {
   color: #fff;
   letter-spacing: -0.02em;
 }
+.join-bar__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.join-bar__wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 12px 18px;
+  border: 1px solid rgba(255,255,255,0.60);
+  color: #fff;
+  background: transparent;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  white-space: nowrap;
+}
+.join-bar__wa svg { width: 16px; height: 16px; }
+.join-bar__wa:hover { background: rgba(255,255,255,0.12); border-color: #fff; transform: translateY(-2px); }
 .join-bar__btn {
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   padding: 12px 24px;
-  border: 1px solid rgba(255,255,255,0.60);
-  color: #fff;
-  background: transparent;
+  border: 1px solid #fff;
+  color: var(--wave-d);
+  background: #fff;
   cursor: pointer;
   border-radius: 2px;
+  text-decoration: none;
   transition: background 0.2s, border-color 0.2s, transform 0.2s;
   white-space: nowrap;
 }
-.join-bar__btn:hover { background: rgba(255,255,255,0.12); border-color: #fff; transform: translateY(-2px); }
+.join-bar__btn:hover { background: var(--ink); color: #fff; border-color: var(--ink); transform: translateY(-2px); }
 
 /* ---- FOOTER ---- */
 .footer {
@@ -1008,11 +1481,18 @@ body {
   .nav__links { display: none; }
   .nav__hamburger { display: flex; }
 
-  .hero { grid-template-columns: 1fr; min-height: auto; }
-  .hero__left { padding: 48px 24px 40px; min-height: 55vh; }
-  .hero__right { min-height: 45vh; }
-  .hero__stat { padding: 0 24px 32px; }
-  .hero__stat-n { font-size: 60px; }
+  .hero { min-height: auto; }
+  .hero__inner { padding: 56px 24px 32px; gap: 24px; }
+  .hero__meta { padding: 0 24px 32px; }
+  .hero__compass {
+    top: auto;
+    bottom: 60%;
+    right: 4%;
+    width: 140px;
+    height: 140px;
+    opacity: 0.35;
+  }
+  .hero__stat-n { font-size: 44px; }
 
   .section--calendar { padding: 60px 0 0; }
   .section__intro { padding: 0 24px 36px; }
@@ -1035,9 +1515,41 @@ body {
   .join-bar { flex-direction: column; align-items: stretch; }
   .join-bar__text { font-size: 18px; margin-bottom: 12px; }
   .join-bar__btn { width: 100%; text-align: center; }
-  .ticker__item { padding: 10px 16px; border-right-width: 0; font-size: 11px; }
-  .ticker__dest { font-size: 11px; }
-  .ticker__month { font-size: 9px; }
+}
+
+/* ---- SECTION TRANSITION FADES ---- */
+.section-fade {
+  display: block;
+  height: 64px;
+  width: 100%;
+  pointer-events: none;
+  border: 0;
+  margin: 0;
+}
+.section-fade--deep-sand { background: linear-gradient(to bottom, var(--deep) 0%, var(--sand) 100%); }
+.section-fade--sand-ink  { background: linear-gradient(to bottom, var(--sand) 0%, var(--ink) 100%); }
+.section-fade--ink-sand  { background: linear-gradient(to bottom, var(--ink) 0%, var(--sand) 100%); }
+.section-fade--sand-wave { background: linear-gradient(to bottom, var(--sand) 0%, var(--wave) 100%); }
+.section-fade--wave-deep { background: linear-gradient(to bottom, var(--wave) 0%, var(--deep) 100%); }
+@media (max-width: 720px) {
+  .section-fade { height: 48px; }
+}
+
+/* ---- SCROLL REVEAL ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+.reveal--delay-1 { transition-delay: 0.08s; }
+.reveal--delay-2 { transition-delay: 0.16s; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal.is-visible { opacity: 1; transform: none; transition: none; }
 }
 </style>
 </head>
@@ -1069,51 +1581,99 @@ body {
 
 <!-- HERO -->
 <section class="hero" id="trips" aria-label="Hero">
-  <div class="hero__left">
-    <div>
-      <p class="hero__kicker" id="heroKicker"></p>
-      <h1 class="hero__h1" id="heroH1"></h1>
-    </div>
-    <p class="hero__coords" id="heroCoords"></p>
-    <div class="hero__micro-animation" aria-hidden="true">
-      <svg viewBox="0 0 220 80" xmlns="http://www.w3.org/2000/svg" class="micro-illustration">
-        <path class="board" d="M18 62 Q110 48 202 62" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-        <g class="cup" opacity="0.9">
-          <path d="M18 50 h12 v10 h-12 z" fill="none" stroke="currentColor" stroke-width="1.4"/>
-          <path d="M28 50 q4 -4 8 0" fill="none" stroke="currentColor" stroke-width="1.4"/>
-        </g>
-        <g class="figure" transform="translate(80 0)">
-          <circle class="head" cx="0" cy="22" r="5" fill="none" stroke="currentColor" stroke-width="1.4"/>
-          <path class="body" d="M0 27 L0 44" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-          <path class="leg left" d="M0 44 L-6 58" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-          <path class="leg right" d="M0 44 L6 58" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-          <path class="arm" d="M0 32 L14 36" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-        </g>
-      </svg>
+  <svg class="hero__art" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <!-- vertical grid lines -->
+    <g stroke="rgba(29,158,117,0.06)" stroke-width="0.5">
+      <line x1="160"  y1="0" x2="160"  y2="900"/>
+      <line x1="320"  y1="0" x2="320"  y2="900"/>
+      <line x1="480"  y1="0" x2="480"  y2="900"/>
+      <line x1="640"  y1="0" x2="640"  y2="900"/>
+      <line x1="800"  y1="0" x2="800"  y2="900" stroke="rgba(29,158,117,0.10)"/>
+      <line x1="960"  y1="0" x2="960"  y2="900"/>
+      <line x1="1120" y1="0" x2="1120" y2="900"/>
+      <line x1="1280" y1="0" x2="1280" y2="900"/>
+      <line x1="1440" y1="0" x2="1440" y2="900"/>
+    </g>
+    <!-- concentric circles centered low-right -->
+    <g fill="none" stroke="rgba(29,158,117,0.04)" stroke-width="0.5">
+      <circle cx="1100" cy="500" r="100"/>
+      <circle cx="1100" cy="500" r="200"/>
+      <circle cx="1100" cy="500" r="320"/>
+      <circle cx="1100" cy="500" r="460"/>
+    </g>
+    <!-- wave layers at bottom -->
+    <path d="M-20 720 Q200 670 420 700 Q680 738 920 680 Q1180 622 1620 670 L1620 900 L-20 900Z" fill="#0d2a1e"/>
+    <path d="M-20 770 Q260 728 480 750 Q780 778 1020 730 Q1300 682 1620 712 L1620 900 L-20 900Z" fill="#0a2019"/>
+    <path d="M-20 820 Q300 790 540 805 Q860 824 1100 798 Q1380 770 1620 782 L1620 900 L-20 900Z" fill="#071510"/>
+  </svg>
+
+  <div class="hero__compass" aria-hidden="true">
+    <svg class="hero__compass-rose" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="94" fill="none" stroke="rgba(29,158,117,0.45)" stroke-width="0.6"/>
+      <circle cx="100" cy="100" r="86" fill="none" stroke="rgba(29,158,117,0.20)" stroke-width="0.4"/>
+      <circle cx="100" cy="100" r="60" fill="none" stroke="rgba(29,158,117,0.15)" stroke-width="0.4"/>
+      <circle cx="100" cy="100" r="30" fill="none" stroke="rgba(29,158,117,0.20)" stroke-width="0.4"/>
+      <g stroke="rgba(29,158,117,0.40)" stroke-width="0.6">
+        <line x1="100" y1="6"  x2="100" y2="18"/>
+        <line x1="100" y1="182" x2="100" y2="194"/>
+        <line x1="6"   y1="100" x2="18"  y2="100"/>
+        <line x1="182" y1="100" x2="194" y2="100"/>
+      </g>
+      <g stroke="rgba(29,158,117,0.22)" stroke-width="0.4">
+        <line x1="33"  y1="33"  x2="42"  y2="42"/>
+        <line x1="167" y1="33"  x2="158" y2="42"/>
+        <line x1="33"  y1="167" x2="42"  y2="158"/>
+        <line x1="167" y1="167" x2="158" y2="158"/>
+      </g>
+      <g stroke="rgba(29,158,117,0.14)" stroke-width="0.3">
+        <line x1="63"  y1="15"  x2="66"  y2="22"/>
+        <line x1="137" y1="15"  x2="134" y2="22"/>
+        <line x1="63"  y1="185" x2="66"  y2="178"/>
+        <line x1="137" y1="185" x2="134" y2="178"/>
+        <line x1="15"  y1="63"  x2="22"  y2="66"/>
+        <line x1="15"  y1="137" x2="22"  y2="134"/>
+        <line x1="185" y1="63"  x2="178" y2="66"/>
+        <line x1="185" y1="137" x2="178" y2="134"/>
+      </g>
+      <g font-family="var(--mono), monospace" font-size="9" fill="rgba(29,158,117,0.65)" text-anchor="middle" letter-spacing="1.5">
+        <text x="100" y="32">N</text>
+        <text x="100" y="175">S</text>
+        <text x="172" y="103">E</text>
+        <text x="28"  y="103">W</text>
+      </g>
+      <g font-family="var(--mono), monospace" font-size="6" fill="rgba(29,158,117,0.30)" text-anchor="middle" letter-spacing="1">
+        <text x="148" y="55">NE</text>
+        <text x="148" y="152">SE</text>
+        <text x="52"  y="152">SW</text>
+        <text x="52"  y="55">NW</text>
+      </g>
+      <circle cx="100" cy="100" r="2" fill="rgba(29,158,117,0.7)"/>
+    </svg>
+    <svg class="hero__compass-needle" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="100,20 96,100 104,100" fill="rgba(29,158,117,0.85)"/>
+      <polygon points="100,180 96,100 104,100" fill="rgba(29,158,117,0.25)"/>
+      <circle cx="100" cy="100" r="3" fill="#0a1f17" stroke="rgba(29,158,117,0.6)" stroke-width="0.6"/>
+    </svg>
+  </div>
+
+  <div class="hero__inner">
+    <p class="hero__kicker" id="heroKicker"></p>
+    <h1 class="hero__h1" id="heroH1"></h1>
+    <p class="hero__sub" id="heroSub"></p>
+    <div class="hero__pulse" aria-live="polite">
+      <div class="hero__pulse-head">
+        <span class="hero__pulse-dot" aria-hidden="true"></span>
+        <span id="heroPulseTag">Live</span>
+        <span class="hero__pulse-sep">·</span>
+        <span id="heroPulseMonth"></span>
+      </div>
+      <div class="hero__pulse-count" id="heroPulseCount"></div>
+      <div class="hero__pulse-list" id="heroPulseList"></div>
     </div>
   </div>
-  <div class="hero__right">
-    <svg class="hero__art" viewBox="0 0 600 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <rect width="600" height="700" fill="#1a3a2e"/>
-      <!-- vertical grid lines -->
-      <line x1="80"  y1="0" x2="80"  y2="700" stroke="rgba(29,158,117,0.07)" stroke-width="0.5"/>
-      <line x1="160" y1="0" x2="160" y2="700" stroke="rgba(29,158,117,0.07)" stroke-width="0.5"/>
-      <line x1="240" y1="0" x2="240" y2="700" stroke="rgba(29,158,117,0.07)" stroke-width="0.5"/>
-      <line x1="320" y1="0" x2="320" y2="700" stroke="rgba(29,158,117,0.09)" stroke-width="0.5"/>
-      <line x1="400" y1="0" x2="400" y2="700" stroke="rgba(29,158,117,0.07)" stroke-width="0.5"/>
-      <line x1="480" y1="0" x2="480" y2="700" stroke="rgba(29,158,117,0.07)" stroke-width="0.5"/>
-      <line x1="560" y1="0" x2="560" y2="700" stroke="rgba(29,158,117,0.05)" stroke-width="0.5"/>
-      <!-- concentric circles -->
-      <circle cx="300" cy="320" r="60"  fill="none" stroke="rgba(29,158,117,0.06)" stroke-width="0.5"/>
-      <circle cx="300" cy="320" r="120" fill="none" stroke="rgba(29,158,117,0.05)" stroke-width="0.5"/>
-      <circle cx="300" cy="320" r="180" fill="none" stroke="rgba(29,158,117,0.04)" stroke-width="0.5"/>
-      <circle cx="300" cy="320" r="240" fill="none" stroke="rgba(29,158,117,0.03)" stroke-width="0.5"/>
-      <circle cx="300" cy="320" r="300" fill="none" stroke="rgba(29,158,117,0.03)" stroke-width="0.5"/>
-      <!-- wave layers -->
-      <path d="M-10 500 Q80 460 160 485 Q260 518 360 470 Q440 432 620 458 L620 700 L-10 700Z" fill="#0d2a1e"/>
-      <path d="M-10 540 Q100 508 200 526 Q310 548 420 510 Q500 480 620 500 L620 700 L-10 700Z" fill="#0a2019"/>
-      <path d="M-10 590 Q120 565 240 578 Q360 594 480 568 Q550 552 620 562 L620 700 L-10 700Z" fill="#071510"/>
-    </svg>
+
+  <div class="hero__meta">
+    <p class="hero__coords" id="heroCoords"></p>
     <div class="hero__stat">
       <div class="hero__stat-n" id="heroStatN"></div>
       <div class="hero__stat-l" id="heroStatL"></div>
@@ -1121,24 +1681,16 @@ body {
   </div>
 </section>
 
-<!-- TICKER -->
-<div class="ticker" id="tickerWrap" role="marquee" aria-label="Destinations"></div>
+<div class="section-fade section-fade--deep-sand" aria-hidden="true"></div>
 
 <!-- CALENDAR -->
 <section class="section--calendar" id="calendar" aria-labelledby="calHeading">
   <div class="section__intro">
     <p class="overline">The calendar</p>
-    <h2 class="serif-display section__h" id="calHeading">Every month.<br>A different coast.</h2>
+    <h2 class="serif-display section__h" id="calHeading">Best place to surf.<br>Every month of the year.</h2>
     <p class="section__sub" id="calSub"></p>
   </div>
   <div class="cal-grid" id="calGrid" role="list" aria-label="Monthly surf destinations"></div>
-</section>
-
-<!-- ETHOS -->
-<section class="section--ethos" id="about" aria-labelledby="ethosHeading">
-  <p class="overline overline--ghost">The club</p>
-  <h2 class="serif-display section__h" id="ethosHeading"></h2>
-  <div class="ethos-grid" id="ethosGrid"></div>
 </section>
 
 <!-- SWELL MAP -->
@@ -1149,8 +1701,18 @@ body {
     <p class="section__sub" id="swellSub" style="max-width: 620px;"></p>
   </div>
   <div class="swell-map-wrap">
-    <svg class="swell-map" id="swellMap" viewBox="0 0 600 700" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-label="Coastal destinations map"></svg>
-    <div class="swell-map-note">Tap any pin to reveal seasonal swell, water temperature, and recommended surf level.</div>
+    <div class="swell-map-now" id="swellMapNow" aria-live="polite">
+      <span class="swell-map-now__dot" aria-hidden="true"></span>
+      <span class="swell-map-now__label" id="swellMapNowLabel">In season right now</span>
+      <span class="swell-map-now__list" id="swellMapNowList"></span>
+    </div>
+    <svg class="swell-map" id="swellMap" viewBox="0 0 1000 520" width="1000" height="520" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-label="Coastal destinations map"></svg>
+    <div class="swell-map-legend" aria-hidden="true">
+      <span class="swell-map-legend__item"><span class="swell-map-legend__dot swell-map-legend__dot--on"></span> In season</span>
+      <span class="swell-map-legend__item"><span class="swell-map-legend__dot swell-map-legend__dot--off"></span> Off-season</span>
+      <span class="swell-map-legend__item"><span class="swell-map-legend__dot swell-map-legend__dot--small"></span><span class="swell-map-legend__dot swell-map-legend__dot--large"></span> Bigger pin = bigger peak swell</span>
+    </div>
+    <div class="swell-map-note">Cross-referenced with <a href="https://www.surf-forecast.com/countries/India" target="_blank" rel="noopener" style="color: var(--mist); text-decoration: underline;">surf-forecast.com</a> spot data and the <a href="https://www.surfingfederationofindia.org/" target="_blank" rel="noopener" style="color: var(--mist); text-decoration: underline;">Surfing Federation of India</a>. Then weighted by what we've actually ridden.</div>
     <div class="swell-info-panel" id="swellInfoPanel">
       <button class="swell-info__close" onclick="closeSwellInfo()" aria-label="Close">&times;</button>
       <h3 class="swell-info__name" id="swellInfoName"></h3>
@@ -1168,17 +1730,47 @@ body {
           <span class="swell-info__key">Difficulty</span>
           <span class="swell-info__value" id="swellInfoDiff"></span>
         </div>
+        <div class="swell-info__item">
+          <span class="swell-info__key">Season</span>
+          <span class="swell-info__value" id="swellInfoSeason"></span>
+        </div>
       </div>
-      <p class="swell-info__hint">5 bars = strongest seasonal swell for this coast. Difficulty is a practical guide based on wave power, takeoff angle, and shoreline exposure.</p>
-      <div class="swell-info__refs">
-        <span>Sources:</span>
-        <a href="https://www.surfline.com/surf-forecasts" target="_blank" rel="noopener">Surfline swell guide</a>
-        <span>•</span>
-        <a href="https://magicseaweed.com/Surfing-Guide" target="_blank" rel="noopener">Magicseaweed difficulty guide</a>
-      </div>
+      <p class="swell-info__hint">5 bars = strongest seasonal swell for this coast. Difficulty is a practical guide based on wave power, takeoff angle, and shoreline exposure — cross-checked with surf-forecast.com seasonal stats.</p>
+      <div class="swell-info__refs" id="swellInfoRefs"></div>
       <p class="swell-info__quote" id="swellInfoQuote"></p>
     </div>
   </div>
+</section>
+
+<div class="section-fade section-fade--sand-ink" aria-hidden="true"></div>
+
+<!-- ETHOS -->
+<section class="section--ethos" id="about" aria-labelledby="ethosHeading">
+  <p class="overline overline--ghost">The club</p>
+  <h2 class="serif-display section__h" id="ethosHeading"></h2>
+  <div class="ethos-grid" id="ethosGrid"></div>
+
+  <div class="ethos-mission">
+    <p class="ethos-mission__overline">Why we're doing this</p>
+    <h3 class="ethos-mission__h">Indian surf is growing.<br><em>We'd like to help, eventually.</em></h3>
+    <div class="ethos-mission__body">
+      <p>More people from Bangalore are paddling out every year. We started this club to make those trips easier and more fun.</p>
+      <p>Down the line, we'd love to open paid membership and put that money toward Indian surfers who need it — boards, coaching, contest fees. We'd want to do it properly, with people who know the scene better than us.</p>
+    </div>
+    <p class="ethos-mission__note"><em>None of that exists yet.</em> Right now we're just friends running trips. We'll get there if we earn it.</p>
+  </div>
+</section>
+
+<div class="section-fade section-fade--ink-sand" aria-hidden="true"></div>
+
+<!-- LOGBOOK -->
+<section class="section--logbook" id="logbook" aria-labelledby="logHeading">
+  <div class="section__intro">
+    <p class="overline" id="logOverline"></p>
+    <h2 class="serif-display section__h" id="logHeading"></h2>
+    <p class="section__sub" id="logSub"></p>
+  </div>
+  <div class="log-grid" id="logGrid"></div>
 </section>
 
 
@@ -1193,37 +1785,60 @@ body {
           <span>What is the Bangalore Surf Club?</span>
           <span class="faq-arrow" style="transition: transform 0.2s;">&#9662;</span>
         </button>
-        <div class="faq-a" style="font-family: var(--mono); font-size: 12px; color: var(--mist); display: none; margin-top: 8px;">BSC is a co-op style surf club for Bangalore-based surfers and friends. We organize monthly trips, share costs, and build a community around the love of surfing—no markups, no sales, just the crew.</div>
+        <div class="faq-a" style="font-family: var(--mono); font-size: 12px; color: var(--mist); display: none; margin-top: 8px;">A surf club for people in Bangalore. We run trips most months and anyone can come. We'd love to do more for Indian surfing down the line — see <em>Why we're doing this</em> above.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false" style="font-family: var(--mono); font-size: 13px; color: var(--ink); background: none; border: none; width: 100%; text-align: left; padding: 0; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center;">
-          <span>How do trips work—do I need to plan everything myself?</span>
+          <span>How much does a trip cost?</span>
           <span class="faq-arrow" style="transition: transform 0.2s;">&#9662;</span>
         </button>
-        <div class="faq-a" style="font-family: var(--mono); font-size: 12px; color: var(--mist); display: none; margin-top: 8px;">We coordinate the basics—dates, destination, group stays, and local instructors. Everyone splits costs and helps out, but you’re always free to join in or do your own thing at the coast.</div>
+        <div class="faq-a" style="font-family: var(--mono); font-size: 12px; color: var(--mist); display: none; margin-top: 8px;">Indian-coast weekends usually run <strong style="color: var(--ink);">₹6,000–12,000</strong> per person — that's transport, the stay, and a board rental or instruction if you need it. Sri Lanka is more like ₹25,000–40,000 once flights are in. We split everything inside the group. No markups, you see the receipts.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" style="font-family: var(--mono); font-size: 13px; color: var(--ink); background: none; border: none; width: 100%; text-align: left; padding: 0; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center;">
+          <span>I've never surfed before. Can I still come?</span>
+          <span class="faq-arrow" style="transition: transform 0.2s;">&#9662;</span>
+        </button>
+        <div class="faq-a" style="font-family: var(--mono); font-size: 12px; color: var(--mist); display: none; margin-top: 8px;">Yes. The calendar above marks beginner-friendly months — Varkala in winter, Pondicherry in March, Mulki in September, Weligama in December. We book a school session for first-timers and the rest of us are around between sets to share boards and tips. Most people here started exactly this way.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" style="font-family: var(--mono); font-size: 13px; color: var(--ink); background: none; border: none; width: 100%; text-align: left; padding: 0; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center;">
+          <span>How do trips actually work?</span>
+          <span class="faq-arrow" style="transition: transform 0.2s;">&#9662;</span>
+        </button>
+        <div class="faq-a" style="font-family: var(--mono); font-size: 12px; color: var(--mist); display: none; margin-top: 8px;">For each trip we sort the dates, the stay, transport, and instruction if anyone needs it. Costs split inside the group. You can come on the overnight van or just meet us at the coast. Both work.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" style="font-family: var(--mono); font-size: 13px; color: var(--ink); background: none; border: none; width: 100%; text-align: left; padding: 0; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center;">
+          <span>How do I join the next trip?</span>
+          <span class="faq-arrow" style="transition: transform 0.2s;">&#9662;</span>
+        </button>
+        <div class="faq-a" style="font-family: var(--mono); font-size: 12px; color: var(--mist); display: none; margin-top: 8px;">Hit the <em>Talk to us</em> button below and fill the short form. Tell us which trip you're eyeing and your surf level. We'll add you to the planning thread for that coast and send specifics within a day or two.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false" style="font-family: var(--mono); font-size: 13px; color: var(--ink); background: none; border: none; width: 100%; text-align: left; padding: 0; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center;">
           <span>I prefer fully planned surf trips. Any recommendations?</span>
           <span class="faq-arrow" style="transition: transform 0.2s;">&#9662;</span>
         </button>
-        <div class="faq-a" style="font-family: var(--mono); font-size: 12px; color: var(--mist); display: none; margin-top: 8px;">We love our friends at <a href="https://surfclubindia.com" target="_blank" rel="noopener" style="color: var(--wave); text-decoration: underline;">Surfclub India</a>—they offer curated, all-inclusive surf experiences across the country.</div>
+        <div class="faq-a" style="font-family: var(--mono); font-size: 12px; color: var(--mist); display: none; margin-top: 8px;">If you want a fully planned, instructor-led trip, our friends at <a href="https://surfclubindia.com" target="_blank" rel="noopener" style="color: var(--wave); text-decoration: underline;">Surfclub India</a> run all-inclusive surf trips across the country. Different setup from us, both worth knowing about.</div>
       </div>
     </div>
   </div>
 </section>
 
+<div class="section-fade section-fade--sand-wave" aria-hidden="true"></div>
+
 <!-- JOIN BAR -->
 <div class="join-bar" id="join">
   <p class="join-bar__text" id="joinBarText"></p>
-  <button class="join-bar__btn" onclick="openModal()" aria-haspopup="dialog">Join the club</button>
+  <a class="join-bar__btn" id="joinBarBtn" href="#">Talk to us →</a>
 </div>
 
 <!-- FOOTER -->
 <footer class="footer">
   <span class="footer__logo" id="footerLogo"></span>
   <div class="footer__right">
-    <span class="footer__copy">BLR → COAST — EVERY MONTH</span>
+    <span class="footer__copy">BLR → COAST · EVERY MONTH OF THE YEAR</span>
     <a class="footer__ig" id="footerIg" href="#" target="_blank" rel="noopener" aria-label="Instagram">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
@@ -1298,6 +1913,8 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 /* ---- Render from CONFIG ---- */
+var MONTH_INDEX = { jan:1, feb:2, mar:3, apr:4, may:5, jun:6, jul:7, aug:8, sep:9, oct:10, nov:11, dec:12 };
+var currentSwellDest = null;
 (function() {
   const C = CONFIG;
   const D = C.destinations;
@@ -1306,54 +1923,90 @@ document.addEventListener('DOMContentLoaded', function() {
   const F = C.joinForm;
   const SM = C.swellMap;
 
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function(c) {
+      return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
+    });
+  }
+  function escapeAttr(s) { return escapeHtml(s); }
+
   // Hero
   document.getElementById('heroKicker').textContent = C.club.name + ' — ' + C.club.established;
   const h1 = document.getElementById('heroH1');
   const before = C.club.tagline.replace(C.club.taglineAccent, '');
   h1.innerHTML = before + '<em>' + C.club.taglineAccent + '</em>';
   document.getElementById('heroCoords').textContent = C.club.coords;
-  document.getElementById('heroStatN').textContent = D.length;
-  document.getElementById('heroStatL').textContent = 'Destinations this year';
+  // document.getElementById('heroStatN').textContent = D.length;
+  // document.getElementById('heroStatL').textContent = 'Coasts this year';
+  if (C.club.heroSub) {
+    const heroSubEl = document.getElementById('heroSub');
+    if (heroSubEl) heroSubEl.textContent = C.club.heroSub;
+  }
 
-  // Ticker — duplicate for seamless loop
-  const ticker = document.getElementById('tickerWrap');
-  let track1 = '<div class="ticker__track" aria-hidden="true">';
-  let track2 = '<div class="ticker__track" aria-hidden="true">';
-  D.forEach(d => {
-    const item = '<div class="ticker__item" data-dest="' + d.name + '" onclick="scrollToSwellMap(\'' + d.name + '\')"><div class="ticker__dot"></div>'
-      + '<span class="ticker__dest">' + d.name + '</span>'
-      + '<span class="ticker__month">' + d.month + '</span></div>';
-    track1 += item;
-    track2 += item;
-  });
-  track1 += '</div>';
-  track2 += '</div>';
-  ticker.innerHTML = track1 + track2;
+  // Hero live pulse — current in-season coasts
+  (function() {
+    const now = new Date();
+    const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const monthLabel = monthNames[now.getMonth()] + ' ' + now.getFullYear();
+    const inSeason = D.filter(function(d) { return isDestInSeason(d, now.getMonth() + 1); });
+    const tagEl = document.getElementById('heroPulseTag');
+    const monthEl = document.getElementById('heroPulseMonth');
+    const countEl = document.getElementById('heroPulseCount');
+    const listEl = document.getElementById('heroPulseList');
+    if (!countEl || !listEl) return;
+    if (monthEl) monthEl.textContent = monthLabel;
+    if (inSeason.length === 0) {
+      if (tagEl) tagEl.textContent = 'Quiet week';
+      countEl.innerHTML = '<em>Between seasons</em>';
+      listEl.textContent = 'Next swell window opens soon — check the calendar.';
+    } else {
+      if (tagEl) tagEl.textContent = 'In season now';
+      const n = inSeason.length;
+      const noun = n === 1 ? 'coast' : 'coasts';
+      countEl.innerHTML = n + ' <em>' + noun + ' working</em>';
+      listEl.innerHTML = inSeason.map(function(d) {
+        return '<a href="#swell" onclick="event.preventDefault();scrollToSwellMap(\'' + d.name + '\');">' + escapeHtml(d.name) + '</a>';
+      }).join(' \u00b7 ');
+    }
+  })();
 
   // Calendar section
-  document.getElementById('calSub').textContent = C.club.heroSub;
+  document.getElementById('calSub').textContent = "Find your month. Each cell points to one coast where the swell and season line up. Cross-checked with surf-forecast.com, weighted by what the crew has actually ridden.";
   const grid = document.getElementById('calGrid');
+  const AUDIENCE_LABEL = {
+    beginner:     'Beginners welcome',
+    intermediate: 'Intermediate',
+    advanced:     'Experienced',
+    all:          'All levels'
+  };
   M.forEach(function(c) {
+    const destObj = D.find(function(d) { return d.name === c.dest; });
+    const region = destObj ? destObj.region : '';
     const cell = document.createElement('div');
     cell.className = 'cal-cell' + (c.highlight ? ' cal-cell--hi' : '');
     cell.setAttribute('role', 'listitem');
-    cell.setAttribute('aria-label', c.month + ': ' + c.dest + ', ' + c.region);
+    cell.setAttribute('aria-label', c.month + ': ' + c.dest + ', ' + region + (c.audience ? ' \u2014 ' + AUDIENCE_LABEL[c.audience] : ''));
     cell.style.cursor = 'pointer';
     cell.onclick = function() { scrollToSwellMap(c.dest); };
     let bars = '';
     for (let i = 0; i < 5; i++) {
       bars += '<div class="cal-cell__bar' + (i < c.swell ? ' cal-cell__bar--on' : '') + '"></div>';
     }
+    const audKey = c.audience || 'all';
+    const pill = '<div class="cal-cell__pill cal-cell__pill--' + audKey + '">' + (AUDIENCE_LABEL[audKey] || 'All levels') + '</div>';
+    const forWho = c.forWho ? '<div class="cal-cell__forwho">' + escapeHtml(c.forWho) + '</div>' : '';
     cell.innerHTML =
       '<div class="cal-cell__month">' + c.month + '</div>'
       + '<div class="cal-cell__dest">' + c.dest + '</div>'
-      + '<div class="cal-cell__region">' + c.region + '</div>'
-      + '<div class="cal-cell__swell">' + bars + '</div>';
+      + '<div class="cal-cell__region">' + escapeHtml(region) + '</div>'
+      + '<div class="cal-cell__swell">' + bars + '</div>'
+      + pill
+      + forWho;
     grid.appendChild(cell);
   });
 
   // Ethos heading
-  document.getElementById('ethosHeading').innerHTML = 'Not a tour.<br>Not a class.<br><em>A frequency.</em>';
+  document.getElementById('ethosHeading').innerHTML = 'Not a tour.<br>Not a class.<br><em>A standing crew.</em>';
   const ethosGrid = document.getElementById('ethosGrid');
   E.forEach(function(e) {
     const cell = document.createElement('div');
@@ -1372,8 +2025,56 @@ document.addEventListener('DOMContentLoaded', function() {
   // Generate swell map SVG
   generateSwellMap(D);
 
+  // Logbook section (Letterboxd-style archive)
+  if (C.logbook) {
+    document.getElementById('logOverline').textContent = C.logbook.overline;
+    const logH = document.getElementById('logHeading');
+    logH.innerHTML = C.logbook.heading.split('\n').map(escapeHtml).join('<br>');
+    document.getElementById('logSub').textContent = C.logbook.sub;
+    const logGrid = document.getElementById('logGrid');
+    const igIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>';
+    C.logbook.entries.forEach(function(entry) {
+      const isLink = !!entry.instagram;
+      const tag = isLink ? 'a' : 'div';
+      const cell = document.createElement(tag);
+      let cls = 'log-cell';
+      if (entry.status === 'upcoming') cls += ' log-cell--upcoming';
+      if (isLink) cls += ' log-cell--link';
+      cell.className = cls;
+      if (isLink) {
+        cell.href = entry.instagram;
+        cell.target = '_blank';
+        cell.rel = 'noopener';
+      }
+      const statusLabel = entry.status === 'logged' ? 'Logged' : 'Up next';
+      const tileInner = entry.photo
+        ? '<img class="log-cell__photo" src="' + escapeAttr(entry.photo) + '"' + (entry.photo2x ? ' srcset="' + escapeAttr(entry.photo) + ' 1x, ' + escapeAttr(entry.photo2x) + ' 2x"' : '') + ' alt="' + escapeAttr(entry.location) + '" loading="lazy" decoding="async">'
+        : '<div class="log-cell__placeholder" aria-hidden="true">?</div>';
+      const igCorner = isLink ? '<span class="log-cell__ig-corner" aria-hidden="true">' + igIcon + '</span>' : '';
+      cell.innerHTML =
+          '<div class="log-cell__tile">'
+        +   '<span class="log-cell__pip">' + statusLabel + '</span>'
+        +   tileInner
+        +   igCorner
+        + '</div>'
+        + '<div class="log-cell__caption">'
+        +   '<span class="log-cell__month">' + escapeHtml(entry.month) + '</span>'
+        +   '<span class="log-cell__location">' + escapeHtml(entry.location) + '</span>'
+        + '</div>';
+      logGrid.appendChild(cell);
+    });
+  }
+
   // Join bar
-  document.getElementById('joinBarText').textContent = C.club.nextTrip;
+  if (C.joinBar) {
+    document.getElementById('joinBarText').textContent = C.joinBar.text;
+    const btn = document.getElementById('joinBarBtn');
+    btn.textContent = C.joinBar.cta;
+    btn.setAttribute('href', '#');
+    btn.onclick = function(e) { e.preventDefault(); openModal(); };
+  } else {
+    document.getElementById('joinBarText').textContent = C.club.nextTrip;
+  }
   document.getElementById('footerLogo').textContent = C.club.name;
   document.getElementById('footerIg').href = C.club.instagram;
 
@@ -1402,77 +2103,276 @@ document.addEventListener('DOMContentLoaded', function() {
 })();
 
 /* ---- Swell Map Functions ---- */
-let currentSwellDest = null;
+
+function isDestInSeason(dest, currentMonth) {
+  if (!dest || !dest.month) return false;
+  const parts = dest.month.split('\u2013').map(s => s.trim().slice(0,3).toLowerCase());
+  if (parts.length === 1) return MONTH_INDEX[parts[0]] === currentMonth;
+  const start = MONTH_INDEX[parts[0]];
+  const end = MONTH_INDEX[parts[1]];
+  if (!start || !end) return false;
+  if (start <= end) return currentMonth >= start && currentMonth <= end;
+  // wraps year-end (e.g. Oct\u2013Mar)
+  return currentMonth >= start || currentMonth <= end;
+}
 
 function generateSwellMap(destinations) {
   const svg = document.getElementById('swellMap');
   const ns = 'http://www.w3.org/2000/svg';
-  
-  // Clear existing content
   svg.innerHTML = '';
-  
+
+  // viewBox 1000 x 520, margins for graticule labels
+  const VB_W = 1000, VB_H = 520;
+  const PAD_L = 80, PAD_R = 60, PAD_T = 60, PAD_B = 60;
+  const LAT_MIN = 4, LAT_MAX = 17;       // degrees N (south Sri Lanka to north Goa)
+  const LNG_MIN = 72, LNG_MAX = 83;      // degrees E (Mumbai-ish to east Sri Lanka)
+  const innerW = VB_W - PAD_L - PAD_R;
+  const innerH = VB_H - PAD_T - PAD_B;
+  const projX = lng => PAD_L + ((lng - LNG_MIN) / (LNG_MAX - LNG_MIN)) * innerW;
+  const projY = lat => PAD_T + ((LAT_MAX - lat) / (LAT_MAX - LAT_MIN)) * innerH;
+
   // Background
   const bg = document.createElementNS(ns, 'rect');
-  bg.setAttribute('width', '600');
-  bg.setAttribute('height', '700');
+  bg.setAttribute('width', String(VB_W));
+  bg.setAttribute('height', String(VB_H));
   bg.setAttribute('fill', '#fefdfb');
   svg.appendChild(bg);
-  
-  // Grid lines
-  for (let i = 0; i < 7; i++) {
-    const line = document.createElementNS(ns, 'line');
-    line.setAttribute('x1', String(100 + i * 80));
-    line.setAttribute('y1', '0');
-    line.setAttribute('x2', String(100 + i * 80));
-    line.setAttribute('y2', '700');
-    line.setAttribute('class', 'swell-map-grid');
-    svg.appendChild(line);
+
+  // ClipPath so coastlines that extend beyond viewport get cleanly cropped
+  const defs = document.createElementNS(ns, 'defs');
+  const clip = document.createElementNS(ns, 'clipPath');
+  clip.setAttribute('id', 'swellMapClip');
+  const clipRect = document.createElementNS(ns, 'rect');
+  clipRect.setAttribute('width', String(VB_W));
+  clipRect.setAttribute('height', String(VB_H));
+  clip.appendChild(clipRect);
+  defs.appendChild(clip);
+  svg.appendChild(defs);
+
+  // Coast group (clipped)
+  const coastGroup = document.createElementNS(ns, 'g');
+  coastGroup.setAttribute('clip-path', 'url(#swellMapClip)');
+  svg.appendChild(coastGroup);
+
+  // Coastlines (simplified, decorative — built from lat/lng pairs)
+  // India west coast: Mumbai → Kanyakumari (anchored to real coastal towns/headlands)
+  const indiaWestCoast = [
+    [19.07, 72.88], [18.65, 72.95], [18.30, 72.98], [17.95, 73.10],
+    [17.50, 73.15], [17.00, 73.20], [16.50, 73.30], [16.00, 73.45],
+    [15.85, 73.65], [15.55, 73.75], [15.25, 73.95], [14.90, 74.10],
+    [14.55, 74.32], [14.10, 74.45], [13.70, 74.60], [13.34, 74.70],
+    [13.09, 74.78], [12.87, 74.85], [12.50, 74.95], [12.00, 75.10],
+    [11.55, 75.55], [11.25, 75.78], [10.80, 75.95], [10.50, 76.10],
+    [10.00, 76.27], [9.50, 76.45], [9.00, 76.55], [8.74, 76.71],
+    [8.50, 76.92], [8.30, 77.10], [8.20, 77.35], [8.08, 77.55]
+  ];
+  // India east coast: Kanyakumari → Vizag, looping through Palk Strait
+  const indiaEastCoast = [
+    [8.08, 77.55], [8.18, 77.85], [8.40, 78.00], [8.78, 78.13],
+    [9.10, 78.50], [9.28, 79.31], [9.55, 79.40], [9.85, 79.30],
+    [10.20, 79.40], [10.50, 79.65], [10.77, 79.85], [11.20, 79.85],
+    [11.60, 79.85], [11.93, 79.83], [12.40, 80.05], [12.79, 80.25],
+    [13.08, 80.27], [13.50, 80.30], [14.00, 80.20], [14.48, 80.18],
+    [15.00, 80.10], [15.50, 80.05], [15.80, 80.55], [16.10, 81.10],
+    [16.55, 81.45], [17.00, 82.20], [17.40, 82.85], [17.69, 83.30]
+  ];
+  // Sri Lanka (clockwise from Point Pedro, closed)
+  const sriLanka = [
+    [9.83, 80.23], [9.55, 80.50], [9.10, 80.95], [8.55, 81.30],
+    [8.00, 81.55], [7.50, 81.78], [7.00, 81.85], [6.84, 81.83],
+    [6.40, 81.50], [6.10, 81.10], [5.95, 80.65], [5.95, 80.20],
+    [6.05, 80.05], [6.20, 79.98], [6.50, 79.92], [6.93, 79.84],
+    [7.30, 79.82], [7.60, 79.78], [8.00, 79.73], [8.40, 79.73],
+    [8.85, 79.80], [9.20, 79.85], [9.55, 80.05], [9.83, 80.23]
+  ];
+  function pathFromCoords(coords, closed) {
+    let d = '';
+    coords.forEach(function(p, i) {
+      const x = projX(p[1]).toFixed(1);
+      const y = projY(p[0]).toFixed(1);
+      d += (i === 0 ? 'M' : 'L') + x + ' ' + y + ' ';
+    });
+    if (closed) d += 'Z';
+    return d;
   }
-  for (let i = 0; i < 8; i++) {
-    const line = document.createElementNS(ns, 'line');
-    line.setAttribute('x1', '0');
-    line.setAttribute('y1', String(100 + i * 75));
-    line.setAttribute('x2', '600');
-    line.setAttribute('y2', String(100 + i * 75));
-    line.setAttribute('class', 'swell-map-grid');
-    svg.appendChild(line);
+  function appendCoast(d, closed) {
+    const p = document.createElementNS(ns, 'path');
+    p.setAttribute('d', d);
+    p.setAttribute('class', 'swell-map-coast' + (closed ? ' swell-map-coast--fill' : ''));
+    coastGroup.appendChild(p);
   }
-  
-  // Simplified coastline (India + Sri Lanka + Indonesia)
-  const coastPath = 'M 40 400 Q 80 380 120 420 Q 180 460 200 500 Q 220 540 200 580 Q 180 600 150 620 L 200 650 Q 220 640 240 650 L 280 620 Q 300 580 320 540 Q 340 480 340 420 Q 350 380 300 350 Q 250 340 200 360 Q 140 350 100 340 L 80 360 Z';
-  const coast = document.createElementNS(ns, 'path');
-  coast.setAttribute('d', coastPath);
-  coast.setAttribute('class', 'swell-map-coastline');
-  coast.setAttribute('stroke-width', '1.5');
-  svg.appendChild(coast);
-  
-  // Create pins for each destination
-  destinations.forEach(function(dest) {
+  appendCoast(pathFromCoords(indiaWestCoast, false), false);
+  appendCoast(pathFromCoords(indiaEastCoast, false), false);
+  appendCoast(pathFromCoords(sriLanka, true), true);
+
+  // Async upgrade: replace simplified outlines with real Natural Earth coastlines
+  // Loaded from jsDelivr CDN, filtered to India + Sri Lanka, projected through projX/projY.
+  // Falls back silently to the simplified inline version above (e.g. on file:// or offline).
+  (function upgradeCoastlines() {
+    const GEO_URL = 'https://cdn.jsdelivr.net/gh/nvkelso/natural-earth-vector@master/geojson/ne_50m_admin_0_countries.geojson';
+    if (typeof fetch !== 'function') return;
+    fetch(GEO_URL, { mode: 'cors' }).then(function(r) {
+      if (!r.ok) throw new Error('geojson fetch failed');
+      return r.json();
+    }).then(function(geo) {
+      const wantIso = { 'IND': true, 'LKA': true };
+      const features = (geo.features || []).filter(function(f) {
+        const p = f.properties || {};
+        return wantIso[p.ISO_A3] || wantIso[p.ADM0_A3] || p.NAME === 'India' || p.NAME === 'Sri Lanka';
+      });
+      if (!features.length) return;
+      // Remove existing simplified coast paths
+      Array.prototype.forEach.call(coastGroup.querySelectorAll('.swell-map-coast'), function(n) { n.parentNode.removeChild(n); });
+      function ringToPath(ring) {
+        let d = '';
+        for (let i = 0; i < ring.length; i++) {
+          const lng = ring[i][0], lat = ring[i][1];
+          const x = projX(lng).toFixed(1);
+          const y = projY(lat).toFixed(1);
+          d += (i === 0 ? 'M' : 'L') + x + ' ' + y + ' ';
+        }
+        return d + 'Z';
+      }
+      // Insert each polygon directly after the bg rect (so coast sits below graticule + pins)
+      features.forEach(function(feat) {
+        const geom = feat.geometry;
+        const polys = (geom.type === 'MultiPolygon') ? geom.coordinates : [geom.coordinates];
+        polys.forEach(function(poly) {
+          // poly is array of rings; outer + holes. We render outer only for simplicity.
+          if (!poly[0]) return;
+          let d = ringToPath(poly[0]);
+          for (let h = 1; h < poly.length; h++) d += ' ' + ringToPath(poly[h]);
+          const p = document.createElementNS(ns, 'path');
+          p.setAttribute('d', d);
+          p.setAttribute('class', 'swell-map-coast swell-map-coast--fill');
+          p.setAttribute('fill-rule', 'evenodd');
+          coastGroup.appendChild(p);
+        });
+      });
+    }).catch(function() { /* keep fallback */ });
+  })();
+
+  // Graticule (lat/lng grid)
+  for (let lng = LNG_MIN; lng <= LNG_MAX; lng++) {
+    const line = document.createElementNS(ns, 'line');
+    const x = projX(lng);
+    line.setAttribute('x1', String(x));
+    line.setAttribute('y1', String(PAD_T));
+    line.setAttribute('x2', String(x));
+    line.setAttribute('y2', String(VB_H - PAD_B));
+    line.setAttribute('class', 'swell-map-grid' + (lng % 5 === 0 ? ' swell-map-grid--major' : ''));
+    svg.appendChild(line);
+    if (lng % 2 === 0) {
+      const lbl = document.createElementNS(ns, 'text');
+      lbl.setAttribute('x', String(x));
+      lbl.setAttribute('y', String(VB_H - PAD_B + 18));
+      lbl.setAttribute('text-anchor', 'middle');
+      lbl.setAttribute('class', 'swell-map-graticule-label');
+      lbl.textContent = lng + '\u00b0E';
+      svg.appendChild(lbl);
+    }
+  }
+  for (let lat = LAT_MIN; lat <= LAT_MAX; lat++) {
+    const line = document.createElementNS(ns, 'line');
+    const y = projY(lat);
+    line.setAttribute('x1', String(PAD_L));
+    line.setAttribute('y1', String(y));
+    line.setAttribute('x2', String(VB_W - PAD_R));
+    line.setAttribute('y2', String(y));
+    line.setAttribute('class', 'swell-map-grid' + (lat % 5 === 0 ? ' swell-map-grid--major' : ''));
+    svg.appendChild(line);
+    if (lat % 2 === 0) {
+      const lbl = document.createElementNS(ns, 'text');
+      lbl.setAttribute('x', String(PAD_L - 10));
+      lbl.setAttribute('y', String(y + 3));
+      lbl.setAttribute('text-anchor', 'end');
+      lbl.setAttribute('class', 'swell-map-graticule-label');
+      lbl.textContent = lat + '\u00b0N';
+      svg.appendChild(lbl);
+    }
+  }
+
+  // Reference cities for orientation
+  const refs = [
+    { name: 'Bangalore',  lat: 12.97, lng: 77.59, home: true,  dx: 8,  dy: -8  },
+    { name: 'Chennai',    lat: 13.08, lng: 80.27, home: false, dx: 8,  dy: -8  },
+    { name: 'Colombo',    lat: 6.93,  lng: 79.84, home: false, dx: -8, dy: -8, anchor: 'end' },
+  ];
+  refs.forEach(function(r) {
     const g = document.createElementNS(ns, 'g');
-    g.setAttribute('class', 'swell-map-pin');
+    g.setAttribute('class', 'swell-map-ref' + (r.home ? ' swell-map-ref--home' : ''));
+    const cx = projX(r.lng), cy = projY(r.lat);
+    const c = document.createElementNS(ns, 'circle');
+    c.setAttribute('cx', String(cx));
+    c.setAttribute('cy', String(cy));
+    c.setAttribute('r', r.home ? '5' : '2.5');
+    g.appendChild(c);
+    const t = document.createElementNS(ns, 'text');
+    t.setAttribute('x', String(cx + r.dx));
+    t.setAttribute('y', String(cy + r.dy));
+    if (r.anchor) t.setAttribute('text-anchor', r.anchor);
+    t.textContent = r.home ? r.name + ' \u2014 home' : r.name;
+    g.appendChild(t);
+    svg.appendChild(g);
+  });
+
+  // Current month for in-season highlighting
+  const now = new Date();
+  const currentMonth = now.getMonth() + 1;
+
+  // Surf-spot pins
+  destinations.forEach(function(dest) {
+    if (typeof dest.lat !== 'number' || typeof dest.lng !== 'number') return;
+    const cx = projX(dest.lng);
+    const cy = projY(dest.lat);
+    const inSeason = isDestInSeason(dest, currentMonth);
+    const radius = 4 + (dest.swell || 3) * 0.9; // 5 swell -> 8.5px, 3 -> 6.7px
+
+    const g = document.createElementNS(ns, 'g');
+    g.setAttribute('class', 'swell-map-pin ' + (inSeason ? 'swell-map-pin--on' : 'swell-map-pin--off'));
     g.setAttribute('data-dest', dest.name);
-    g.onclick = function(e) { 
-      e.stopPropagation(); 
+    g.onclick = function(e) {
+      e.stopPropagation();
       displaySwellInfo(dest.name);
       scrollToSwellMap(dest.name);
     };
-    
-    // Circle pin
+
+    if (inSeason) {
+      const pulse = document.createElementNS(ns, 'circle');
+      pulse.setAttribute('class', 'pin-pulse');
+      pulse.setAttribute('cx', String(cx));
+      pulse.setAttribute('cy', String(cy));
+      pulse.setAttribute('r', String(radius));
+      g.appendChild(pulse);
+    }
+
     const circle = document.createElementNS(ns, 'circle');
-    circle.setAttribute('cx', String(dest.svgX));
-    circle.setAttribute('cy', String(dest.svgY));
-    circle.setAttribute('r', '4');
+    circle.setAttribute('cx', String(cx));
+    circle.setAttribute('cy', String(cy));
+    circle.setAttribute('r', String(radius));
     g.appendChild(circle);
-    
-    // Text label (hidden by default)
+
     const text = document.createElementNS(ns, 'text');
-    text.setAttribute('x', String(dest.svgX));
-    text.setAttribute('y', String(dest.svgY - 12));
+    text.setAttribute('x', String(cx));
+    text.setAttribute('y', String(cy - radius - 6));
     text.textContent = dest.name;
     g.appendChild(text);
-    
+
     svg.appendChild(g);
   });
+
+  // Populate the "in season now" ribbon
+  const list = document.getElementById('swellMapNowList');
+  if (list) {
+    const inSeason = destinations.filter(d => isDestInSeason(d, currentMonth));
+    if (inSeason.length === 0) {
+      list.textContent = 'between seasons';
+    } else {
+      list.innerHTML = inSeason.map(d =>
+        '<a href="#swell" data-dest="' + d.name + '" onclick="event.preventDefault();scrollToSwellMap(\'' + d.name + '\');">' + d.name + '</a>'
+      ).join(' \u00b7 ');
+    }
+  }
 }
 
 function scrollToSwellMap(destName) {
@@ -1504,8 +2404,26 @@ function displaySwellInfo(destName) {
   document.getElementById('swellInfoCoords').textContent = dest.coords;
   document.getElementById('swellInfoTemp').textContent = dest.temp;
   document.getElementById('swellInfoDiff').textContent = dest.difficulty;
+  const seasonEl = document.getElementById('swellInfoSeason');
+  if (seasonEl) {
+    const nowMonth = new Date().getMonth() + 1;
+    const inNow = isDestInSeason(dest, nowMonth);
+    seasonEl.textContent = dest.month + (inNow ? '  — in season now' : '  — off season');
+    seasonEl.style.color = inNow ? 'var(--wave-d)' : 'var(--mist)';
+  }
   document.getElementById('swellInfoQuote').textContent = dest.quote;
-  
+
+  // Per-spot reference link (real source: surf-forecast.com)
+  const refs = document.getElementById('swellInfoRefs');
+  if (refs) {
+    if (dest.sourceUrl) {
+      refs.innerHTML = '<span>Spot data:</span> '
+        + '<a href="' + dest.sourceUrl + '" target="_blank" rel="noopener">surf-forecast.com / ' + dest.name + ' \u2197</a>';
+    } else {
+      refs.innerHTML = '';
+    }
+  }
+
   // Swell bars
   const barsContainer = document.getElementById('swellInfoBars');
   barsContainer.innerHTML = '';
@@ -1594,6 +2512,37 @@ document.getElementById('joinForm').addEventListener('submit', function(e) {
       document.getElementById('formSuccess').style.display = 'block';
     });
 });
+
+/* ---- SCROLL REVEAL ---- */
+(function() {
+  if (!('IntersectionObserver' in window)) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  // Targets: section intros + ethos cells + faq items + the join bar
+  var targets = [].concat(
+    Array.prototype.slice.call(document.querySelectorAll('.section__intro')),
+    Array.prototype.slice.call(document.querySelectorAll('.ethos-cell')),
+    Array.prototype.slice.call(document.querySelectorAll('.ethos-mission')),
+    Array.prototype.slice.call(document.querySelectorAll('.faq-item')),
+    Array.prototype.slice.call(document.querySelectorAll('.join-bar'))
+  );
+  targets.forEach(function(el, i) {
+    el.classList.add('reveal');
+    if (i % 3 === 1) el.classList.add('reveal--delay-1');
+    if (i % 3 === 2) el.classList.add('reveal--delay-2');
+  });
+
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  targets.forEach(function(el) { io.observe(el); });
+})();
 </script>
 </body>
 </html>
