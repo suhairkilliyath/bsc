@@ -8,6 +8,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+<!-- Leaflet (OpenStreetMap) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
 <!-- ============================================================
      CONTENT CONFIG — Edit everything here
      ============================================================ -->
@@ -709,12 +713,13 @@ body {
 .swell-map {
   width: 100%;
   max-width: 1040px;
-  height: clamp(320px, 50vw, 540px);
+  height: clamp(360px, 56vw, 580px);
   display: block;
   border: 1px solid var(--border);
   background: #dfe9ee;
   margin: 0 auto;
   border-radius: 4px;
+  overflow: hidden;
 }
 
 .swell-map-note {
@@ -725,123 +730,153 @@ body {
   margin: 12px 0 0;
 }
 
-.swell-map-coastline {
-  stroke: var(--mist);
-  stroke-width: 1.5;
-  fill: none;
-}
-
-.swell-map-coast {
-  stroke: rgba(74,109,124,0.55);
-  stroke-width: 0.6;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-  fill: none;
-}
-.swell-map-coast--fill {
-  fill: #f6efe1;
-}
-
-.swell-map-grid { display: none; }
-.swell-map-grid--major { display: none; }
-.swell-map-graticule-label { display: none; }
-
-.swell-map-ref {
-  pointer-events: none;
-}
-.swell-map-ref circle {
-  fill: var(--ink);
-  opacity: 0.55;
-}
-.swell-map-ref text {
+/* ---- Leaflet container tweaks ---- */
+.leaflet-container {
   font-family: var(--mono);
   font-size: 10px;
-  letter-spacing: 0.10em;
-  fill: var(--mist);
-  text-transform: uppercase;
-  text-anchor: start;
-  paint-order: stroke fill;
-  stroke: #fefdfb;
-  stroke-width: 3;
-  stroke-linejoin: round;
+  background: #dfe9ee;
 }
-.swell-map-ref--home circle { fill: var(--wave); opacity: 1; r: 5; }
-.swell-map-ref--home text { fill: var(--wave-d); font-weight: 500; }
+.leaflet-container a { color: var(--wave-d); }
+.leaflet-control-attribution {
+  font-size: 9px !important;
+  background: rgba(255,255,255,0.78) !important;
+  padding: 2px 6px !important;
+  letter-spacing: 0;
+}
+.leaflet-bar a {
+  background: #fff;
+  color: var(--ink);
+  border-bottom: 1px solid var(--border) !important;
+}
+.leaflet-bar a:hover { background: var(--sand); }
+.leaflet-touch .leaflet-bar a { width: 32px; height: 32px; line-height: 32px; }
 
-.swell-map-pin {
-  cursor: pointer;
-  transition: all 0.2s var(--ease);
-  user-select: none;
+/* ---- Reference city markers (Bangalore / Chennai / Colombo) ---- */
+.swell-map-ref-icon {
+  pointer-events: none;
 }
-.swell-map-pin .pin-hit {
-  fill: transparent;
-  pointer-events: all;
-}
-
-.swell-map-pin circle {
-  fill: var(--wave);
-  transition: opacity 0.2s, r 0.2s, fill 0.2s;
-}
-
-.swell-map-pin--off circle {
-  fill: var(--mist);
-  opacity: 0.32;
-}
-.swell-map-pin--off text {
-  fill: var(--mist);
+.swell-map-ref-icon .ref-dot {
+  position: absolute;
+  top: 0; left: 0;
+  transform: translate(-50%, -50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ink);
   opacity: 0.55;
 }
-
-.swell-map-pin--on circle {
-  fill: var(--wave);
-  opacity: 1;
+.swell-map-ref-icon .ref-label {
+  position: absolute;
+  top: 0;
+  left: 8px;
+  transform: translateY(-50%);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--mist);
+  white-space: nowrap;
+  background: rgba(255,255,255,0.82);
+  padding: 1px 5px;
+  border-radius: 2px;
 }
-.swell-map-pin--on .pin-pulse {
-  fill: var(--wave);
-  opacity: 0.30;
+.swell-map-ref-icon--home .ref-home {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--wave);
+  color: #fff;
+  box-shadow: 0 0 0 2px #fff, 0 1px 4px rgba(10,31,23,0.30);
+}
+.swell-map-ref-icon--home .ref-home svg {
+  display: block;
+}
+
+/* ---- Surf-spot pins (Leaflet divIcons) ---- */
+.swell-pin-wrap { background: transparent !important; border: 0 !important; }
+.swell-map-pin {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.swell-map-pin .pin-dot {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--wave);
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(10,31,23,0.30);
+  transition: transform 0.2s var(--ease), background 0.2s, border-color 0.2s;
+}
+.swell-map-pin .pin-pulse {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--wave);
+  opacity: 0.4;
+  pointer-events: none;
   animation: pin-pulse 2.4s ease-out infinite;
-  transform-origin: center;
-  transform-box: fill-box;
 }
 @keyframes pin-pulse {
-  0%   { transform: scale(0.6); opacity: 0.55; }
-  100% { transform: scale(2.6); opacity: 0; }
+  0%   { transform: translate(-50%, -50%) scale(0.6); opacity: 0.55; }
+  100% { transform: translate(-50%, -50%) scale(3.2); opacity: 0; }
+}
+.swell-map-pin .pin-label {
+  position: absolute;
+  bottom: calc(50% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  white-space: nowrap;
+  background: rgba(255,255,255,0.88);
+  padding: 2px 6px;
+  border-radius: 3px;
+  pointer-events: none;
+  box-shadow: 0 1px 2px rgba(10,31,23,0.10);
+}
+.swell-map-pin--off .pin-dot {
+  background: var(--mist);
+  opacity: 0.7;
+}
+.swell-map-pin--off .pin-label {
+  color: var(--mist);
+  background: rgba(255,255,255,0.78);
+}
+.swell-map-pin:hover .pin-dot {
+  transform: translate(-50%, -50%) scale(1.2);
+}
+.swell-map-pin.active .pin-dot {
+  background: var(--wave-d);
+  transform: translate(-50%, -50%) scale(1.35);
+}
+.swell-map-pin--off.active .pin-dot {
+  background: var(--ink);
+  border-color: var(--wave-d);
+}
+.swell-map-pin--off.active .pin-label {
+  color: var(--ink);
+  background: rgba(255,255,255,0.95);
 }
 @media (prefers-reduced-motion: reduce) {
-  .swell-map-pin--on .pin-pulse { animation: none; opacity: 0.20; }
-}
-
-.swell-map-pin text {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.04em;
-  fill: var(--ink);
-  pointer-events: none;
-  text-anchor: middle;
-  paint-order: stroke fill;
-  stroke: #fefdfb;
-  stroke-width: 3.5;
-  stroke-linejoin: round;
-  transition: opacity 0.2s, fill 0.2s;
-}
-
-.swell-map-pin:hover circle {
-  opacity: 1;
-}
-
-.swell-map-pin--on.active circle {
-  fill: var(--wave-d);
-  opacity: 1;
-}
-.swell-map-pin--off.active circle {
-  fill: var(--ink);
-  opacity: 1;
-  stroke: var(--wave-d);
-  stroke-width: 1.5;
-}
-.swell-map-pin--off.active text {
-  fill: var(--ink);
-  opacity: 1;
+  .swell-map-pin .pin-pulse { animation: none; opacity: 0.25; }
 }
 
 /* Skill-level filter */
@@ -1843,7 +1878,7 @@ body {
       <button class="swell-map-filter__btn" type="button" data-level="intermediate">Intermediate</button>
       <button class="swell-map-filter__btn" type="button" data-level="advanced">Experienced</button>
     </div>
-    <svg class="swell-map" id="swellMap" viewBox="0 0 1000 520" width="1000" height="520" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-label="Coastal destinations map"></svg>
+    <div class="swell-map" id="swellMap" role="region" aria-label="Coastal destinations map"></div>
     <div class="swell-map-legend" aria-hidden="true">
       <span class="swell-map-legend__item"><span class="swell-map-legend__dot swell-map-legend__dot--on"></span> In season</span>
       <span class="swell-map-legend__item"><span class="swell-map-legend__dot swell-map-legend__dot--off"></span> Off-season</span>
@@ -2304,229 +2339,138 @@ function parsePinLevels(diff) {
 }
 
 function generateSwellMap(destinations) {
-  const svg = document.getElementById('swellMap');
-  const ns = 'http://www.w3.org/2000/svg';
-  svg.innerHTML = '';
+  const mapEl = document.getElementById('swellMap');
+  if (!mapEl) return;
 
-  // viewBox 1000 x 520, margins for graticule labels
-  const VB_W = 1000, VB_H = 520;
-  const PAD_L = 80, PAD_R = 60, PAD_T = 60, PAD_B = 60;
-  const LAT_MIN = 4, LAT_MAX = 17;       // degrees N (south Sri Lanka to north Goa)
-  const LNG_MIN = 72, LNG_MAX = 83;      // degrees E (Mumbai-ish to east Sri Lanka)
-  const innerW = VB_W - PAD_L - PAD_R;
-  const innerH = VB_H - PAD_T - PAD_B;
-  const projX = lng => PAD_L + ((lng - LNG_MIN) / (LNG_MAX - LNG_MIN)) * innerW;
-  const projY = lat => PAD_T + ((LAT_MAX - lat) / (LAT_MAX - LAT_MIN)) * innerH;
+  // Leaflet is loaded with `defer`, so it may not be ready when this IIFE runs.
+  // Retry on window load (or shortly after) once L is on the global.
+  if (typeof L === 'undefined') {
+    if (window._swellMapWaiting) return;
+    window._swellMapWaiting = true;
+    const retry = function() { window._swellMapWaiting = false; generateSwellMap(destinations); };
+    if (document.readyState === 'complete') setTimeout(retry, 50);
+    else window.addEventListener('load', retry, { once: true });
+    return;
+  }
 
-  // Background (ocean)
-  const bg = document.createElementNS(ns, 'rect');
-  bg.setAttribute('width', String(VB_W));
-  bg.setAttribute('height', String(VB_H));
-  bg.setAttribute('fill', '#dfe9ee');
-  svg.appendChild(bg);
-
-  // ClipPath so coastlines that extend beyond viewport get cleanly cropped
-  const defs = document.createElementNS(ns, 'defs');
-  const clip = document.createElementNS(ns, 'clipPath');
-  clip.setAttribute('id', 'swellMapClip');
-  const clipRect = document.createElementNS(ns, 'rect');
-  clipRect.setAttribute('width', String(VB_W));
-  clipRect.setAttribute('height', String(VB_H));
-  clip.appendChild(clipRect);
-  defs.appendChild(clip);
-  svg.appendChild(defs);
-
-  // Coast group (clipped)
-  const coastGroup = document.createElementNS(ns, 'g');
-  coastGroup.setAttribute('clip-path', 'url(#swellMapClip)');
-  svg.appendChild(coastGroup);
-
-  // Coastlines (simplified, decorative — built from lat/lng pairs)
-  // India west coast: Mumbai → Kanyakumari (anchored to real coastal towns/headlands)
-  const indiaWestCoast = [
-    [19.07, 72.88], [18.65, 72.95], [18.30, 72.98], [17.95, 73.10],
-    [17.50, 73.15], [17.00, 73.20], [16.50, 73.30], [16.00, 73.45],
-    [15.85, 73.65], [15.55, 73.75], [15.25, 73.95], [14.90, 74.10],
-    [14.55, 74.32], [14.10, 74.45], [13.70, 74.60], [13.34, 74.70],
-    [13.09, 74.78], [12.87, 74.85], [12.50, 74.95], [12.00, 75.10],
-    [11.55, 75.55], [11.25, 75.78], [10.80, 75.95], [10.50, 76.10],
-    [10.00, 76.27], [9.50, 76.45], [9.00, 76.55], [8.74, 76.71],
-    [8.50, 76.92], [8.30, 77.10], [8.20, 77.35], [8.08, 77.55]
-  ];
-  // India east coast: Kanyakumari → Vizag, looping through Palk Strait
-  const indiaEastCoast = [
-    [8.08, 77.55], [8.18, 77.85], [8.40, 78.00], [8.78, 78.13],
-    [9.10, 78.50], [9.28, 79.31], [9.55, 79.40], [9.85, 79.30],
-    [10.20, 79.40], [10.50, 79.65], [10.77, 79.85], [11.20, 79.85],
-    [11.60, 79.85], [11.93, 79.83], [12.40, 80.05], [12.79, 80.25],
-    [13.08, 80.27], [13.50, 80.30], [14.00, 80.20], [14.48, 80.18],
-    [15.00, 80.10], [15.50, 80.05], [15.80, 80.55], [16.10, 81.10],
-    [16.55, 81.45], [17.00, 82.20], [17.40, 82.85], [17.69, 83.30]
-  ];
-  // Sri Lanka (clockwise from Point Pedro, closed)
-  const sriLanka = [
-    [9.83, 80.23], [9.55, 80.50], [9.10, 80.95], [8.55, 81.30],
-    [8.00, 81.55], [7.50, 81.78], [7.00, 81.85], [6.84, 81.83],
-    [6.40, 81.50], [6.10, 81.10], [5.95, 80.65], [5.95, 80.20],
-    [6.05, 80.05], [6.20, 79.98], [6.50, 79.92], [6.93, 79.84],
-    [7.30, 79.82], [7.60, 79.78], [8.00, 79.73], [8.40, 79.73],
-    [8.85, 79.80], [9.20, 79.85], [9.55, 80.05], [9.83, 80.23]
-  ];
-  function pathFromCoords(coords, closed) {
-    let d = '';
-    coords.forEach(function(p, i) {
-      const x = projX(p[1]).toFixed(1);
-      const y = projY(p[0]).toFixed(1);
-      d += (i === 0 ? 'M' : 'L') + x + ' ' + y + ' ';
+  // Local HTML escaper (escapeHtml in this file lives inside the renderer IIFE)
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function(c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
-    if (closed) d += 'Z';
-    return d;
-  }
-  function appendCoast(d, closed) {
-    const p = document.createElementNS(ns, 'path');
-    p.setAttribute('d', d);
-    p.setAttribute('class', 'swell-map-coast' + (closed ? ' swell-map-coast--fill' : ''));
-    coastGroup.appendChild(p);
-  }
-  appendCoast(pathFromCoords(indiaWestCoast, false), false);
-  appendCoast(pathFromCoords(indiaEastCoast, false), false);
-  appendCoast(pathFromCoords(sriLanka, true), true);
-
-  // Async upgrade: replace simplified outlines with real Natural Earth coastlines
-  // Loaded from jsDelivr CDN, filtered to India + Sri Lanka, projected through projX/projY.
-  // Falls back silently to the simplified inline version above (e.g. on file:// or offline).
-  // Lazy-loaded: only fetched when the swell map enters the viewport.
-  function upgradeCoastlines() {
-    // 10m = 1:10 million scale Natural Earth — 5× more detail than 50m.
-    // Gives the recognizable Konkan/Kerala curvature and Sri Lanka's southern bulge.
-    const GEO_URL = 'https://cdn.jsdelivr.net/gh/nvkelso/natural-earth-vector@master/geojson/ne_10m_admin_0_countries.geojson';
-    if (typeof fetch !== 'function') return;
-    fetch(GEO_URL, { mode: 'cors' }).then(function(r) {
-      if (!r.ok) throw new Error('geojson fetch failed');
-      return r.json();
-    }).then(function(geo) {
-      const wantIso = { 'IND': true, 'LKA': true };
-      const features = (geo.features || []).filter(function(f) {
-        const p = f.properties || {};
-        return wantIso[p.ISO_A3] || wantIso[p.ADM0_A3] || p.NAME === 'India' || p.NAME === 'Sri Lanka';
-      });
-      if (!features.length) return;
-      // Remove existing simplified coast paths
-      Array.prototype.forEach.call(coastGroup.querySelectorAll('.swell-map-coast'), function(n) { n.parentNode.removeChild(n); });
-      function ringToPath(ring) {
-        let d = '';
-        for (let i = 0; i < ring.length; i++) {
-          const lng = ring[i][0], lat = ring[i][1];
-          const x = projX(lng).toFixed(1);
-          const y = projY(lat).toFixed(1);
-          d += (i === 0 ? 'M' : 'L') + x + ' ' + y + ' ';
-        }
-        return d + 'Z';
-      }
-      features.forEach(function(feat) {
-        const geom = feat.geometry;
-        const polys = (geom.type === 'MultiPolygon') ? geom.coordinates : [geom.coordinates];
-        polys.forEach(function(poly) {
-          if (!poly[0]) return;
-          let d = ringToPath(poly[0]);
-          for (let h = 1; h < poly.length; h++) d += ' ' + ringToPath(poly[h]);
-          const p = document.createElementNS(ns, 'path');
-          p.setAttribute('d', d);
-          p.setAttribute('class', 'swell-map-coast swell-map-coast--fill');
-          p.setAttribute('fill-rule', 'evenodd');
-          coastGroup.appendChild(p);
-        });
-      });
-    }).catch(function() { /* keep fallback */ });
   }
 
-  // Eager fetch — start as soon as the map renders so the simplified
-  // fallback never has time to be visible. ~250KB gzipped from jsDelivr CDN.
-  if ('requestIdleCallback' in window) {
-    requestIdleCallback(upgradeCoastlines, { timeout: 800 });
-  } else {
-    setTimeout(upgradeCoastlines, 0);
-  }
+  // Clear any prior render (Leaflet stamps its own DOM inside)
+  mapEl.innerHTML = '';
 
-  // Graticule removed for cleaner map look
+  const map = L.map(mapEl, {
+    center: [11.5, 78.5],
+    zoom: 6,
+    minZoom: 5,
+    maxZoom: 12,
+    zoomControl: true,
+    scrollWheelZoom: false,        // don't hijack page scroll
+    doubleClickZoom: true,
+    keyboard: true,
+    worldCopyJump: false,
+    attributionControl: true,
+  });
+
+  // Enable scroll-zoom only after user interacts with the map
+  map.once('focus click', function() { map.scrollWheelZoom.enable(); });
+
+  // CartoDB Positron tiles — pale grey, minimal labels. Lets the pins pop.
+  // Free, no API key. Attribution required.
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+    maxZoom: 19,
+    crossOrigin: true,
+    subdomains: 'abcd',
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+  }).addTo(map);
+
+  // Subtle graticule overlay (every 2°)
+  const grat = L.layerGroup().addTo(map);
+  for (let lat = 4; lat <= 18; lat += 2) {
+    L.polyline([[lat, 70], [lat, 84]], {
+      color: '#0e0e0e', weight: 0.5, opacity: 0.18,
+      dashArray: '2,5', interactive: false,
+    }).addTo(grat);
+  }
+  for (let lng = 70; lng <= 84; lng += 2) {
+    L.polyline([[4, lng], [18, lng]], {
+      color: '#0e0e0e', weight: 0.5, opacity: 0.18,
+      dashArray: '2,5', interactive: false,
+    }).addTo(grat);
+  }
 
   // Reference cities for orientation
   const refs = [
-    { name: 'Bangalore',  lat: 12.97, lng: 77.59, home: true,  dx: 8,  dy: -8  },
-    { name: 'Chennai',    lat: 13.08, lng: 80.27, home: false, dx: 8,  dy: -8  },
-    { name: 'Colombo',    lat: 6.93,  lng: 79.84, home: false, dx: -8, dy: -8, anchor: 'end' },
+    { name: 'Bangalore', lat: 12.97, lng: 77.59, home: true  },
+    { name: 'Chennai',   lat: 13.08, lng: 80.27, home: false },
+    { name: 'Colombo',   lat: 6.93,  lng: 79.84, home: false },
   ];
   refs.forEach(function(r) {
-    const g = document.createElementNS(ns, 'g');
-    g.setAttribute('class', 'swell-map-ref' + (r.home ? ' swell-map-ref--home' : ''));
-    const cx = projX(r.lng), cy = projY(r.lat);
-    const c = document.createElementNS(ns, 'circle');
-    c.setAttribute('cx', String(cx));
-    c.setAttribute('cy', String(cy));
-    c.setAttribute('r', r.home ? '5' : '2.5');
-    g.appendChild(c);
-    const t = document.createElementNS(ns, 'text');
-    t.setAttribute('x', String(cx + r.dx));
-    t.setAttribute('y', String(cy + r.dy));
-    if (r.anchor) t.setAttribute('text-anchor', r.anchor);
-    t.textContent = r.home ? r.name + ' \u2014 home' : r.name;
-    g.appendChild(t);
-    svg.appendChild(g);
+    const homeMark = '<span class="ref-home" title="Bangalore — home" aria-label="Bangalore — home">'
+      + '<svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true">'
+      +   '<path d="M12 3 3 11h2v9h5v-6h4v6h5v-9h2z" fill="currentColor"/>'
+      + '</svg>'
+      + '</span>';
+    L.marker([r.lat, r.lng], {
+      icon: L.divIcon({
+        className: 'swell-map-ref-icon' + (r.home ? ' swell-map-ref-icon--home' : ''),
+        html: r.home
+          ? homeMark
+          : '<span class="ref-dot"></span><span class="ref-label">' + r.name + '</span>',
+        iconSize: [0, 0],
+        iconAnchor: [0, 0],
+      }),
+      interactive: false,
+      keyboard: false,
+    }).addTo(map);
   });
-
-  // Current month for in-season highlighting
-  const now = new Date();
-  const currentMonth = now.getMonth() + 1;
 
   // Surf-spot pins
+  const currentMonth = new Date().getMonth() + 1;
   destinations.forEach(function(dest) {
     if (typeof dest.lat !== 'number' || typeof dest.lng !== 'number') return;
-    const cx = projX(dest.lng);
-    const cy = projY(dest.lat);
     const inSeason = isDestInSeason(dest, currentMonth);
-    const radius = 4 + (dest.swell || 3) * 0.9; // 5 swell -> 8.5px, 3 -> 6.7px
+    const levels = parsePinLevels(dest.difficulty);
+    const safeName = esc(dest.name);
+    const html =
+      '<div class="swell-map-pin ' + (inSeason ? 'swell-map-pin--on' : 'swell-map-pin--off') + '"' +
+      ' data-dest="' + safeName + '" data-levels="' + levels + '">' +
+        (inSeason ? '<span class="pin-pulse" aria-hidden="true"></span>' : '') +
+        '<span class="pin-dot" aria-hidden="true"></span>' +
+        '<span class="pin-label">' + safeName + '</span>' +
+      '</div>';
 
-    const g = document.createElementNS(ns, 'g');
-    g.setAttribute('class', 'swell-map-pin ' + (inSeason ? 'swell-map-pin--on' : 'swell-map-pin--off'));
-    g.setAttribute('data-dest', dest.name);
-    g.setAttribute('data-levels', parsePinLevels(dest.difficulty));
-    g.onclick = function(e) {
-      e.stopPropagation();
+    const marker = L.marker([dest.lat, dest.lng], {
+      icon: L.divIcon({
+        className: 'swell-pin-wrap',
+        html: html,
+        iconSize: [44, 44],
+        iconAnchor: [22, 22],
+      }),
+      title: dest.name,
+      keyboard: true,
+      riseOnHover: true,
+    }).addTo(map);
+
+    marker.on('click', function(e) {
+      L.DomEvent.stopPropagation(e);
       displaySwellInfo(dest.name);
       scrollToSwellMap(dest.name);
-    };
-
-    // Invisible larger hit target for mobile tap accuracy
-    const hit = document.createElementNS(ns, 'circle');
-    hit.setAttribute('class', 'pin-hit');
-    hit.setAttribute('cx', String(cx));
-    hit.setAttribute('cy', String(cy));
-    hit.setAttribute('r', '20');
-    g.appendChild(hit);
-
-    if (inSeason) {
-      const pulse = document.createElementNS(ns, 'circle');
-      pulse.setAttribute('class', 'pin-pulse');
-      pulse.setAttribute('cx', String(cx));
-      pulse.setAttribute('cy', String(cy));
-      pulse.setAttribute('r', String(radius));
-      g.appendChild(pulse);
-    }
-
-    const circle = document.createElementNS(ns, 'circle');
-    circle.setAttribute('cx', String(cx));
-    circle.setAttribute('cy', String(cy));
-    circle.setAttribute('r', String(radius));
-    g.appendChild(circle);
-
-    const text = document.createElementNS(ns, 'text');
-    text.setAttribute('x', String(cx));
-    text.setAttribute('y', String(cy - radius - 6));
-    text.textContent = dest.name;
-    g.appendChild(text);
-
-    svg.appendChild(g);
+    });
   });
+
+  // Fit to India west coast + Sri Lanka with a little breathing room
+  map.fitBounds([[5.6, 73.0], [16.2, 82.6]], { padding: [16, 16] });
+
+  // Recalculate size once layout settles (fonts, parallax shadows)
+  setTimeout(function() { map.invalidateSize(); }, 200);
+
+  // Expose so scrollToSwellMap can pan to a destination
+  window._swellLeafletMap = map;
 
   // Populate the "in season now" ribbon
   const list = document.getElementById('swellMapNowList');
@@ -2549,6 +2493,12 @@ function scrollToSwellMap(destName) {
     // Display info after scroll
     setTimeout(function() {
       displaySwellInfo(destName);
+      // Pan Leaflet map to the selected destination
+      const map = window._swellLeafletMap;
+      const dest = CONFIG.destinations.find(function(d) { return d.name === destName; });
+      if (map && dest && typeof dest.lat === 'number') {
+        map.flyTo([dest.lat, dest.lng], Math.max(map.getZoom(), 7), { duration: 0.7 });
+      }
     }, 400);
   }
 }
