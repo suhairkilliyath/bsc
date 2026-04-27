@@ -500,69 +500,139 @@ body {
   line-height: 1.75;
 }
 
-.cal-grid {
+/* ---- CALENDAR (mobile-first month strip + expanded card) ---- */
+.cal-strip {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--border);
-  border-top: 1px solid var(--border);
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+  padding: 0 24px;
+  margin-bottom: 18px;
 }
-.cal-cell {
-  background: var(--sand);
-  padding: 22px 20px 20px;
-  cursor: default;
-  transition: background 0.2s var(--ease);
+@media (min-width: 720px) {
+  .cal-strip { grid-template-columns: repeat(12, 1fr); padding: 0 40px; gap: 4px; }
+}
+.cal-chip {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 4px 12px;
+  min-height: 56px;
+  background: #fefdfb;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
   user-select: none;
+  transition: background 0.18s var(--ease), border-color 0.18s var(--ease), transform 0.18s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+  font: inherit;
+  color: inherit;
+  text-align: center;
 }
-.cal-cell:hover { background: #ede8df; }
-.cal-cell--hi {
-  background: var(--deep);
-}
-.cal-cell--hi:hover { background: #0d2a1e; }
-
-.cal-cell__month {
+.cal-chip:hover { background: #f5f0e8; }
+.cal-chip:focus-visible { outline: 2px solid var(--wave); outline-offset: 2px; }
+.cal-chip__month {
   font-family: var(--mono);
-  font-size: 9px;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 1;
+}
+.cal-chip__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(14,14,14,0.15);
+}
+.cal-chip--peak .cal-chip__dot { background: var(--wave); }
+.cal-chip--strong .cal-chip__dot { background: var(--wave); opacity: 0.55; }
+.cal-chip--mild .cal-chip__dot   { background: var(--wave); opacity: 0.30; }
+.cal-chip--now {
+  border-color: var(--wave);
+}
+.cal-chip--now::before {
+  content: 'NOW';
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  background: var(--wave);
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 2px;
+  line-height: 1;
+}
+.cal-chip.is-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  transform: translateY(-1px);
+}
+.cal-chip.is-active .cal-chip__month { color: #fff; }
+.cal-chip.is-active .cal-chip__dot { background: var(--wave); opacity: 1; }
+
+/* Expanded card */
+.cal-card {
+  margin: 0 24px;
+  background: var(--sand);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 22px 22px 24px;
+  cursor: pointer;
+  transition: background 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+@media (min-width: 720px) {
+  .cal-card { margin: 0 40px; padding: 28px 32px 30px; }
+}
+.cal-card:hover { border-color: var(--ink); }
+.cal-card__head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.cal-card__month {
+  font-family: var(--mono);
+  font-size: 10px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--mist);
-  margin-bottom: 10px;
 }
-.cal-cell--hi .cal-cell__month { color: rgba(255,255,255,0.35); }
-
-.cal-cell__dest {
+.cal-card__dest {
   font-family: var(--serif);
-  font-size: 20px;
+  font-size: clamp(24px, 4vw, 30px);
   color: var(--ink);
   line-height: 1.1;
-  margin-bottom: 3px;
+  letter-spacing: -0.01em;
 }
-.cal-cell--hi .cal-cell__dest { color: #fff; }
-
-.cal-cell__region {
+.cal-card__region {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 11px;
   color: var(--mist);
+  margin-bottom: 14px;
 }
-.cal-cell--hi .cal-cell__region { color: rgba(255,255,255,0.40); }
-
-.cal-cell__swell {
+.cal-card__row {
   display: flex;
-  gap: 3px;
-  margin-top: 14px;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
 }
-.cal-cell__bar {
-  width: 4px;
-  height: 14px;
+.cal-card__swell { display: flex; gap: 3px; }
+.cal-card__bar {
+  width: 5px;
+  height: 16px;
   border-radius: 2px;
   background: rgba(14,14,14,0.10);
 }
-.cal-cell__bar--on { background: var(--wave); }
-.cal-cell--hi .cal-cell__bar { background: rgba(255,255,255,0.12); }
-.cal-cell--hi .cal-cell__bar--on { background: var(--wave); }
-
-/* ---- Audience pill + for-who one-liner ---- */
-.cal-cell__pill {
+.cal-card__bar--on { background: var(--wave); }
+.cal-card__pill {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -572,11 +642,9 @@ body {
   font-size: 9px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  margin-top: 14px;
-  width: fit-content;
   line-height: 1;
 }
-.cal-cell__pill::before {
+.cal-card__pill::before {
   content: '';
   width: 6px;
   height: 6px;
@@ -584,29 +652,50 @@ body {
   background: currentColor;
   opacity: 0.85;
 }
-.cal-cell__pill--beginner     { background: rgba(29,158,117,0.14); color: var(--wave-d); }
-.cal-cell__pill--intermediate { background: rgba(14,14,14,0.06);   color: var(--ink); }
-.cal-cell__pill--advanced     { background: var(--ink);            color: #fff; }
-.cal-cell__pill--all          { background: transparent;            color: var(--mist); border: 1px solid var(--border); }
-
-.cal-cell--hi .cal-cell__pill--beginner     { background: rgba(29,158,117,0.30); color: #fff; }
-.cal-cell--hi .cal-cell__pill--intermediate { background: rgba(255,255,255,0.10); color: rgba(255,255,255,0.90); }
-.cal-cell--hi .cal-cell__pill--advanced     { background: #fff; color: var(--ink); }
-.cal-cell--hi .cal-cell__pill--all          { color: rgba(255,255,255,0.55); border-color: rgba(255,255,255,0.22); }
-
-.cal-cell__forwho {
+.cal-card__pill--beginner     { background: rgba(29,158,117,0.14); color: var(--wave-d); }
+.cal-card__pill--intermediate { background: rgba(14,14,14,0.06);   color: var(--ink); }
+.cal-card__pill--advanced     { background: var(--ink);            color: #fff; }
+.cal-card__pill--all          { background: transparent;            color: var(--mist); border: 1px solid var(--border); }
+.cal-card__forwho {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink);
+  line-height: 1.65;
+  margin-bottom: 14px;
+}
+.cal-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-family: var(--mono);
   font-size: 11px;
-  color: var(--mist);
-  line-height: 1.55;
-  margin-top: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--wave-d);
+  text-decoration: none;
+  padding-top: 4px;
+  border-top: 1px solid var(--border);
+  width: 100%;
 }
-.cal-cell--hi .cal-cell__forwho { color: rgba(255,255,255,0.55); }
+.cal-card__link::after { content: '↗'; font-size: 14px; }
 
 /* ---- SWELL MAP ---- */
 .section--swell {
   background: var(--sand);
   padding: 80px 0 60px;
+  position: relative;
+  z-index: 2;
+  margin-top: -32px;
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
+  box-shadow: 0 -8px 24px rgba(10,31,23,0.18);
+}
+@media (max-width: 720px) {
+  .section--swell {
+    margin-top: -20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
 }
 .section--swell .section__intro { padding: 0 40px 48px; }
 
@@ -623,8 +712,9 @@ body {
   height: clamp(320px, 50vw, 540px);
   display: block;
   border: 1px solid var(--border);
-  background: #fefdfb;
+  background: #dfe9ee;
   margin: 0 auto;
+  border-radius: 4px;
 }
 
 .swell-map-note {
@@ -642,31 +732,19 @@ body {
 }
 
 .swell-map-coast {
-  stroke: rgba(15,110,86,0.45);
-  stroke-width: 0.8;
+  stroke: rgba(74,109,124,0.55);
+  stroke-width: 0.6;
   stroke-linejoin: round;
   stroke-linecap: round;
   fill: none;
 }
 .swell-map-coast--fill {
-  fill: rgba(29,158,117,0.06);
+  fill: #f6efe1;
 }
 
-.swell-map-grid {
-  stroke: rgba(14, 14, 14, 0.10);
-  stroke-width: 1;
-  fill: none;
-}
-.swell-map-grid--major {
-  stroke: rgba(14, 14, 14, 0.18);
-}
-.swell-map-graticule-label {
-  font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: 0.10em;
-  fill: var(--mist);
-  pointer-events: none;
-}
+.swell-map-grid { display: none; }
+.swell-map-grid--major { display: none; }
+.swell-map-graticule-label { display: none; }
 
 .swell-map-ref {
   pointer-events: none;
@@ -694,6 +772,10 @@ body {
   cursor: pointer;
   transition: all 0.2s var(--ease);
   user-select: none;
+}
+.swell-map-pin .pin-hit {
+  fill: transparent;
+  pointer-events: all;
 }
 
 .swell-map-pin circle {
@@ -760,6 +842,52 @@ body {
 .swell-map-pin--off.active text {
   fill: var(--ink);
   opacity: 1;
+}
+
+/* Skill-level filter */
+.swell-map-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+.swell-map-filter__label { margin-right: 4px; }
+.swell-map-filter__btn {
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  padding: 7px 12px;
+  min-height: 32px;
+  background: #fff;
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s var(--ease), border-color 0.15s var(--ease), color 0.15s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+}
+.swell-map-filter__btn:hover { border-color: var(--ink); }
+.swell-map-filter__btn.is-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+.swell-map-wrap[data-filter="beginner"]     .swell-map-pin:not([data-levels~="beginner"]),
+.swell-map-wrap[data-filter="intermediate"] .swell-map-pin:not([data-levels~="intermediate"]),
+.swell-map-wrap[data-filter="advanced"]     .swell-map-pin:not([data-levels~="advanced"]) {
+  opacity: 0.18;
+  pointer-events: none;
+}
+.swell-map-wrap[data-filter="beginner"]     .swell-map-pin:not([data-levels~="beginner"]) .pin-pulse,
+.swell-map-wrap[data-filter="intermediate"] .swell-map-pin:not([data-levels~="intermediate"]) .pin-pulse,
+.swell-map-wrap[data-filter="advanced"]     .swell-map-pin:not([data-levels~="advanced"]) .pin-pulse {
+  display: none;
 }
 
 /* In-season ribbon above the map */
@@ -985,23 +1113,43 @@ body {
     right: 0;
     width: 100%;
     max-width: 100%;
-    border-radius: 8px 8px 0 0;
+    border-radius: 14px 14px 0 0;
     padding: 28px 24px 24px;
     transform: translateY(100%);
     opacity: 0;
     pointer-events: none;
     transition: transform 0.3s var(--ease), opacity 0.3s;
     z-index: 150;
+    max-height: 80vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    box-shadow: 0 -10px 30px rgba(10,31,23,0.18);
   }
-
+  .swell-info-panel::before {
+    content: '';
+    position: sticky;
+    top: 0;
+    display: block;
+    width: 36px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(14,14,14,0.20);
+    margin: -16px auto 14px;
+  }
   .swell-info-panel.open {
     transform: translateY(0);
     opacity: 1;
     pointer-events: auto;
   }
-
   .swell-info__close {
-    display: none;
+    display: block;
+    top: 14px;
+    right: 14px;
+    font-size: 24px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(14,14,14,0.05);
   }
 }
 
@@ -1156,34 +1304,34 @@ body {
   .section--logbook { padding: 60px 0 48px; }
   .log-grid { grid-template-columns: repeat(2, 1fr); padding: 0 24px; gap: 24px 16px; }
 }
-@media (max-width: 480px) {
-  .log-grid { grid-template-columns: 1fr; }
+@media (max-width: 720px) {
+  .log-grid { grid-template-columns: 1fr; gap: 32px; }
 }
 
 /* ---- ETHOS SECTION ---- */
 .section--ethos {
-  background: var(--ink);
+  background: var(--sand);
   padding: 80px 40px 0;
 }
-.section--ethos .section__h { color: #fff; }
-.section--ethos .section__h em { color: var(--wave); font-style: italic; }
+.section--ethos .section__h { color: var(--ink); }
+.section--ethos .section__h em { color: var(--wave-d); font-style: italic; }
 
 .ethos-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1px;
-  background: rgba(255,255,255,0.07);
+  background: var(--border);
   margin-top: 48px;
-  border-top: 1px solid rgba(255,255,255,0.07);
+  border-top: 1px solid var(--border);
 }
 .ethos-cell {
-  background: var(--ink);
+  background: var(--sand);
   padding: 36px 32px;
 }
 .ethos-cell__n {
   font-family: var(--serif);
   font-size: 48px;
-  color: rgba(255,255,255,0.07);
+  color: rgba(14,14,14,0.10);
   line-height: 1;
   margin-bottom: 14px;
   letter-spacing: -0.04em;
@@ -1192,14 +1340,14 @@ body {
   font-family: var(--mono);
   font-size: 13px;
   font-weight: 500;
-  color: #fff;
+  color: var(--ink);
   letter-spacing: 0.02em;
   margin-bottom: 10px;
 }
 .ethos-cell__body {
   font-family: var(--mono);
   font-size: 12px;
-  color: rgba(255,255,255,0.38);
+  color: var(--mist);
   line-height: 1.75;
 }
 
@@ -1215,7 +1363,7 @@ body {
   font-size: 10px;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--wave);
+  color: var(--wave-d);
   margin-bottom: 24px;
 }
 .ethos-mission__h {
@@ -1223,31 +1371,31 @@ body {
   font-size: clamp(26px, 3vw, 36px);
   line-height: 1.18;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: var(--ink);
   margin-bottom: 28px;
 }
 .ethos-mission__h em {
-  color: var(--wave);
+  color: var(--wave-d);
   font-style: italic;
 }
 .ethos-mission__body {
   font-family: var(--mono);
   font-size: 13px;
   line-height: 1.85;
-  color: rgba(255,255,255,0.55);
+  color: var(--mist);
 }
 .ethos-mission__body p + p { margin-top: 16px; }
 .ethos-mission__note {
   margin-top: 28px;
   padding-top: 20px;
-  border-top: 1px solid rgba(255,255,255,0.10);
+  border-top: 1px solid var(--border);
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.04em;
-  color: rgba(255,255,255,0.40);
+  color: var(--mist);
   line-height: 1.7;
 }
-.ethos-mission__note em { color: rgba(255,255,255,0.75); font-style: italic; }
+.ethos-mission__note em { color: var(--ink); font-style: italic; }
 @media (max-width: 720px) {
   .ethos-mission { padding: 56px 16px 72px; }
 }
@@ -1261,6 +1409,19 @@ body {
   padding: 26px 40px;
   background: var(--wave);
   flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
+  margin-top: -28px;
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
+  box-shadow: 0 -6px 20px rgba(15,110,86,0.18);
+}
+@media (max-width: 720px) {
+  .join-bar {
+    margin-top: -20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
 }
 .join-bar__text {
   font-family: var(--serif);
@@ -1497,8 +1658,6 @@ body {
   .section--calendar { padding: 60px 0 0; }
   .section__intro { padding: 0 24px 36px; }
 
-  .cal-grid { grid-template-columns: repeat(2, 1fr); }
-
   .section--ethos { padding: 60px 24px 0; }
   .ethos-grid { grid-template-columns: 1fr; }
 
@@ -1510,29 +1669,10 @@ body {
 
 @media (max-width: 380px) {
   .hero__h1 { font-size: 34px; }
-  .cal-grid { grid-template-columns: 1fr; }
   .modal { padding: 28px 22px 24px; }
   .join-bar { flex-direction: column; align-items: stretch; }
   .join-bar__text { font-size: 18px; margin-bottom: 12px; }
   .join-bar__btn { width: 100%; text-align: center; }
-}
-
-/* ---- SECTION TRANSITION FADES ---- */
-.section-fade {
-  display: block;
-  height: 64px;
-  width: 100%;
-  pointer-events: none;
-  border: 0;
-  margin: 0;
-}
-.section-fade--deep-sand { background: linear-gradient(to bottom, var(--deep) 0%, var(--sand) 100%); }
-.section-fade--sand-ink  { background: linear-gradient(to bottom, var(--sand) 0%, var(--ink) 100%); }
-.section-fade--ink-sand  { background: linear-gradient(to bottom, var(--ink) 0%, var(--sand) 100%); }
-.section-fade--sand-wave { background: linear-gradient(to bottom, var(--sand) 0%, var(--wave) 100%); }
-.section-fade--wave-deep { background: linear-gradient(to bottom, var(--wave) 0%, var(--deep) 100%); }
-@media (max-width: 720px) {
-  .section-fade { height: 48px; }
 }
 
 /* ---- SCROLL REVEAL ---- */
@@ -1562,7 +1702,7 @@ body {
       BSC<span>.</span>
     </a>
     <ul class="nav__links" id="navLinks">
-      <li><a href="#trips">Trips</a></li>
+      <li><a href="#logbook">Trips</a></li>
       <li><a href="#calendar">Calendar</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#join">Join</a></li>
@@ -1572,7 +1712,7 @@ body {
     </button>
   </nav>
   <nav class="nav__drawer" id="drawer" aria-label="Mobile menu">
-    <a href="#trips"    onclick="closeDrawer()">Trips</a>
+    <a href="#logbook"  onclick="closeDrawer()">Trips</a>
     <a href="#calendar" onclick="closeDrawer()">Calendar</a>
     <a href="#about"    onclick="closeDrawer()">About</a>
     <a href="#join"     onclick="closeDrawer()">Join</a>
@@ -1683,16 +1823,6 @@ body {
 
 <div class="section-fade section-fade--deep-sand" aria-hidden="true"></div>
 
-<!-- CALENDAR -->
-<section class="section--calendar" id="calendar" aria-labelledby="calHeading">
-  <div class="section__intro">
-    <p class="overline">The calendar</p>
-    <h2 class="serif-display section__h" id="calHeading">Best place to surf.<br>Every month of the year.</h2>
-    <p class="section__sub" id="calSub"></p>
-  </div>
-  <div class="cal-grid" id="calGrid" role="list" aria-label="Monthly surf destinations"></div>
-</section>
-
 <!-- SWELL MAP -->
 <section class="section--swell" id="swell" aria-labelledby="swellHeading">
   <div class="section__intro" style="max-width: 100%; padding: 0 40px 36px;">
@@ -1700,11 +1830,18 @@ body {
     <h2 class="serif-display section__h" id="swellHeading"></h2>
     <p class="section__sub" id="swellSub" style="max-width: 620px;"></p>
   </div>
-  <div class="swell-map-wrap">
+  <div class="swell-map-wrap" id="swellMapWrap">
     <div class="swell-map-now" id="swellMapNow" aria-live="polite">
       <span class="swell-map-now__dot" aria-hidden="true"></span>
       <span class="swell-map-now__label" id="swellMapNowLabel">In season right now</span>
       <span class="swell-map-now__list" id="swellMapNowList"></span>
+    </div>
+    <div class="swell-map-filter" id="swellMapFilter" role="group" aria-label="Filter by skill level">
+      <span class="swell-map-filter__label">Show</span>
+      <button class="swell-map-filter__btn is-active" type="button" data-level="all">All</button>
+      <button class="swell-map-filter__btn" type="button" data-level="beginner">Beginner</button>
+      <button class="swell-map-filter__btn" type="button" data-level="intermediate">Intermediate</button>
+      <button class="swell-map-filter__btn" type="button" data-level="advanced">Experienced</button>
     </div>
     <svg class="swell-map" id="swellMap" viewBox="0 0 1000 520" width="1000" height="520" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-label="Coastal destinations map"></svg>
     <div class="swell-map-legend" aria-hidden="true">
@@ -1742,7 +1879,16 @@ body {
   </div>
 </section>
 
-<div class="section-fade section-fade--sand-ink" aria-hidden="true"></div>
+<!-- CALENDAR -->
+<section class="section--calendar" id="calendar" aria-labelledby="calHeading">
+  <div class="section__intro">
+    <p class="overline">The calendar</p>
+    <h2 class="serif-display section__h" id="calHeading">Best place to surf.<br>Every month of the year.</h2>
+    <p class="section__sub" id="calSub"></p>
+  </div>
+  <div class="cal-strip" id="calStrip" role="tablist" aria-label="Months"></div>
+  <div class="cal-card" id="calCard" aria-live="polite"></div>
+</section>
 
 <!-- ETHOS -->
 <section class="section--ethos" id="about" aria-labelledby="ethosHeading">
@@ -1760,8 +1906,6 @@ body {
     <p class="ethos-mission__note"><em>None of that exists yet.</em> Right now we're just friends running trips. We'll get there if we earn it.</p>
   </div>
 </section>
-
-<div class="section-fade section-fade--ink-sand" aria-hidden="true"></div>
 
 <!-- LOGBOOK -->
 <section class="section--logbook" id="logbook" aria-labelledby="logHeading">
@@ -1825,8 +1969,6 @@ body {
     </div>
   </div>
 </section>
-
-<div class="section-fade section-fade--sand-wave" aria-hidden="true"></div>
 
 <!-- JOIN BAR -->
 <div class="join-bar" id="join">
@@ -1971,39 +2113,74 @@ var currentSwellDest = null;
   })();
 
   // Calendar section
-  document.getElementById('calSub').textContent = "Find your month. Each cell points to one coast where the swell and season line up. Cross-checked with surf-forecast.com, weighted by what the crew has actually ridden.";
-  const grid = document.getElementById('calGrid');
+  document.getElementById('calSub').textContent = "Tap a month. We'll show where it works and what kind of surf you'll get.";
+  const strip = document.getElementById('calStrip');
+  const card = document.getElementById('calCard');
   const AUDIENCE_LABEL = {
     beginner:     'Beginners welcome',
     intermediate: 'Intermediate',
     advanced:     'Experienced',
     all:          'All levels'
   };
-  M.forEach(function(c) {
+  const nowMonthIdx = new Date().getMonth(); // 0-11
+
+  function swellTier(n) {
+    if (n >= 5) return 'peak';
+    if (n >= 4) return 'strong';
+    if (n >= 3) return 'mild';
+    return 'low';
+  }
+
+  function renderCard(c) {
     const destObj = D.find(function(d) { return d.name === c.dest; });
     const region = destObj ? destObj.region : '';
-    const cell = document.createElement('div');
-    cell.className = 'cal-cell' + (c.highlight ? ' cal-cell--hi' : '');
-    cell.setAttribute('role', 'listitem');
-    cell.setAttribute('aria-label', c.month + ': ' + c.dest + ', ' + region + (c.audience ? ' \u2014 ' + AUDIENCE_LABEL[c.audience] : ''));
-    cell.style.cursor = 'pointer';
-    cell.onclick = function() { scrollToSwellMap(c.dest); };
+    const audKey = c.audience || 'all';
     let bars = '';
     for (let i = 0; i < 5; i++) {
-      bars += '<div class="cal-cell__bar' + (i < c.swell ? ' cal-cell__bar--on' : '') + '"></div>';
+      bars += '<div class="cal-card__bar' + (i < c.swell ? ' cal-card__bar--on' : '') + '"></div>';
     }
-    const audKey = c.audience || 'all';
-    const pill = '<div class="cal-cell__pill cal-cell__pill--' + audKey + '">' + (AUDIENCE_LABEL[audKey] || 'All levels') + '</div>';
-    const forWho = c.forWho ? '<div class="cal-cell__forwho">' + escapeHtml(c.forWho) + '</div>' : '';
-    cell.innerHTML =
-      '<div class="cal-cell__month">' + c.month + '</div>'
-      + '<div class="cal-cell__dest">' + c.dest + '</div>'
-      + '<div class="cal-cell__region">' + escapeHtml(region) + '</div>'
-      + '<div class="cal-cell__swell">' + bars + '</div>'
-      + pill
-      + forWho;
-    grid.appendChild(cell);
+    card.innerHTML =
+        '<div class="cal-card__head">'
+      +   '<span class="cal-card__month">' + escapeHtml(c.month) + '</span>'
+      +   '<span class="cal-card__dest">' + escapeHtml(c.dest) + '</span>'
+      + '</div>'
+      + '<div class="cal-card__region">' + escapeHtml(region) + '</div>'
+      + '<div class="cal-card__row">'
+      +   '<div class="cal-card__swell">' + bars + '</div>'
+      +   '<div class="cal-card__pill cal-card__pill--' + audKey + '">' + (AUDIENCE_LABEL[audKey] || 'All levels') + '</div>'
+      + '</div>'
+      + (c.forWho ? '<div class="cal-card__forwho">' + escapeHtml(c.forWho) + '</div>' : '')
+      + '<span class="cal-card__link">See ' + escapeHtml(c.dest) + ' on the map</span>';
+    card.onclick = function() { scrollToSwellMap(c.dest); };
+    card.setAttribute('aria-label', c.month + ': ' + c.dest + ', ' + region);
+  }
+
+  M.forEach(function(c, i) {
+    const chip = document.createElement('button');
+    chip.type = 'button';
+    chip.className = 'cal-chip cal-chip--' + swellTier(c.swell);
+    if (i === nowMonthIdx) chip.classList.add('cal-chip--now');
+    chip.setAttribute('role', 'tab');
+    chip.setAttribute('aria-label', c.month + ': ' + c.dest);
+    chip.innerHTML =
+        '<span class="cal-chip__month">' + c.month + '</span>'
+      + '<span class="cal-chip__dot" aria-hidden="true"></span>';
+    chip.onclick = function() {
+      strip.querySelectorAll('.cal-chip').forEach(function(el) { el.classList.remove('is-active'); });
+      chip.classList.add('is-active');
+      renderCard(c);
+    };
+    strip.appendChild(chip);
   });
+
+  // Default open: current month
+  if (M[nowMonthIdx]) {
+    strip.children[nowMonthIdx].classList.add('is-active');
+    renderCard(M[nowMonthIdx]);
+  } else {
+    strip.children[0].classList.add('is-active');
+    renderCard(M[0]);
+  }
 
   // Ethos heading
   document.getElementById('ethosHeading').innerHTML = 'Not a tour.<br>Not a class.<br><em>A standing crew.</em>';
@@ -2116,6 +2293,16 @@ function isDestInSeason(dest, currentMonth) {
   return currentMonth >= start || currentMonth <= end;
 }
 
+function parsePinLevels(diff) {
+  const s = String(diff || '').toLowerCase();
+  if (s.indexOf('all') >= 0) return 'beginner intermediate advanced';
+  const out = [];
+  if (s.indexOf('beginner') >= 0)     out.push('beginner');
+  if (s.indexOf('intermediate') >= 0) out.push('intermediate');
+  if (s.indexOf('advanced') >= 0)     out.push('advanced');
+  return out.length ? out.join(' ') : 'intermediate';
+}
+
 function generateSwellMap(destinations) {
   const svg = document.getElementById('swellMap');
   const ns = 'http://www.w3.org/2000/svg';
@@ -2131,11 +2318,11 @@ function generateSwellMap(destinations) {
   const projX = lng => PAD_L + ((lng - LNG_MIN) / (LNG_MAX - LNG_MIN)) * innerW;
   const projY = lat => PAD_T + ((LAT_MAX - lat) / (LAT_MAX - LAT_MIN)) * innerH;
 
-  // Background
+  // Background (ocean)
   const bg = document.createElementNS(ns, 'rect');
   bg.setAttribute('width', String(VB_W));
   bg.setAttribute('height', String(VB_H));
-  bg.setAttribute('fill', '#fefdfb');
+  bg.setAttribute('fill', '#dfe9ee');
   svg.appendChild(bg);
 
   // ClipPath so coastlines that extend beyond viewport get cleanly cropped
@@ -2208,8 +2395,11 @@ function generateSwellMap(destinations) {
   // Async upgrade: replace simplified outlines with real Natural Earth coastlines
   // Loaded from jsDelivr CDN, filtered to India + Sri Lanka, projected through projX/projY.
   // Falls back silently to the simplified inline version above (e.g. on file:// or offline).
-  (function upgradeCoastlines() {
-    const GEO_URL = 'https://cdn.jsdelivr.net/gh/nvkelso/natural-earth-vector@master/geojson/ne_50m_admin_0_countries.geojson';
+  // Lazy-loaded: only fetched when the swell map enters the viewport.
+  function upgradeCoastlines() {
+    // 10m = 1:10 million scale Natural Earth — 5× more detail than 50m.
+    // Gives the recognizable Konkan/Kerala curvature and Sri Lanka's southern bulge.
+    const GEO_URL = 'https://cdn.jsdelivr.net/gh/nvkelso/natural-earth-vector@master/geojson/ne_10m_admin_0_countries.geojson';
     if (typeof fetch !== 'function') return;
     fetch(GEO_URL, { mode: 'cors' }).then(function(r) {
       if (!r.ok) throw new Error('geojson fetch failed');
@@ -2233,12 +2423,10 @@ function generateSwellMap(destinations) {
         }
         return d + 'Z';
       }
-      // Insert each polygon directly after the bg rect (so coast sits below graticule + pins)
       features.forEach(function(feat) {
         const geom = feat.geometry;
         const polys = (geom.type === 'MultiPolygon') ? geom.coordinates : [geom.coordinates];
         polys.forEach(function(poly) {
-          // poly is array of rings; outer + holes. We render outer only for simplicity.
           if (!poly[0]) return;
           let d = ringToPath(poly[0]);
           for (let h = 1; h < poly.length; h++) d += ' ' + ringToPath(poly[h]);
@@ -2250,47 +2438,17 @@ function generateSwellMap(destinations) {
         });
       });
     }).catch(function() { /* keep fallback */ });
-  })();
+  }
 
-  // Graticule (lat/lng grid)
-  for (let lng = LNG_MIN; lng <= LNG_MAX; lng++) {
-    const line = document.createElementNS(ns, 'line');
-    const x = projX(lng);
-    line.setAttribute('x1', String(x));
-    line.setAttribute('y1', String(PAD_T));
-    line.setAttribute('x2', String(x));
-    line.setAttribute('y2', String(VB_H - PAD_B));
-    line.setAttribute('class', 'swell-map-grid' + (lng % 5 === 0 ? ' swell-map-grid--major' : ''));
-    svg.appendChild(line);
-    if (lng % 2 === 0) {
-      const lbl = document.createElementNS(ns, 'text');
-      lbl.setAttribute('x', String(x));
-      lbl.setAttribute('y', String(VB_H - PAD_B + 18));
-      lbl.setAttribute('text-anchor', 'middle');
-      lbl.setAttribute('class', 'swell-map-graticule-label');
-      lbl.textContent = lng + '\u00b0E';
-      svg.appendChild(lbl);
-    }
+  // Eager fetch — start as soon as the map renders so the simplified
+  // fallback never has time to be visible. ~250KB gzipped from jsDelivr CDN.
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(upgradeCoastlines, { timeout: 800 });
+  } else {
+    setTimeout(upgradeCoastlines, 0);
   }
-  for (let lat = LAT_MIN; lat <= LAT_MAX; lat++) {
-    const line = document.createElementNS(ns, 'line');
-    const y = projY(lat);
-    line.setAttribute('x1', String(PAD_L));
-    line.setAttribute('y1', String(y));
-    line.setAttribute('x2', String(VB_W - PAD_R));
-    line.setAttribute('y2', String(y));
-    line.setAttribute('class', 'swell-map-grid' + (lat % 5 === 0 ? ' swell-map-grid--major' : ''));
-    svg.appendChild(line);
-    if (lat % 2 === 0) {
-      const lbl = document.createElementNS(ns, 'text');
-      lbl.setAttribute('x', String(PAD_L - 10));
-      lbl.setAttribute('y', String(y + 3));
-      lbl.setAttribute('text-anchor', 'end');
-      lbl.setAttribute('class', 'swell-map-graticule-label');
-      lbl.textContent = lat + '\u00b0N';
-      svg.appendChild(lbl);
-    }
-  }
+
+  // Graticule removed for cleaner map look
 
   // Reference cities for orientation
   const refs = [
@@ -2331,11 +2489,20 @@ function generateSwellMap(destinations) {
     const g = document.createElementNS(ns, 'g');
     g.setAttribute('class', 'swell-map-pin ' + (inSeason ? 'swell-map-pin--on' : 'swell-map-pin--off'));
     g.setAttribute('data-dest', dest.name);
+    g.setAttribute('data-levels', parsePinLevels(dest.difficulty));
     g.onclick = function(e) {
       e.stopPropagation();
       displaySwellInfo(dest.name);
       scrollToSwellMap(dest.name);
     };
+
+    // Invisible larger hit target for mobile tap accuracy
+    const hit = document.createElementNS(ns, 'circle');
+    hit.setAttribute('class', 'pin-hit');
+    hit.setAttribute('cx', String(cx));
+    hit.setAttribute('cy', String(cy));
+    hit.setAttribute('r', '20');
+    g.appendChild(hit);
 
     if (inSeason) {
       const pulse = document.createElementNS(ns, 'circle');
@@ -2449,6 +2616,44 @@ function closeSwellInfo() {
   
   currentSwellDest = null;
 }
+
+/* Close swell info panel on outside click */
+document.addEventListener('click', function(e) {
+  const panel = document.getElementById('swellInfoPanel');
+  if (!panel || !panel.classList.contains('open')) return;
+  if (panel.contains(e.target)) return;
+  // Ignore clicks on map pins (they handle their own toggle)
+  if (e.target.closest && e.target.closest('.swell-map-pin')) return;
+  // Ignore clicks on calendar cells (they open the panel programmatically)
+  if (e.target.closest && e.target.closest('.cal-cell')) return;
+  closeSwellInfo();
+});
+
+/* Close swell info panel on Escape */
+document.addEventListener('keydown', function(e) {
+  if (e.key !== 'Escape') return;
+  const panel = document.getElementById('swellInfoPanel');
+  if (panel && panel.classList.contains('open')) closeSwellInfo();
+});
+
+/* Skill-level filter for the swell map */
+(function() {
+  const wrap = document.getElementById('swellMapWrap');
+  const filter = document.getElementById('swellMapFilter');
+  if (!wrap || !filter) return;
+  filter.addEventListener('click', function(e) {
+    const btn = e.target.closest('.swell-map-filter__btn');
+    if (!btn) return;
+    const level = btn.getAttribute('data-level');
+    filter.querySelectorAll('.swell-map-filter__btn').forEach(function(b) { b.classList.remove('is-active'); });
+    btn.classList.add('is-active');
+    if (level === 'all') {
+      wrap.removeAttribute('data-filter');
+    } else {
+      wrap.setAttribute('data-filter', level);
+    }
+  });
+})();
 
 /* ---- Nav hamburger ---- */
 const hamburger = document.getElementById('hamburger');
