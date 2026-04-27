@@ -2035,21 +2035,21 @@ body {
     <form class="modal__form" id="joinForm" novalidate>
       <div class="form-field">
         <label for="f-name" id="labelName"></label>
-        <input type="text" id="f-name" autocomplete="name" required/>
+        <input type="text" id="f-name" name="name" autocomplete="name" required/>
       </div>
       <div class="form-field">
         <label for="f-link" id="labelLink"></label>
-        <input type="text" id="f-link" autocomplete="url"/>
+        <input type="text" id="f-link" name="instagram_or_link" autocomplete="off"/>
       </div>
       <div class="form-field">
         <label for="f-role">Who are you?</label>
         <div class="form-select-wrap">
-          <select id="f-role" required></select>
+          <select id="f-role" name="role"required></select>
         </div>
       </div>
       <div class="form-field">
         <label for="f-msg" id="labelMsg"></label>
-        <textarea id="f-msg"></textarea>
+        <textarea id="f-msg" name="message"></textarea>
       </div>
       <button type="submit" class="form-submit" id="formSubmit"></button>
     </form>
