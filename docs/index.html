@@ -1,80 +1,44 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- ================= SEO + Social Media ================== -->
-<title>Bangalore Surf Club - Monthly surf trips from Bangalore to Varkala, Mulki, Pondicherry, Goa and Sri Lanka</title>
-<meta name="description" content="Bangalore Surf Club organizes monthly surf trips from Bangalore to the best nearby surf spots — Varkala, Mulki, Pondicherry, Goa and Sri Lanka. All levels welcome. Join us for the next one!">
-<meta name="keywords" content="Bangalore Surf Club, surf trips from Bangalore, Varkala surfing, Mulki surfing, Pondicherry surfing, Goa surfing, Sri Lanka surfing, surf club Bangalore, surf trips India">
-<meta name="author" content="Bangalore Surf Club">
-<meta name="theme-color" content="#1D9E75">
-<link rel="canonical" href="https://blrsurf.club/">
-<!-- Open Graph (WhatsApp, Facebook, LinkedIn, iMessage) -->
+<title>Bangalore Surf Club — Monthly surf trips from Bangalore</title>
+
+<!-- SEO -->
+<meta name="description" content="A Bangalore surf club running monthly trips to the coast. Karnataka, Kerala, Tamil Nadu, Goa, and Sri Lanka — every month of the year.">
+<link rel="canonical" href="https://blsurf.club/">
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="favicon.svg">
+
+<!-- Open Graph / Twitter -->
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Bangalore Surf Club">
-<meta property="og:title" content="Bangalore Surf Club — Monthly surf trips from Bangalore">
-<meta property="og:description" content="A small crew running monthly surf trips from Bangalore to Varkala, Goa, Mulki, Pondicherry and Sri Lanka. Beginners welcome.">
+<meta property="og:title" content="Bangalore Surf Club">
+<meta property="og:description" content="Monthly surf trips from Bangalore. Every coast that works, every month of the year.">
+<meta property="og:image" content="https://blsurf.club/og-cover.jpg">
 <meta property="og:url" content="https://blsurf.club/">
-<meta property="og:image" content="https://blsurf.club/images/og-cover.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Bangalore Surf Club — monthly surf trips from Bangalore">
-<meta property="og:locale" content="en_IN">
-
-<!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Bangalore Surf Club — Monthly surf trips from Bangalore">
-<meta name="twitter:description" content="A small crew running monthly surf trips from Bangalore to Varkala, Goa, Mulki, Pondicherry and Sri Lanka.">
-<meta name="twitter:image" content="https://blsurf.club/images/og-cover.jpg">
+<meta name="twitter:title" content="Bangalore Surf Club">
+<meta name="twitter:description" content="Monthly surf trips from Bangalore. Every coast that works, every month of the year.">
+<meta name="twitter:image" content="https://blsurf.club/og-cover.jpg">
 
-<!-- Favicons -->
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="alternate icon" href="/favicon.ico">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-
-<!-- Structured data (Google rich result) -->
+<!-- JSON-LD -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "SportsClub",
   "name": "Bangalore Surf Club",
-  "alternateName": "BLSC",
-  "description": "A small crew running monthly surf trips from Bangalore to Varkala, Goa, Mulki, Pondicherry and Sri Lanka.",
+  "description": "Monthly surf trips from Bangalore.",
   "url": "https://blsurf.club/",
-  "logo": "https://blsurf.club/images/og-cover.jpg",
-  "image": "https://blsurf.club/images/og-cover.jpg",
+  "logo": "https://blsurf.club/favicon.svg",
+  "image": "https://blsurf.club/og-cover.jpg",
   "foundingDate": "2026",
-  "sport": "Surfing",
-  "areaServed": [
-    { "@type": "City", "name": "Bangalore" },
-    { "@type": "Country", "name": "India" },
-    { "@type": "Country", "name": "Sri Lanka" }
-  ],
-  "location": {
-    "@type": "Place",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Bangalore",
-      "addressRegion": "Karnataka",
-      "addressCountry": "IN"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 12.9716,
-      "longitude": 77.5946
-    }
-  },
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "contactType": "general",
-    "email": "hello@blsurf.club"
-  },
-  "sameAs": [
-    "https://instagram.com/blrsurfclub"
-  ]
+  "areaServed": ["Karnataka", "Kerala", "Tamil Nadu", "Goa", "Sri Lanka"]
 }
 </script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -82,147 +46,12 @@
 <!-- Leaflet (OpenStreetMap) -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-<script> if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; } </script>
 
 <!-- ============================================================
-     CONTENT CONFIG — Edit everything here
+     CONTENT CONFIG — Edit in config.js
      ============================================================ -->
-<script>
-const CONFIG = {
-  club: {
-    name: "Bangalore Surf Club",
-    shortName: "BSC",
-    tagline: "Monthly surf trips from ",
-    taglineAccent: "Bangalore.",
-    established: "Est. 2026",
-    // heroSub: "Social events, fund raisers",
-    coords: "12.9716° N / 77.5946° E → coast",
-    nextTrip: "Next up: Pondicherry — May 2026",
-    contactEmail: "hello@blsurf.club",
-    instagram: "https://instagram.com/blrsurfclub",
-    formspreeId: "mkokaawo",
-  },
-
-  destinations: [
-    { month: "Oct–Mar", name: "Varkala",      region: "Kerala",            lat:  8.74, lng: 76.71, swell: 5, peak: true,  coords: "8.74°N / 76.71°E",   temp: "26–28°C", difficulty: "Beginner to Intermediate", quote: "Cliffs and a long sand point. Warm water year-round, season runs through winter.",        sourceUrl: "https://www.surf-forecast.com/breaks/Varkala"        },
-    { month: "Mar–Apr", name: "Pondicherry",  region: "Tamil Nadu",        lat: 11.93, lng: 79.83, swell: 3, peak: false, coords: "11.93°N / 79.83°E",  temp: "28–30°C", difficulty: "Intermediate",            quote: "Shoulder-season east coast. Mellow days, good for stepping up.",                          sourceUrl: "https://www.surf-forecast.com/breaks/Pondicherry"   },
-    { month: "Apr–May", name: "Gokarna",      region: "Karnataka",         lat: 14.55, lng: 74.32, swell: 5, peak: true,  coords: "14.55°N / 74.32°E",  temp: "26–28°C", difficulty: "Intermediate to Advanced", quote: "Reef breaks. Quieter than Goa, fewer kooks.",                           sourceUrl: "https://www.surf-forecast.com/breaks/Gokarna"       },
-    { month: "Jun–Aug", name: "Arugam Bay",   region: "Sri Lanka (East)",  lat:  6.84, lng: 81.83, swell: 5, peak: true,  coords: "6.84°N / 81.83°E",   temp: "27–29°C", difficulty: "Intermediate",            quote: "Long peeling rights. Indian-coast monsoon = Sri Lankan east-coast peak season.",         sourceUrl: "https://www.surf-forecast.com/breaks/Arugam-Bay"    },
-    { month: "Jun–Oct", name: "Mulki",        region: "Karnataka",         lat: 13.09, lng: 74.78, swell: 5, peak: true,  coords: "13.09°N / 74.78°E",  temp: "26–28°C", difficulty: "Beginner to Intermediate", quote: "India's monsoon surf spot. Mantra Surf Club runs here year-round — dawn sessions before the wind comes up.", sourceUrl: "https://www.surf-forecast.com/breaks/Mulki"         },
-    { month: "Oct–Dec", name: "Goa",          region: "North Goa",         lat: 15.55, lng: 73.75, swell: 4, peak: false, coords: "15.55°N / 73.75°E",  temp: "27–29°C", difficulty: "All levels",              quote: "Easy waves, decent crowd, plenty going on after the surf.",                    sourceUrl: "https://www.surf-forecast.com/breaks/Anjuna"        },
-    { month: "Sep–Apr", name: "Covelong",     region: "Tamil Nadu",        lat: 12.79, lng: 80.25, swell: 4, peak: true,  coords: "12.79°N / 80.25°E",  temp: "27–29°C", difficulty: "Intermediate to Advanced", quote: "East-coast season. Proper line-ups when the NE monsoon swell wakes up.",                  sourceUrl: "https://www.surf-forecast.com/breaks/Kovalam-Beach" },
-    { month: "Nov–Apr", name: "Weligama",     region: "Sri Lanka (South)", lat:  5.97, lng: 80.43, swell: 4, peak: true,  coords: "5.97°N / 80.43°E",   temp: "27–29°C", difficulty: "All levels",              quote: "Sandy bottom, gentle reform. Surf schools everywhere. Easy first trip abroad.", sourceUrl: "https://www.surf-forecast.com/breaks/Weligama-Bay"   },
-  ],
-
-  calendar: [
-    { month: "Jan", dest: "Varkala",     swell: 5, highlight: true,  audience: "beginner",     forWho: "First-timers welcome. Schools running every morning along the cliffs." },
-    { month: "Feb", dest: "Varkala",     swell: 4, highlight: false, audience: "intermediate", forWho: "Picks up. Cleaner lines, fewer learners in the way." },
-    { month: "Mar", dest: "Pondicherry", swell: 3, highlight: false, audience: "beginner",     forWho: "Small east-coast days. Soft sand, easy reform — good for your first wave." },
-    { month: "Apr", dest: "Mulki",       swell: 4, highlight: false, audience: "intermediate", forWho: "Pre-monsoon clean windows. Confident paddlers and up." },
-    { month: "May", dest: "Gokarna",     swell: 5, highlight: true,  audience: "advanced",     forWho: "Reefs firing before the monsoon hits. Bring your shortboard." },
-    { month: "Jun", dest: "Mulki",       swell: 4, highlight: false, audience: "intermediate", forWho: "Monsoon power. Dawn sessions only — wind kills it by 9am." },
-    { month: "Jul", dest: "Arugam Bay",  swell: 5, highlight: true,  audience: "all",          forWho: "Main Point for everyone. Baby Point if it's your first overseas trip." },
-    { month: "Aug", dest: "Arugam Bay",  swell: 5, highlight: false, audience: "advanced",     forWho: "Peak season. Head-high days, crowded lineup." },
-    { month: "Sep", dest: "Mulki",       swell: 4, highlight: true,  audience: "beginner",     forWho: "Post-monsoon. Cleanest waves the west coast sees all year." },
-    { month: "Oct", dest: "Goa",         swell: 4, highlight: false, audience: "beginner",     forWho: "Small fun waves. Mellow crowd. Easy month for anyone." },
-    { month: "Nov", dest: "Covelong",    swell: 4, highlight: false, audience: "intermediate", forWho: "NE monsoon wakes the east coast. Proper lineups, low crowds." },
-    { month: "Dec", dest: "Weligama",    swell: 4, highlight: true,  audience: "beginner",     forWho: "Friendly bay, gentle reform. Most people's first surf trip abroad." },
-  ],
-
-  logbook: {
-    overline: "The logbook",
-    heading: "Where we've been.\nWhere we're going.",
-    sub: "Updated when we get back from each trip.",
-    entries: [
-      {
-        month: "Apr 2026",
-        location: "Mulki, Karnataka",
-        status: "logged",
-        headline: "First proper south-swell session of the year.",
-        notes: "Two days, dawn patrols, home-cooked thalis at the camp. Small crew — exactly the right size.",
-        instagram: "https://www.instagram.com/p/DX3Zk5piKx_/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
-        photo: "images/mulki-2026.jpeg",
-        spotlight: null
-      },
-      {
-        month: "May 2026",
-        location: "Pondicherry, Tamil Nadu",
-        status: "upcoming",
-        headline: "Shoulder-season run. Long weekend.",
-        notes: "Chiller waves, good for anyone wanting to ease in. Reach out if you want to ride along.",
-        instagram: "",
-        photo: "",
-        spotlight: null
-      },
-      {
-        month: "Jun 2026",
-        location: "Covelong, Tamil Nadu",
-        status: "upcoming",
-        headline: "Off-season scouting run.",
-        notes: "East coast is mostly flat in June — we're going to scout the village, meet the local surf school, and ride whatever shows up. Recon for the November NE-monsoon trip.",
-        instagram: "",
-        photo: "",
-        spotlight: null
-      }
-    ]
-  },
-
-  ethos: [
-    {
-      n: "01",
-      title: "A proper club. Not a tour operator.",
-      body: "We figure out the spot, the stay, the instructor if anyone needs one. Costs split inside the group, no markups. Receipts on request."
-    },
-    {
-      n: "02",
-      title: "The van ride is half of it.",
-      body: "Trips are what we actually do. Come on the overnight drive or meet us there. Either works — the drive is usually the best part anyway."
-    },
-    {
-      n: "03",
-      title: "You show up. You belong.",
-      body: "Anyone from Bangalore who wants to surf. That's it."
-    },
-    {
-      n: "04",
-      title: "Get better, with the crew.",
-      body: "Everyone's at a different level. Share boards, swap tips, learn from each other's wipeouts."
-    },
-  ],
-
-  swellMap: {
-    overline: "The swell",
-    heading: "Where the waves are, when.",
-    sub: "Ratings come from surf-forecast.com and SFI regional guides, plus what we've actually paddled out into.",
-  },
-
-  joinBar: {
-    text: "Next trip is forming. Want in?",
-    cta: "Talk to us →"
-  },
-
-  joinForm: {
-    title: "Talk to us.",
-    sub: "Tell us which trip you're eyeing, or just say hi. We'll write back in a day or two.",
-    fields: {
-      name: "Your name",
-      link: "Instagram or phone (optional)",
-      roleOptions: [
-        { value: "",            label: "Where are you at?" },
-        { value: "new",         label: "I've never surfed — want to try" },
-        { value: "learning",    label: "I've had a lesson or two" },
-        { value: "intermediate",label: "I can paddle out and catch waves" },
-        { value: "experienced", label: "I surf regularly — looking for crew" },
-      ],
-      message: "Which trip are you thinking about? Or what should we know? (a few lines is plenty)",
-    },
-    cta: "Send it →",
-    success: "Got it. We'll be in touch before the next trip.",
-  },
-};
-</script>
+<script src="config.js"></script>
 <!-- ============================================================ -->
-
 <style>
 /* ---- Reset ---- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -232,18 +61,20 @@ button, input, select, textarea { font-family: inherit; }
 
 /* ---- Tokens ---- */
 :root {
-  --ink:    #0e0e0e;
-  --sand:   #f5f0e8;
+  --ink:    #1A1410;   /* warm near-black for body */
+  --sand:   #F4ECDD;   /* warm cream paper */
   --tide:   #1a3a2e;
-  --wave:   #1D9E75;
-  --wave-d: #0F6E56;
-  --mist:   #8a9a92;
-  --salt:   #e8e2d6;
-  --deep:   #0a1f17;
+  --wave:   #1D9E75;   /* functional accent (in-season dots, links) */
+  --wave-d: #0F6E56;   /* italic accent word */
+  --mist:   #8a7f72;   /* warmer mist, sits on cream */
+  --salt:   #E8DEC9;   /* warm input border */
+  --deep:   #0a1f17;   /* hero kept dark green for contrast */
+  --oxblood:#6B1F2A;   /* headlines, rules, badges */
+  --rust:   #D89A2C;   /* SAFFRON dot — only as punctuation */
   --serif:  'DM Serif Display', Georgia, serif;
   --mono:   'DM Mono', 'Courier New', monospace;
-  --border: rgba(14,14,14,0.10);
-  --border-light: rgba(255,255,255,0.08);
+  --border: rgba(107,31,42,0.35);
+  --border-light: rgba(244,236,221,0.12);
   --ease:   cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
@@ -275,6 +106,15 @@ body {
   letter-spacing: -0.02em;
 }
 
+/* ---- Oxblood headline pass ---- */
+.section__h,
+.cal-card__dest,
+.swell-info__name,
+.modal__title,
+.ethos-mission__h { color: var(--oxblood); }
+.ethos-mission__h em { color: var(--wave-d); }
+.section--ethos .section__h em { color: var(--wave-d); }
+
 /* ---- NAV ---- */
 .nav {
   position: sticky;
@@ -296,7 +136,7 @@ body {
   color: var(--ink);
   text-decoration: none;
 }
-.nav__logo span { color: var(--wave); }
+.nav__logo span { color: var(--rust); }
 
 .nav__links {
   display: flex;
@@ -754,6 +594,136 @@ body {
   width: 100%;
 }
 .cal-card__link::after { content: '↗'; font-size: 14px; }
+
+/* Calendar → Program bridge (subtle CTA below the card) */
+.cal-program-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 18px 24px 0;
+  padding: 14px 18px;
+  border: 1px dashed var(--border);
+  border-radius: 4px;
+  background: transparent;
+  text-decoration: none;
+  transition: background 0.18s var(--ease), border-color 0.18s var(--ease);
+}
+@media (min-width: 720px) {
+  .cal-program-link { margin: 22px 40px 0; padding: 16px 22px; }
+}
+.cal-program-link:hover {
+  background: rgba(29,158,117,0.05);
+  border-color: var(--wave-d);
+}
+.cal-program-link__copy {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.cal-program-link__copy em {
+  color: var(--wave-d);
+  font-style: normal;
+  font-weight: 500;
+}
+.cal-program-link__cta {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--wave-d);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.cal-program-link__cta::after { content: '→'; font-size: 14px; }
+
+/* Calendar level filter (Beginner / Intermediate / Experienced) */
+.cal-level-filter {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+.cal-level-filter__lbl {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-right: 4px;
+}
+.cal-level-filter__btn {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 7px 14px 6px;
+  cursor: pointer;
+  transition: background 0.18s var(--ease), color 0.18s var(--ease), border-color 0.18s var(--ease);
+}
+.cal-level-filter__btn:hover { background: rgba(14,14,14,0.04); }
+.cal-level-filter__btn.is-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+.cal-level-filter__btn:focus-visible { outline: 2px solid var(--wave); outline-offset: 2px; }
+
+/* Alternates row inside the calendar card */
+.cal-card__alts {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.cal-card__alts-lbl {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-right: 4px;
+}
+.cal-card__alt-chip {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 5px 12px 4px;
+  cursor: pointer;
+  transition: background 0.18s var(--ease), border-color 0.18s var(--ease);
+}
+.cal-card__alt-chip:hover {
+  background: rgba(14,14,14,0.04);
+  border-color: var(--ink);
+}
+.cal-card__alt-chip.is-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+.cal-card__empty {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--mist);
+  font-style: italic;
+  line-height: 1.65;
+}
 
 /* ---- SWELL MAP ---- */
 .section--swell {
@@ -1811,6 +1781,7 @@ body {
     <ul class="nav__links" id="navLinks">
       <li><a href="#logbook">Trips</a></li>
       <li><a href="#calendar">Calendar</a></li>
+      <li><a href="program.html">Program</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#join">Join</a></li>
     </ul>
@@ -1821,6 +1792,7 @@ body {
   <nav class="nav__drawer" id="drawer" aria-label="Mobile menu">
     <a href="#logbook"  onclick="closeDrawer()">Trips</a>
     <a href="#calendar" onclick="closeDrawer()">Calendar</a>
+    <a href="program.html" onclick="closeDrawer()">Program</a>
     <a href="#about"    onclick="closeDrawer()">About</a>
     <a href="#join"     onclick="closeDrawer()">Join</a>
   </nav>
@@ -1990,11 +1962,21 @@ body {
 <section class="section--calendar" id="calendar" aria-labelledby="calHeading">
   <div class="section__intro">
     <p class="overline">The calendar</p>
-    <h2 class="serif-display section__h" id="calHeading">Best places to surf <br>for each month of the year.</h2>
+    <h2 class="serif-display section__h" id="calHeading">Best place to surf.<br>Every month of the year.</h2>
     <p class="section__sub" id="calSub"></p>
+    <div class="cal-level-filter" id="calLevelFilter" role="group" aria-label="Filter by skill level">
+      <span class="cal-level-filter__lbl">Surfing level:</span>
+      <button class="cal-level-filter__btn" type="button" data-level="beginner">Beginner</button>
+      <button class="cal-level-filter__btn is-active" type="button" data-level="intermediate">Intermediate</button>
+      <button class="cal-level-filter__btn" type="button" data-level="advanced">Experienced</button>
+    </div>
   </div>
   <div class="cal-strip" id="calStrip" role="tablist" aria-label="Months"></div>
   <div class="cal-card" id="calCard" aria-live="polite"></div>
+  <a class="cal-program-link" id="calProgramLink" href="program.html">
+    <span class="cal-program-link__copy">Want a <em>custom yearly plan</em>? Build your own program — pick your level, start month, and how often you want to travel.</span>
+    <span class="cal-program-link__cta">Build my program</span>
+  </a>
 </section>
 
 <!-- ETHOS -->
@@ -2111,12 +2093,12 @@ body {
       </div>
       <div class="form-field">
         <label for="f-link" id="labelLink"></label>
-        <input type="text" id="f-link" name="instagram_or_link" autocomplete="off"/>
+        <input type="text" id="f-link" name="instagram_or_link" autocomplete="url"/>
       </div>
       <div class="form-field">
         <label for="f-role">Who are you?</label>
         <div class="form-select-wrap">
-          <select id="f-role" name="role"required></select>
+          <select id="f-role" name="role" required></select>
         </div>
       </div>
       <div class="form-field">
@@ -2220,9 +2202,10 @@ var currentSwellDest = null;
   })();
 
   // Calendar section
-  document.getElementById('calSub').textContent = "Tap a month. We'll show where it works and what kind of surf you'll get.";
+  document.getElementById('calSub').textContent = "Pick your level, then tap a month. We'll show where it works and what kind of surf you'll get.";
   const strip = document.getElementById('calStrip');
   const card = document.getElementById('calCard');
+  const levelFilter = document.getElementById('calLevelFilter');
   const AUDIENCE_LABEL = {
     beginner:     'Beginners welcome',
     intermediate: 'Intermediate',
@@ -2230,6 +2213,9 @@ var currentSwellDest = null;
     all:          'All levels'
   };
   const nowMonthIdx = new Date().getMonth(); // 0-11
+  let activeLevel = 'intermediate';
+  let activeMonthIdx = nowMonthIdx;
+  let activePickIdx = 0;
 
   function swellTier(n) {
     if (n >= 5) return 'peak';
@@ -2238,59 +2224,161 @@ var currentSwellDest = null;
     return 'low';
   }
 
-  function renderCard(c) {
-    const destObj = D.find(function(d) { return d.name === c.dest; });
+  function destByName(name) {
+    return D.find(function(d) { return d.name === name; });
+  }
+
+  // For a given month entry + level, return the list of picks (may be empty).
+  function picksFor(monthEntry, level) {
+    if (!monthEntry || !monthEntry.picks) return [];
+    return monthEntry.picks[level] || [];
+  }
+
+  // Pick swell rating for a destination in a given calendar month (1-12).
+  function destSwellForMonth(destObj, monthIdx1) {
+    if (!destObj) return 3;
+    return isDestInSeason(destObj, monthIdx1) ? destObj.swell : Math.max(1, destObj.swell - 2);
+  }
+
+  // Compute the strip-chip swell tier for a (month, level) cell — uses primary pick.
+  function chipTier(monthEntry, level, monthIdx0) {
+    const picks = picksFor(monthEntry, level);
+    if (!picks.length) return 'low';
+    const dest = destByName(picks[0].dest);
+    return swellTier(destSwellForMonth(dest, monthIdx0 + 1));
+  }
+
+  function renderCard(monthEntry, level, pickIdx) {
+    const picks = picksFor(monthEntry, level);
+    if (!picks.length) {
+      card.innerHTML =
+          '<div class="cal-card__head">'
+        +   '<span class="cal-card__month">' + escapeHtml(monthEntry.month) + '</span>'
+        +   '<span class="cal-card__dest">No fit this month.</span>'
+        + '</div>'
+        + '<div class="cal-card__empty">'
+        +   'No standout option for ' + escapeHtml(level === 'advanced' ? 'experienced' : level) + ' surfers in ' + escapeHtml(monthEntry.month) + '. '
+        +   'Try a different level — or wait it out, the next swell window is rarely far away.'
+        + '</div>';
+      card.onclick = null;
+      card.setAttribute('aria-label', monthEntry.month + ': no destination fit for ' + level);
+      return;
+    }
+
+    pickIdx = Math.max(0, Math.min(pickIdx || 0, picks.length - 1));
+    activePickIdx = pickIdx;
+    const pick = picks[pickIdx];
+    const destObj = destByName(pick.dest);
     const region = destObj ? destObj.region : '';
-    const audKey = c.audience || 'all';
+    const monthIdx1 = MONTH_INDEX[monthEntry.month.toLowerCase()] || (M.indexOf(monthEntry) + 1);
+    const swell = destSwellForMonth(destObj, monthIdx1);
+    const audKey = level;
+
     let bars = '';
     for (let i = 0; i < 5; i++) {
-      bars += '<div class="cal-card__bar' + (i < c.swell ? ' cal-card__bar--on' : '') + '"></div>';
+      bars += '<div class="cal-card__bar' + (i < swell ? ' cal-card__bar--on' : '') + '"></div>';
     }
+
+    let altsHtml = '';
+    if (picks.length > 1) {
+      altsHtml = '<div class="cal-card__alts">'
+        + '<span class="cal-card__alts-lbl">Also working:</span>'
+        + picks.map(function(p, i) {
+            return '<button type="button" class="cal-card__alt-chip' + (i === pickIdx ? ' is-active' : '') + '" data-pick-idx="' + i + '">'
+              + escapeHtml(p.dest) + '</button>';
+          }).join('')
+        + '</div>';
+    }
+
     card.innerHTML =
         '<div class="cal-card__head">'
-      +   '<span class="cal-card__month">' + escapeHtml(c.month) + '</span>'
-      +   '<span class="cal-card__dest">' + escapeHtml(c.dest) + '</span>'
+      +   '<span class="cal-card__month">' + escapeHtml(monthEntry.month) + '</span>'
+      +   '<span class="cal-card__dest">' + escapeHtml(pick.dest) + '</span>'
       + '</div>'
       + '<div class="cal-card__region">' + escapeHtml(region) + '</div>'
       + '<div class="cal-card__row">'
       +   '<div class="cal-card__swell">' + bars + '</div>'
       +   '<div class="cal-card__pill cal-card__pill--' + audKey + '">' + (AUDIENCE_LABEL[audKey] || 'All levels') + '</div>'
       + '</div>'
-      + (c.forWho ? '<div class="cal-card__forwho">' + escapeHtml(c.forWho) + '</div>' : '')
-      + '<span class="cal-card__link">See ' + escapeHtml(c.dest) + ' on the map</span>';
-    card.onclick = function() { scrollToSwellMap(c.dest); };
-    card.setAttribute('aria-label', c.month + ': ' + c.dest + ', ' + region);
-  }
+      + (pick.note ? '<div class="cal-card__forwho">' + escapeHtml(pick.note) + '</div>' : '')
+      + '<span class="cal-card__link" data-cal-link="1">See ' + escapeHtml(pick.dest) + ' on the map</span>'
+      + altsHtml;
 
-  M.forEach(function(c, i) {
-    const chip = document.createElement('button');
-    chip.type = 'button';
-    chip.className = 'cal-chip cal-chip--' + swellTier(c.swell);
-    if (i === nowMonthIdx) chip.classList.add('cal-chip--now');
-    chip.setAttribute('role', 'tab');
-    chip.setAttribute('aria-label', c.month + ': ' + c.dest);
-    chip.innerHTML =
-        '<span class="cal-chip__month">' + c.month + '</span>'
-      + '<span class="cal-chip__dot" aria-hidden="true"></span>';
-    chip.onclick = function() {
-      strip.querySelectorAll('.cal-chip').forEach(function(el) { el.classList.remove('is-active'); });
-      chip.classList.add('is-active');
-      renderCard(c);
+    // Wire alternate chips
+    card.querySelectorAll('[data-pick-idx]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const i = parseInt(btn.getAttribute('data-pick-idx'), 10) || 0;
+        renderCard(monthEntry, level, i);
+      });
+    });
+    card.onclick = function(e) {
+      if (e.target.closest('[data-pick-idx]')) return;
+      scrollToSwellMap(pick.dest);
     };
-    strip.appendChild(chip);
-  });
-
-  // Default open: current month
-  if (M[nowMonthIdx]) {
-    strip.children[nowMonthIdx].classList.add('is-active');
-    renderCard(M[nowMonthIdx]);
-  } else {
-    strip.children[0].classList.add('is-active');
-    renderCard(M[0]);
+    card.setAttribute('aria-label', monthEntry.month + ': ' + pick.dest + ', ' + region);
   }
+
+  function rebuildStrip() {
+    strip.innerHTML = '';
+    M.forEach(function(c, i) {
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'cal-chip cal-chip--' + chipTier(c, activeLevel, i);
+      if (i === nowMonthIdx) chip.classList.add('cal-chip--now');
+      if (i === activeMonthIdx) chip.classList.add('is-active');
+      const picks = picksFor(c, activeLevel);
+      const primary = picks.length ? picks[0].dest : 'no fit';
+      chip.setAttribute('role', 'tab');
+      chip.setAttribute('aria-label', c.month + ': ' + primary);
+      chip.innerHTML =
+          '<span class="cal-chip__month">' + c.month + '</span>'
+        + '<span class="cal-chip__dot" aria-hidden="true"></span>';
+      chip.onclick = function() {
+        strip.querySelectorAll('.cal-chip').forEach(function(el) { el.classList.remove('is-active'); });
+        chip.classList.add('is-active');
+        activeMonthIdx = i;
+        activePickIdx = 0;
+        renderCard(c, activeLevel, 0);
+        updateProgramLink();
+      };
+      strip.appendChild(chip);
+    });
+  }
+
+  // Keep the "Build my program" link in sync with the active level/month.
+  const programLinkEl = document.getElementById('calProgramLink');
+  function updateProgramLink() {
+    if (!programLinkEl) return;
+    const startMonth = activeMonthIdx + 1; // 1-12
+    programLinkEl.setAttribute('href',
+      'program.html?skill=' + encodeURIComponent(activeLevel)
+      + '&start=' + startMonth
+      + '&cadence=2');
+  }
+
+  // Wire level filter buttons
+  if (levelFilter) {
+    levelFilter.querySelectorAll('.cal-level-filter__btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        const lvl = btn.getAttribute('data-level');
+        if (!lvl || lvl === activeLevel) return;
+        activeLevel = lvl;
+        levelFilter.querySelectorAll('.cal-level-filter__btn').forEach(function(b) { b.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+        rebuildStrip();
+        renderCard(M[activeMonthIdx], activeLevel, 0);
+        updateProgramLink();
+      });
+    });
+  }
+
+  rebuildStrip();
+  renderCard(M[activeMonthIdx], activeLevel, 0);
+  updateProgramLink();
 
   // Ethos heading
-  document.getElementById('ethosHeading').innerHTML = 'Not a tour. Not a class.<br><em>A standing crew.</em>';
+  document.getElementById('ethosHeading').innerHTML = 'Not a tour.<br>Not a class.<br><em>A standing crew.</em>';
   const ethosGrid = document.getElementById('ethosGrid');
   E.forEach(function(e) {
     const cell = document.createElement('div');

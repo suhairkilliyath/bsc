@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Build your year of surf — Bangalore Surf Club</title>
+
+<meta name="description" content="A custom annual surf program from Bangalore. Pick your level, your start month, and your cadence — we'll build the trips around it.">
+<link rel="canonical" href="https://blsurf.club/program">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="favicon.svg">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Build your year of surf — Bangalore Surf Club">
+<meta property="og:description" content="A custom annual surf program. Pick your level, your start month, your cadence.">
+<meta property="og:url" content="https://blsurf.club/program">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script src="config.js"></script>
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+img, svg { display: block; }
+button, input, select, textarea { font-family: inherit; }
+
+:root {
+  --ink:    #1A1410;
+  --sand:   #F4ECDD;
+  --tide:   #1a3a2e;
+  --wave:   #1D9E75;
+  --wave-d: #0F6E56;
+  --mist:   #8a7f72;
+  --salt:   #E8DEC9;
+  --deep:   #0a1f17;
+  --oxblood:#6B1F2A;
+  --rust:   #D89A2C;
+  --serif:  'DM Serif Display', Georgia, serif;
+  --mono:   'DM Mono', 'Courier New', monospace;
+  --border: rgba(107,31,42,0.35);
+  --ease:   cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+body {
+  background: var(--sand);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+.overline {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--wave);
+}
+.serif-display {
+  font-family: var(--serif);
+  line-height: 1.10;
+  letter-spacing: -0.02em;
+}
+
+/* NAV (mirrors index.html) */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 60px;
+  background: var(--sand);
+  border-bottom: 1px solid var(--border);
+}
+.nav__logo {
+  font-family: var(--serif);
+  font-size: 20px;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  text-decoration: none;
+}
+.nav__logo span { color: var(--rust); }
+.nav__links { display: flex; gap: 32px; list-style: none; }
+.nav__links a {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mist);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav__links a:hover { color: var(--ink); }
+.nav__links a.is-active { color: var(--ink); }
+.nav__hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+.nav__hamburger span { display: block; width: 24px; height: 1px; background: var(--ink); transition: transform 0.3s var(--ease), opacity 0.3s; }
+.nav__hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav__hamburger.open span:nth-child(2) { opacity: 0; }
+.nav__hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+.nav__drawer {
+  display: none;
+  position: fixed;
+  top: 60px; left: 0; right: 0; bottom: 0;
+  background: var(--sand);
+  z-index: 99;
+  padding: 48px 40px;
+  flex-direction: column;
+  gap: 32px;
+}
+.nav__drawer.open { display: flex; }
+.nav__drawer a {
+  font-family: var(--serif);
+  font-size: 36px;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+.nav__drawer a:hover { color: var(--wave); }
+
+/* HEADER */
+.prog-header {
+  padding: 80px 40px 40px;
+  max-width: 880px;
+}
+.prog-header__overline { color: var(--wave); }
+.prog-header__h {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 56px);
+  color: var(--oxblood);
+  margin-top: 14px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.prog-header__h em { color: var(--wave-d); font-style: italic; }
+.prog-header__sub {
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--ink);
+  max-width: 600px;
+  margin-top: 18px;
+}
+
+/* PICKER */
+.picker {
+  background: #fefdfb;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin: 0 40px 36px;
+  padding: 28px 28px 24px;
+  max-width: 1040px;
+}
+.picker__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px 36px;
+  align-items: flex-start;
+}
+.picker__group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 220px;
+}
+.picker__lbl {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+.picker__btnrow { display: flex; flex-wrap: wrap; gap: 6px; }
+.picker__btn {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 14px 7px;
+  cursor: pointer;
+  transition: background 0.18s var(--ease), color 0.18s var(--ease), border-color 0.18s var(--ease);
+}
+.picker__btn:hover { background: rgba(14,14,14,0.04); }
+.picker__btn.is-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+.picker__btn:focus-visible { outline: 2px solid var(--wave); outline-offset: 2px; }
+.picker__select {
+  font-family: var(--mono);
+  font-size: 13px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 9px 14px;
+  color: var(--ink);
+  cursor: pointer;
+  min-width: 180px;
+}
+.picker__select:focus-visible { outline: 2px solid var(--wave); outline-offset: 2px; }
+.picker__share {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 22px;
+  padding: 9px 16px 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--wave-d);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, color 0.18s;
+}
+.picker__share:hover { background: rgba(29,158,117,0.08); border-color: var(--wave-d); }
+.picker__share.is-copied { background: var(--wave-d); color: #fff; border-color: var(--wave-d); }
+
+/* RESULT TIMELINE */
+.prog-result {
+  padding: 8px 40px 80px;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+.prog-summary {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--mist);
+  letter-spacing: 0.04em;
+  margin-bottom: 24px;
+  padding: 0 4px;
+}
+.prog-summary strong { color: var(--ink); font-weight: 500; }
+
+.trip {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 20px;
+  padding: 24px 0;
+  border-top: 1px solid var(--border);
+  position: relative;
+}
+.trip:last-child { border-bottom: 1px solid var(--border); }
+
+.trip__index {
+  font-family: var(--serif);
+  font-size: 36px;
+  color: var(--mist);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.trip__body { display: flex; flex-direction: column; gap: 10px; }
+.trip__head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.trip__when {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+.trip__dest {
+  font-family: var(--serif);
+  font-size: clamp(22px, 3vw, 28px);
+  color: var(--oxblood);
+  line-height: 1.1;
+}
+.trip__region {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--mist);
+}
+.trip__row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+.trip__swell { display: flex; gap: 3px; }
+.trip__bar {
+  width: 5px;
+  height: 16px;
+  border-radius: 2px;
+  background: rgba(14,14,14,0.10);
+}
+.trip__bar--on { background: var(--wave); }
+.trip__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px 3px;
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1;
+  background: rgba(29,158,117,0.14);
+  color: var(--wave-d);
+}
+.trip__pill--peak { background: var(--wave); color: #fff; }
+.trip__pill--shoulder { background: rgba(14,14,14,0.06); color: var(--ink); }
+.trip__note {
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--ink);
+}
+.trip__alts {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.trip__alts-lbl {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-right: 4px;
+}
+.trip__alt-chip {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--mist);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 3px 10px 2px;
+}
+
+.prog-empty {
+  padding: 60px 20px;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--mist);
+  font-style: italic;
+}
+.prog-empty strong { color: var(--ink); font-style: normal; font-weight: 500; }
+
+.prog-cta {
+  margin: 48px auto 0;
+  max-width: 720px;
+  text-align: center;
+  padding: 32px 24px;
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+}
+.prog-cta__h {
+  font-family: var(--serif);
+  font-size: 24px;
+  color: var(--oxblood);
+  margin-bottom: 10px;
+}
+.prog-cta__sub {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--mist);
+  margin-bottom: 18px;
+}
+.prog-cta__btn {
+  display: inline-block;
+  padding: 12px 22px 11px;
+  background: var(--ink);
+  color: #fff;
+  text-decoration: none;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  transition: background 0.18s;
+}
+.prog-cta__btn:hover { background: var(--wave-d); }
+
+/* FOOTER */
+.foot {
+  padding: 30px 40px 60px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.foot__logo {
+  font-family: var(--serif);
+  font-size: 16px;
+  color: var(--ink);
+}
+.foot__links {
+  display: flex;
+  gap: 24px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.foot__links a { color: var(--mist); text-decoration: none; }
+.foot__links a:hover { color: var(--ink); }
+
+@media (max-width: 720px) {
+  .nav__links { display: none; }
+  .nav__hamburger { display: flex; }
+  .prog-header { padding: 50px 24px 28px; }
+  .picker { margin: 0 24px 28px; padding: 22px 20px 20px; }
+  .picker__row { gap: 22px 24px; }
+  .picker__group { min-width: 0; width: 100%; }
+  .prog-result { padding: 8px 24px 60px; }
+  .trip { grid-template-columns: 60px 1fr; gap: 14px; padding: 20px 0; }
+  .trip__index { font-size: 26px; }
+  .foot { padding: 24px 24px 40px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav" role="navigation" aria-label="Main">
+    <a class="nav__logo" href="index.html" aria-label="Bangalore Surf Club home">BSC<span>.</span></a>
+    <ul class="nav__links">
+      <li><a href="index.html#logbook">Trips</a></li>
+      <li><a href="index.html#calendar">Calendar</a></li>
+      <li><a href="program.html" class="is-active">Program</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#join">Join</a></li>
+    </ul>
+    <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <nav class="nav__drawer" id="drawer" aria-label="Mobile menu">
+    <a href="index.html#logbook">Trips</a>
+    <a href="index.html#calendar">Calendar</a>
+    <a href="program.html">Program</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#join">Join</a>
+  </nav>
+</header>
+
+<section class="prog-header">
+  <p class="overline prog-header__overline">The annual program</p>
+  <h1 class="serif-display prog-header__h">Build your year <em>of surf.</em></h1>
+  <p class="prog-header__sub">Tell us where you're at and when you want to start. We'll build a program from any month — using the spots that actually work for your level, in the months they actually work. Pick your cadence: a trip every month, every other, or just the strongest swells of the year.</p>
+</section>
+
+<section class="picker" aria-label="Program picker">
+  <div class="picker__row">
+    <div class="picker__group">
+      <span class="picker__lbl">Your level</span>
+      <div class="picker__btnrow" id="pickLevel" role="group" aria-label="Skill level">
+        <button class="picker__btn" type="button" data-level="beginner">Beginner</button>
+        <button class="picker__btn is-active" type="button" data-level="intermediate">Intermediate</button>
+        <button class="picker__btn" type="button" data-level="advanced">Experienced</button>
+      </div>
+    </div>
+    <div class="picker__group">
+      <span class="picker__lbl">Start month</span>
+      <select class="picker__select" id="pickStart" aria-label="Start month"></select>
+    </div>
+    <div class="picker__group">
+      <span class="picker__lbl">Cadence</span>
+      <div class="picker__btnrow" id="pickCadence" role="group" aria-label="Trip cadence">
+        <button class="picker__btn" type="button" data-cadence="1">Every month</button>
+        <button class="picker__btn is-active" type="button" data-cadence="2">Every 2 months</button>
+        <button class="picker__btn" type="button" data-cadence="3">Quarterly</button>
+        <button class="picker__btn" type="button" data-cadence="best">Best swells of the year</button>
+      </div>
+    </div>
+  </div>
+  <button class="picker__share" type="button" id="shareBtn" aria-label="Copy shareable link">
+    <span id="shareLbl">Share this program</span>
+  </button>
+</section>
+
+<section class="prog-result" aria-live="polite">
+  <p class="prog-summary" id="progSummary"></p>
+  <div id="progList"></div>
+  <div class="prog-cta">
+    <div class="prog-cta__h">Like the look of this?</div>
+    <div class="prog-cta__sub">Send us your program — we'll add you to the planning thread for the next trip on your list.</div>
+    <a class="prog-cta__btn" href="index.html#join">Talk to us →</a>
+  </div>
+</section>
+
+<footer class="foot">
+  <span class="foot__logo">Bangalore Surf Club</span>
+  <div class="foot__links">
+    <a href="index.html">Home</a>
+    <a href="index.html#calendar">Calendar</a>
+    <a href="index.html#about">About</a>
+  </div>
+</footer>
+
+<script>
+(function() {
+  if (typeof CONFIG === 'undefined') {
+    console.error('CONFIG not loaded — check that config.js is alongside program.html');
+    return;
+  }
+  const D = CONFIG.destinations;
+  const M = CONFIG.calendar;
+  const MONTH_INDEX = { jan:1, feb:2, mar:3, apr:4, may:5, jun:6, jul:7, aug:8, sep:9, oct:10, nov:11, dec:12 };
+  const MONTH_NAMES_FULL = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const LEVEL_LABEL = { beginner: 'Beginner', intermediate: 'Intermediate', advanced: 'Experienced' };
+  const CADENCE_LABEL = { '1': 'every month', '2': 'every two months', '3': 'quarterly', 'best': 'on the strongest swells of the year' };
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function(c) {
+      return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
+    });
+  }
+  function destByName(name) { return D.find(function(d) { return d.name === name; }); }
+  function isDestInSeason(dest, monthIdx1) {
+    if (!dest || !dest.month) return false;
+    const parts = dest.month.split('\u2013').map(s => s.trim().slice(0,3).toLowerCase());
+    if (parts.length === 1) return MONTH_INDEX[parts[0]] === monthIdx1;
+    const start = MONTH_INDEX[parts[0]];
+    const end = MONTH_INDEX[parts[1]];
+    if (!start || !end) return false;
+    if (start <= end) return monthIdx1 >= start && monthIdx1 <= end;
+    return monthIdx1 >= start || monthIdx1 <= end;
+  }
+  function destSwellForMonth(dest, monthIdx1) {
+    if (!dest) return 3;
+    return isDestInSeason(dest, monthIdx1) ? dest.swell : Math.max(1, dest.swell - 2);
+  }
+
+  // State
+  const now = new Date();
+  let state = {
+    level:    'intermediate',
+    start:    now.getMonth() + 1,   // 1-12
+    cadence:  '2',
+  };
+
+  // Read URL params
+  (function readUrl() {
+    const p = new URLSearchParams(location.search);
+    const lvl = p.get('skill');
+    if (lvl && LEVEL_LABEL[lvl]) state.level = lvl;
+    const s = parseInt(p.get('start'), 10);
+    if (s >= 1 && s <= 12) state.start = s;
+    const c = p.get('cadence');
+    if (c && CADENCE_LABEL[c]) state.cadence = c;
+  })();
+
+  // Populate start-month select
+  const startSel = document.getElementById('pickStart');
+  for (let i = 1; i <= 12; i++) {
+    const opt = document.createElement('option');
+    opt.value = String(i);
+    opt.textContent = MONTH_NAMES_FULL[i - 1];
+    if (i === state.start) opt.selected = true;
+    startSel.appendChild(opt);
+  }
+
+  // Reflect initial state on buttons
+  function syncControls() {
+    document.querySelectorAll('#pickLevel .picker__btn').forEach(function(b) {
+      b.classList.toggle('is-active', b.getAttribute('data-level') === state.level);
+    });
+    document.querySelectorAll('#pickCadence .picker__btn').forEach(function(b) {
+      b.classList.toggle('is-active', b.getAttribute('data-cadence') === state.cadence);
+    });
+    startSel.value = String(state.start);
+  }
+  syncControls();
+
+  // Wire controls
+  document.getElementById('pickLevel').addEventListener('click', function(e) {
+    const btn = e.target.closest('.picker__btn');
+    if (!btn) return;
+    state.level = btn.getAttribute('data-level');
+    syncControls(); render(); writeUrl();
+  });
+  document.getElementById('pickCadence').addEventListener('click', function(e) {
+    const btn = e.target.closest('.picker__btn');
+    if (!btn) return;
+    state.cadence = btn.getAttribute('data-cadence');
+    syncControls(); render(); writeUrl();
+  });
+  startSel.addEventListener('change', function() {
+    state.start = parseInt(startSel.value, 10) || 1;
+    render(); writeUrl();
+  });
+
+  function writeUrl() {
+    const p = new URLSearchParams();
+    p.set('skill', state.level);
+    p.set('start', String(state.start));
+    p.set('cadence', state.cadence);
+    history.replaceState(null, '', location.pathname + '?' + p.toString());
+  }
+
+  // Score a destination at a given month for a given level.
+  // Used for the "best swells" cadence and as a tie-breaker.
+  function scoreFor(pick, monthIdx1) {
+    const dest = destByName(pick.dest);
+    if (!dest) return 0;
+    let s = destSwellForMonth(dest, monthIdx1);  // 1-5
+    if (isDestInSeason(dest, monthIdx1)) s += 1.5;
+    if (dest.peak && isDestInSeason(dest, monthIdx1)) s += 0.5;
+    return s;
+  }
+
+  function buildProgram() {
+    // For each of the 12 months from state.start, get the per-level picks.
+    const months = [];
+    for (let i = 0; i < 12; i++) {
+      const monthIdx1 = ((state.start - 1 + i) % 12) + 1;
+      const monthEntry = M[monthIdx1 - 1];
+      const picks = (monthEntry && monthEntry.picks && monthEntry.picks[state.level]) || [];
+      months.push({
+        offset: i,
+        monthIdx1: monthIdx1,
+        monthEntry: monthEntry,
+        picks: picks,
+        primary: picks[0] || null,
+        score: picks[0] ? scoreFor(picks[0], monthIdx1) : 0
+      });
+    }
+
+    let chosen;
+    if (state.cadence === 'best') {
+      // Top up to 6 by score across all 12 months.
+      chosen = months
+        .filter(function(m) { return m.primary; })
+        .slice()
+        .sort(function(a, b) { return b.score - a.score; })
+        .slice(0, 6)
+        .sort(function(a, b) { return a.offset - b.offset; });
+    } else {
+      const step = parseInt(state.cadence, 10);
+      chosen = months.filter(function(m) {
+        return m.offset % step === 0 && m.primary;
+      });
+    }
+    return chosen;
+  }
+
+  function pillForDest(dest, monthIdx1) {
+    if (!dest) return '';
+    if (isDestInSeason(dest, monthIdx1) && dest.peak) return '<span class="trip__pill trip__pill--peak">Peak season</span>';
+    if (isDestInSeason(dest, monthIdx1)) return '<span class="trip__pill">In season</span>';
+    return '<span class="trip__pill trip__pill--shoulder">Shoulder window</span>';
+  }
+
+  function tripCard(item, idx) {
+    const monthName = MONTH_NAMES_FULL[item.monthIdx1 - 1];
+    const yearOffset = (state.start - 1 + item.offset) >= 12 ? 1 : 0;
+    const year = now.getFullYear() + (item.monthIdx1 < state.start || (item.offset >= 12 - state.start + 1 && item.offset > 0) ? 0 : 0);
+    // simpler: derive year from absolute offset from "now"
+    const absMonths = (item.monthIdx1 - (now.getMonth() + 1) + 12) % 12;
+    const labelYear = now.getFullYear() + (item.monthIdx1 < (now.getMonth() + 1) ? 1 : 0);
+
+    const dest = destByName(item.primary.dest);
+    const region = dest ? dest.region : '';
+    const swell = destSwellForMonth(dest, item.monthIdx1);
+    let bars = '';
+    for (let i = 0; i < 5; i++) {
+      bars += '<div class="trip__bar' + (i < swell ? ' trip__bar--on' : '') + '"></div>';
+    }
+    const altsHtml = item.picks.length > 1
+      ? '<div class="trip__alts">'
+        + '<span class="trip__alts-lbl">Also working:</span>'
+        + item.picks.slice(1).map(function(p) {
+            return '<span class="trip__alt-chip">' + escapeHtml(p.dest) + '</span>';
+          }).join('')
+        + '</div>'
+      : '';
+
+    return '<article class="trip">'
+      + '<div class="trip__index">' + String(idx + 1).padStart(2, '0') + '</div>'
+      + '<div class="trip__body">'
+      +   '<div class="trip__head">'
+      +     '<span class="trip__when">' + escapeHtml(monthName) + ' ' + labelYear + '</span>'
+      +     '<span class="trip__dest">' + escapeHtml(item.primary.dest) + '</span>'
+      +   '</div>'
+      +   '<div class="trip__region">' + escapeHtml(region) + '</div>'
+      +   '<div class="trip__row">'
+      +     '<div class="trip__swell" aria-label="Swell rating ' + swell + ' of 5">' + bars + '</div>'
+      +     pillForDest(dest, item.monthIdx1)
+      +   '</div>'
+      +   '<div class="trip__note">' + escapeHtml(item.primary.note) + '</div>'
+      +   altsHtml
+      + '</div>'
+      + '</article>';
+  }
+
+  function render() {
+    const trips = buildProgram();
+    const list = document.getElementById('progList');
+    const summary = document.getElementById('progSummary');
+
+    summary.innerHTML = '<strong>' + LEVEL_LABEL[state.level] + '</strong> program, starting <strong>'
+      + MONTH_NAMES_FULL[state.start - 1] + '</strong>, ' + CADENCE_LABEL[state.cadence] + '. '
+      + '<strong>' + trips.length + '</strong> trip' + (trips.length === 1 ? '' : 's') + ' over the next 12 months.';
+
+    if (!trips.length) {
+      list.innerHTML = '<div class="prog-empty"><strong>No fits this year.</strong><br>Try a different level — the conditions don\u2019t favour this combination.</div>';
+      return;
+    }
+    list.innerHTML = trips.map(tripCard).join('');
+  }
+
+  // Share button
+  const shareBtn = document.getElementById('shareBtn');
+  const shareLbl = document.getElementById('shareLbl');
+  shareBtn.addEventListener('click', function() {
+    const url = location.origin + location.pathname + '?skill=' + state.level + '&start=' + state.start + '&cadence=' + state.cadence;
+    const done = function() {
+      shareBtn.classList.add('is-copied');
+      shareLbl.textContent = 'Link copied';
+      setTimeout(function() {
+        shareBtn.classList.remove('is-copied');
+        shareLbl.textContent = 'Share this program';
+      }, 2000);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(done, done);
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = url; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      done();
+    }
+  });
+
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const drawer = document.getElementById('drawer');
+  if (hamburger && drawer) {
+    hamburger.addEventListener('click', function() {
+      const open = drawer.classList.toggle('open');
+      hamburger.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', String(open));
+    });
+  }
+
+  // Initial paint + URL sync
+  writeUrl();
+  render();
+})();
+</script>
+
+</body>
+</html>
