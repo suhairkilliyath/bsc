@@ -9,7 +9,7 @@ const CONFIG = {
     coords: "12.9716° N / 77.5946° E → coast",
     nextTrip: "Next up: Pondicherry — May 2026",
     contactEmail: "hello@blsurf.club",
-    instagram: "https://instagram.com/bangaloresurfclub",
+    instagram: "https://instagram.com/blrsurfclub",
     formspreeId:"mkokaawo",
   },
 
@@ -167,8 +167,8 @@ const CONFIG = {
         status: "logged",
         headline: "First proper south-swell session of the year.",
         notes: "Two days, dawn patrols, home-cooked thalis at the camp. Small crew — exactly the right size.",
-        instagram: "https://www.instagram.com/bhoomiiexplores/p/DXJqE-8CPBx/",
-        photo: "images/mulki-apr26.jpg",
+        instagram: "https://www.instagram.com/p/DX3Zk5piKx_/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+        photo: "images/mulki-2026.jpg",
         spotlight: null
       },
       {
