@@ -168,21 +168,11 @@ const CONFIG = {
         headline: "First proper south-swell session of the year.",
         notes: "Two days, dawn patrols, home-cooked thalis at the camp. Small crew — exactly the right size.",
         instagram: "https://www.instagram.com/p/DX3Zk5piKx_/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
-        photo: "images/mulki-2026.jpg",
+        photo: "images/mulki-2026.jpeg",
         spotlight: null
       },
       {
         month: "May 2026",
-        location: "Pondicherry, Tamil Nadu",
-        status: "upcoming",
-        headline: "Shoulder-season run. Long weekend.",
-        notes: "Chiller waves, good for anyone wanting to ease in. Reach out if you want to ride along.",
-        instagram: "",
-        photo: "",
-        spotlight: null
-      },
-      {
-        month: "Jun 2026",
         location: "Covelong, Tamil Nadu",
         status: "upcoming",
         headline: "Off-season scouting run.",
@@ -190,6 +180,17 @@ const CONFIG = {
         instagram: "",
         photo: "",
         spotlight: null
+      },
+      {
+        month: "Jun 2026",
+        location: "Pondicherry, Tamil Nadu",
+        status: "upcoming",
+        headline: "Shoulder-season run. Long weekend.",
+        notes: "Chiller waves, good for anyone wanting to ease in. Reach out if you want to ride along.",
+        instagram: "",
+        photo: "",
+        spotlight: null
+
       }
     ]
   },
