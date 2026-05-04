@@ -7,7 +7,7 @@ const CONFIG = {
     established: "Est. 2026",
     // heroSub: "We pile into a van every month and go find waves. Open to anyone in Bangalore.",
     coords: "12.9716° N / 77.5946° E → coast",
-    nextTrip: "Next up: Pondicherry — May 2026",
+    nextTrip: "Next up: Covelong — May 2026",
     contactEmail: "hello@blsurf.club",
     instagram: "https://instagram.com/blrsurfclub",
     formspreeId:"mkokaawo",
