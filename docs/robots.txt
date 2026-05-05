@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://blrsurf.club/sitemap.xml
