@@ -82,8 +82,8 @@ const CONFIG = {
                         { dest: "Arugam Bay",  note: "Early-season Arugam: small but clean. Skip the crowd, learn the lines." } ]
     }},
     { month: "Jun", picks: {
-        beginner:     [ { dest: "Pondicherry", note: "East coast wakes up for beginners. Small clean reform, schools open, the gentlest paddle-out in India." },
-                        { dest: "Covelong",    note: "Beach-break heaven for first-timers. Soft sand, instructors on call, the weather warm and predictable." } ],
+        beginner:     [ {  dest: "Covelong",    note: "Beach-break heaven for first-timers. Soft sand, instructors on call, the weather warm and predictable." },
+                        {  dest: "Pondicherry", note: "East coast wakes up for beginners. Small clean reform, schools open, the gentlest paddle-out in India." }                        ],
         intermediate: [ { dest: "Pondicherry", note: "Clean east-coast peaks. Empty weekday lineups, the kind of week that resets your surfing." },
                         { dest: "Covelong",    note: "Long, mellow, reliable. Build paddle fitness while the west coast sits out the monsoon." },
                         { dest: "Arugam Bay",  note: "Building swell, half the season's crowd. The sweetest weeks before the August peak." } ],
@@ -174,16 +174,16 @@ const CONFIG = {
       {
         month: "May 2026",
         location: "Covelong, Tamil Nadu",
-        status: "upcoming",
+        status: "logged",
         headline: "Off-season scouting run.",
-        notes: "East coast is mostly flat in June — we're going to scout the village, meet the local surf school, and ride whatever shows up. Recon for the November NE-monsoon trip.",
-        instagram: "",
-        photo: "",
+        notes: "Quiet lineups, long sessions, the kind of week that resets your surfing.",
+        instagram: "https://www.instagram.com/p/DYfA6T5kfG_/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+        photo: "images/covelong-may-2026.jpeg",
         spotlight: null
       },
       {
         month: "Jun 2026",
-        location: "Pondicherry, Tamil Nadu",
+        location: "Covelong, Tamil Nadu",
         status: "upcoming",
         headline: "Shoulder-season run. Long weekend.",
         notes: "Chiller waves, good for anyone wanting to ease in. Reach out if you want to ride along.",
