@@ -182,13 +182,24 @@ const CONFIG = {
         spotlight: null
       },
       {
-        month: "Jun 2026",
+        month: "Jul 2026",
         location: "Covelong, Tamil Nadu",
-        status: "upcoming",
+        status: "logged",
         headline: "Shoulder-season run. Long weekend.",
         notes: "Chiller waves, good for anyone wanting to ease in. Reach out if you want to ride along.",
-        instagram: "",
-        photo: "",
+        instagram: "https://www.instagram.com/p/Dbia6kkkUq0/?utm_source=ig_web_copy_link",
+        photo: "images/covelong_july_2026.jpeg",
+        spotlight: null
+
+      },
+            {
+        month: "Aug 2026",
+        location: "Pondicherry, Tamil Nadu",
+        status: "upcoming",
+        headline: "Peak season. Freedom weekend.",
+        notes: "Competition month. WSL Temple Shore returns to Mahabalipuram",
+        instagram: "https://www.instagram.com/p/Dbia6kkkUq0/?utm_source=ig_web_copy_link",
+        photo: "images/covelong_july_2026.jpeg",
         spotlight: null
 
       }
