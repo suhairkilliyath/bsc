@@ -999,42 +999,297 @@ body {
 .swell-map-now__list a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--border); }
 .swell-map-now__list a:hover { color: var(--wave); border-color: var(--wave); }
 
-/* ---- LOGBOOK SECTION ---- */
+/* Legend */
+.swell-map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.10em;
+  color: var(--mist);
+  margin: 12px 0 0;
+}
+.swell-map-legend__item { display: inline-flex; align-items: center; gap: 7px; }
+.swell-map-legend__dot { width: 9px; height: 9px; border-radius: 50%; }
+.swell-map-legend__dot--on { background: var(--wave); }
+.swell-map-legend__dot--off { background: var(--mist); opacity: 0.45; }
+.swell-map-legend__dot--small { width: 5px; height: 5px; background: var(--wave); }
+.swell-map-legend__dot--large { width: 11px; height: 11px; background: var(--wave); }
+
+
+.swell-info-panel {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 320px;
+  background: #fff;
+  border: 1px solid var(--border);
+  padding: 24px;
+  border-radius: 2px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(20px);
+  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
+  z-index: 10;
+  box-shadow: 0 8px 24px rgba(14, 14, 14, 0.08);
+}
+
+.swell-info-panel.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+.swell-info__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: var(--mist);
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px;
+  transition: color 0.2s;
+}
+
+.swell-info__close:hover {
+  color: var(--ink);
+}
+
+.swell-info__name {
+  font-family: var(--serif);
+  font-size: 24px;
+  color: var(--ink);
+  margin-bottom: 4px;
+  letter-spacing: -0.02em;
+}
+
+.swell-info__coords {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--mist);
+  letter-spacing: 0.08em;
+  margin-bottom: 18px;
+}
+
+.swell-info__swell {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.swell-info__label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-bottom: 10px;
+}
+
+.swell-info__bars {
+  display: flex;
+  gap: 4px;
+}
+
+.swell-info__bar {
+  width: 5px;
+  height: 18px;
+  background: rgba(14, 14, 14, 0.1);
+  border-radius: 2px;
+}
+
+.swell-info__bar--on {
+  background: var(--wave);
+}
+
+.swell-info__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.swell-info__item {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 11px;
+}
+
+.swell-info__key {
+  color: var(--mist);
+  letter-spacing: 0.06em;
+}
+
+.swell-info__value {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.swell-info__hint {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--mist);
+  line-height: 1.5;
+  margin: 14px 0 0;
+  letter-spacing: 0.08em;
+}
+
+.swell-info__refs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--mist);
+  line-height: 1.5;
+  margin: 10px 0 0;
+  letter-spacing: 0.08em;
+}
+
+.swell-info__refs a {
+  color: var(--mist);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.swell-info__refs a:hover {
+  color: var(--wave);
+}
+
+.swell-info__quote {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-style: italic;
+  color: var(--wave);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Mobile swell map */
+@media (max-width: 1199px) {
+  .swell-info-panel {
+    width: 100%;
+    max-width: 280px;
+    right: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .swell-map-wrap {
+    padding: 0 20px;
+  }
+  
+  .swell-info-panel {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 14px 14px 0 0;
+    padding: 28px 24px 24px;
+    transform: translateY(100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s var(--ease), opacity 0.3s;
+    z-index: 150;
+    max-height: 80vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    box-shadow: 0 -10px 30px rgba(10,31,23,0.18);
+  }
+  .swell-info-panel::before {
+    content: '';
+    position: sticky;
+    top: 0;
+    display: block;
+    width: 36px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(14,14,14,0.20);
+    margin: -16px auto 14px;
+  }
+  .swell-info-panel.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .swell-info__close {
+    display: block;
+    top: 14px;
+    right: 14px;
+    font-size: 24px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(14,14,14,0.05);
+  }
+}
+
+/* ---- LOGBOOK SECTION (Letterboxd-style archive) ---- */
 .section--logbook {
   background: var(--sand);
-  padding: 80px 0 56px;
+  padding: 80px 0 72px;
+  border-top: 1px solid var(--border);
 }
-.section--logbook .section__intro { padding: 0 40px 48px; }
+.section--logbook .section__intro { padding: 0 40px 40px; }
 
 .log-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px 32px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px 20px;
   padding: 0 40px;
 }
-
 .log-cell {
-  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
   text-decoration: none;
   color: inherit;
-  cursor: pointer;
-  transition: opacity 0.2s var(--ease);
+  position: relative;
+  transition: transform 0.25s var(--ease);
 }
-.log-cell:hover { opacity: 0.85; }
 .log-cell--link { cursor: pointer; }
-.log-cell--upcoming { opacity: 0.65; }
-.log-cell--upcoming:hover { opacity: 0.55; }
+.log-cell--link:hover { transform: translateY(-2px); }
+.log-cell--link:hover .log-cell__tile { box-shadow: 0 4px 16px rgba(10,31,23,0.10); }
 
 .log-cell__tile {
   position: relative;
   width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--salt);
+  border: 1px solid var(--border);
+  border-radius: 2px;
   overflow: hidden;
-  border-radius: 4px;
-  aspect-ratio: 4 / 5;
-  background: var(--mist);
+  transition: box-shadow 0.25s var(--ease);
+}
+.log-cell__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  image-rendering: auto;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+.log-cell__placeholder {
+  position: absolute;
+  inset: 0;
+  background-color: #f1ece2;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(15,110,86,0.08) 0 1px, transparent 1px 12px),
+    repeating-linear-gradient(-45deg, rgba(15,110,86,0.05) 0 1px, transparent 1px 12px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1143,3 +1398,1473 @@ body {
   padding: 80px 40px 0;
 }
 .section--ethos .section__h { color: var(--ink); }
+.section--ethos .section__h em { color: var(--wave-d); font-style: italic; }
+
+.ethos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  margin-top: 48px;
+  border-top: 1px solid var(--border);
+}
+.ethos-cell {
+  background: var(--sand);
+  padding: 36px 32px;
+}
+.ethos-cell__n {
+  font-family: var(--serif);
+  font-size: 48px;
+  color: rgba(14,14,14,0.10);
+  line-height: 1;
+  margin-bottom: 14px;
+  letter-spacing: -0.04em;
+}
+.ethos-cell__title {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  margin-bottom: 10px;
+}
+.ethos-cell__body {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--mist);
+  line-height: 1.75;
+}
+
+/* ---- ETHOS MISSION (closing block) ---- */
+.ethos-mission {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 80px 24px 96px;
+  text-align: left;
+}
+.ethos-mission__overline {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--wave-d);
+  margin-bottom: 24px;
+}
+.ethos-mission__h {
+  font-family: var(--serif);
+  font-size: clamp(26px, 3vw, 36px);
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 28px;
+}
+.ethos-mission__h em {
+  color: var(--wave-d);
+  font-style: italic;
+}
+.ethos-mission__body {
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.85;
+  color: var(--mist);
+}
+.ethos-mission__body p + p { margin-top: 16px; }
+.ethos-mission__note {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--mist);
+  line-height: 1.7;
+}
+.ethos-mission__note em { color: var(--ink); font-style: italic; }
+@media (max-width: 720px) {
+  .ethos-mission { padding: 56px 16px 72px; }
+}
+
+/* ---- JOIN BAR ---- */
+.join-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 26px 40px;
+  background: var(--wave);
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
+  margin-top: -28px;
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
+  box-shadow: 0 -6px 20px rgba(15,110,86,0.18);
+}
+@media (max-width: 720px) {
+  .join-bar {
+    margin-top: -20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+}
+.join-bar__text {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+.join-bar__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.join-bar__wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 12px 18px;
+  border: 1px solid rgba(255,255,255,0.60);
+  color: #fff;
+  background: transparent;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  white-space: nowrap;
+}
+.join-bar__wa svg { width: 16px; height: 16px; }
+.join-bar__wa:hover { background: rgba(255,255,255,0.12); border-color: #fff; transform: translateY(-2px); }
+.join-bar__btn {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  border: 1px solid #fff;
+  color: var(--wave-d);
+  background: #fff;
+  cursor: pointer;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  white-space: nowrap;
+}
+.join-bar__btn:hover { background: var(--ink); color: #fff; border-color: var(--ink); transform: translateY(-2px); }
+
+/* ---- FOOTER ---- */
+.footer {
+  background: var(--deep);
+  padding: 28px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer__logo {
+  font-family: var(--serif);
+  font-size: 15px;
+  color: rgba(255,255,255,0.30);
+  letter-spacing: -0.02em;
+}
+.footer__right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.footer__copy {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: rgba(255,255,255,0.15);
+}
+.footer__ig {
+  display: flex;
+  align-items: center;
+  color: rgba(255,255,255,0.25);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer__ig:hover { color: var(--wave); }
+.footer__ig svg { width: 16px; height: 16px; }
+
+/* ---- MODAL ---- */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(10,31,23,0.75);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: var(--sand);
+  border-radius: 4px;
+  width: 100%;
+  max-width: 480px;
+  padding: 36px 36px 32px;
+  position: relative;
+}
+.modal__close {
+  position: absolute;
+  top: 20px; right: 20px;
+  background: none; border: none;
+  font-size: 20px;
+  color: var(--mist);
+  cursor: pointer;
+  line-height: 1;
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 2px;
+  transition: background 0.15s, color 0.15s;
+}
+.modal__close:hover { background: var(--salt); color: var(--ink); }
+
+.modal__title {
+  font-family: var(--serif);
+  font-size: 28px;
+  color: var(--ink);
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+.modal__sub {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--mist);
+  margin-bottom: 26px;
+  line-height: 1.65;
+}
+.modal__form { display: flex; flex-direction: column; gap: 10px; }
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.form-field label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+.form-field input,
+.form-field select,
+.form-field textarea {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--salt);
+  border-radius: 2px;
+  padding: 10px 12px;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus { border-color: var(--wave); }
+.form-field textarea { resize: none; height: 88px; line-height: 1.65; }
+
+.form-select-wrap { position: relative; }
+.form-select-wrap select { padding-right: 32px; }
+.form-select-wrap::after {
+  content: '';
+  position: absolute;
+  right: 12px; top: 50%;
+  transform: translateY(-50%);
+  width: 0; height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid var(--mist);
+  pointer-events: none;
+}
+
+.form-submit {
+  margin-top: 6px;
+  width: 100%;
+  padding: 13px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--wave);
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.form-submit:hover { background: var(--wave-d); }
+
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 24px 0 8px;
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--wave);
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 1199px) {
+  .nav { padding: 0 24px; }
+  .nav__links { display: none; }
+  .nav__hamburger { display: flex; }
+
+  .hero { min-height: auto; }
+  .hero__inner { padding: 56px 24px 32px; gap: 24px; }
+  .hero__meta { padding: 0 24px 32px; }
+  .hero__compass {
+    top: auto;
+    bottom: 60%;
+    right: 4%;
+    width: 140px;
+    height: 140px;
+    opacity: 0.35;
+  }
+  .hero__stat-n { font-size: 44px; }
+
+  .section--calendar { padding: 60px 0 0; }
+  .section__intro { padding: 0 24px 36px; }
+
+  .section--ethos { padding: 60px 24px 0; }
+  .ethos-grid { grid-template-columns: 1fr; }
+
+  .join-bar { padding: 22px 24px; }
+  .join-bar__text { font-size: 18px; }
+
+  .footer { padding: 24px; }
+}
+
+@media (max-width: 380px) {
+  .hero__h1 { font-size: 34px; }
+  .modal { padding: 28px 22px 24px; }
+  .join-bar { flex-direction: column; align-items: stretch; }
+  .join-bar__text { font-size: 18px; margin-bottom: 12px; }
+  .join-bar__btn { width: 100%; text-align: center; }
+}
+
+/* ---- SCROLL REVEAL ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+.reveal--delay-1 { transition-delay: 0.08s; }
+.reveal--delay-2 { transition-delay: 0.16s; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal.is-visible { opacity: 1; transform: none; transition: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header>
+  <nav class="nav" role="navigation" aria-label="Main">
+    <a class="nav__logo" href="#" aria-label="Bangalore Surf Club home">
+      BSC<span>.</span>
+    </a>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="#logbook">Trips</a></li>
+      <li><a href="#calendar">Calendar</a></li>
+      <li><a href="program.html">Program</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#join">Join</a></li>
+    </ul>
+    <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <nav class="nav__drawer" id="drawer" aria-label="Mobile menu">
+    <a href="#logbook"  onclick="closeDrawer()">Trips</a>
+    <a href="#calendar" onclick="closeDrawer()">Calendar</a>
+    <a href="program.html" onclick="closeDrawer()">Program</a>
+    <a href="#about"    onclick="closeDrawer()">About</a>
+    <a href="#join"     onclick="closeDrawer()">Join</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="trips" aria-label="Hero">
+  <svg class="hero__art" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <!-- vertical grid lines -->
+    <g stroke="rgba(29,158,117,0.06)" stroke-width="0.5">
+      <line x1="160"  y1="0" x2="160"  y2="900"/>
+      <line x1="320"  y1="0" x2="320"  y2="900"/>
+      <line x1="480"  y1="0" x2="480"  y2="900"/>
+      <line x1="640"  y1="0" x2="640"  y2="900"/>
+      <line x1="800"  y1="0" x2="800"  y2="900" stroke="rgba(29,158,117,0.10)"/>
+      <line x1="960"  y1="0" x2="960"  y2="900"/>
+      <line x1="1120" y1="0" x2="1120" y2="900"/>
+      <line x1="1280" y1="0" x2="1280" y2="900"/>
+      <line x1="1440" y1="0" x2="1440" y2="900"/>
+    </g>
+    <!-- concentric circles centered low-right -->
+    <g fill="none" stroke="rgba(29,158,117,0.04)" stroke-width="0.5">
+      <circle cx="1100" cy="500" r="100"/>
+      <circle cx="1100" cy="500" r="200"/>
+      <circle cx="1100" cy="500" r="320"/>
+      <circle cx="1100" cy="500" r="460"/>
+    </g>
+    <!-- wave layers at bottom -->
+    <path d="M-20 720 Q200 670 420 700 Q680 738 920 680 Q1180 622 1620 670 L1620 900 L-20 900Z" fill="#0d2a1e"/>
+    <path d="M-20 770 Q260 728 480 750 Q780 778 1020 730 Q1300 682 1620 712 L1620 900 L-20 900Z" fill="#0a2019"/>
+    <path d="M-20 820 Q300 790 540 805 Q860 824 1100 798 Q1380 770 1620 782 L1620 900 L-20 900Z" fill="#071510"/>
+  </svg>
+
+  <div class="hero__compass" aria-hidden="true">
+    <svg class="hero__compass-rose" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="94" fill="none" stroke="rgba(29,158,117,0.45)" stroke-width="0.6"/>
+      <circle cx="100" cy="100" r="86" fill="none" stroke="rgba(29,158,117,0.20)" stroke-width="0.4"/>
+      <circle cx="100" cy="100" r="60" fill="none" stroke="rgba(29,158,117,0.15)" stroke-width="0.4"/>
+      <circle cx="100" cy="100" r="30" fill="none" stroke="rgba(29,158,117,0.20)" stroke-width="0.4"/>
+      <g stroke="rgba(29,158,117,0.40)" stroke-width="0.6">
+        <line x1="100" y1="6"  x2="100" y2="18"/>
+        <line x1="100" y1="182" x2="100" y2="194"/>
+        <line x1="6"   y1="100" x2="18"  y2="100"/>
+        <line x1="182" y1="100" x2="194" y2="100"/>
+      </g>
+      <g stroke="rgba(29,158,117,0.22)" stroke-width="0.4">
+        <line x1="33"  y1="33"  x2="42"  y2="42"/>
+        <line x1="167" y1="33"  x2="158" y2="42"/>
+        <line x1="33"  y1="167" x2="42"  y2="158"/>
+        <line x1="167" y1="167" x2="158" y2="158"/>
+      </g>
+      <g stroke="rgba(29,158,117,0.14)" stroke-width="0.3">
+        <line x1="63"  y1="15"  x2="66"  y2="22"/>
+        <line x1="137" y1="15"  x2="134" y2="22"/>
+        <line x1="63"  y1="185" x2="66"  y2="178"/>
+        <line x1="137" y1="185" x2="134" y2="178"/>
+        <line x1="15"  y1="63"  x2="22"  y2="66"/>
+        <line x1="15"  y1="137" x2="22"  y2="134"/>
+        <line x1="185" y1="63"  x2="178" y2="66"/>
+        <line x1="185" y1="137" x2="178" y2="134"/>
+      </g>
+      <g font-family="var(--mono), monospace" font-size="9" fill="rgba(29,158,117,0.65)" text-anchor="middle" letter-spacing="1.5">
+        <text x="100" y="32">N</text>
+        <text x="100" y="175">S</text>
+        <text x="172" y="103">E</text>
+        <text x="28"  y="103">W</text>
+      </g>
+      <g font-family="var(--mono), monospace" font-size="6" fill="rgba(29,158,117,0.30)" text-anchor="middle" letter-spacing="1">
+        <text x="148" y="55">NE</text>
+        <text x="148" y="152">SE</text>
+        <text x="52"  y="152">SW</text>
+        <text x="52"  y="55">NW</text>
+      </g>
+      <circle cx="100" cy="100" r="2" fill="rgba(29,158,117,0.7)"/>
+    </svg>
+    <svg class="hero__compass-needle" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="100,20 96,100 104,100" fill="rgba(29,158,117,0.85)"/>
+      <polygon points="100,180 96,100 104,100" fill="rgba(29,158,117,0.25)"/>
+      <circle cx="100" cy="100" r="3" fill="#0a1f17" stroke="rgba(29,158,117,0.6)" stroke-width="0.6"/>
+    </svg>
+  </div>
+
+  <div class="hero__inner">
+    <p class="hero__kicker" id="heroKicker"></p>
+    <h1 class="hero__h1" id="heroH1"></h1>
+    <p class="hero__sub" id="heroSub"></p>
+    <div class="hero__pulse" aria-live="polite">
+      <div class="hero__pulse-head">
+        <span class="hero__pulse-dot" aria-hidden="true"></span>
+        <span id="heroPulseTag">Live</span>
+        <span class="hero__pulse-sep">·</span>
+        <span id="heroPulseMonth"></span>
+      </div>
+      <div class="hero__pulse-count" id="heroPulseCount"></div>
+      <div class="hero__pulse-list" id="heroPulseList"></div>
+    </div>
+  </div>
+
+  <div class="hero__meta">
+    <p class="hero__coords" id="heroCoords"></p>
+    <div class="hero__stat">
+      <div class="hero__stat-n" id="heroStatN"></div>
+      <div class="hero__stat-l" id="heroStatL"></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-fade section-fade--deep-sand" aria-hidden="true"></div>
+
+<!-- SWELL MAP -->
+<section class="section--swell" id="swell" aria-labelledby="swellHeading">
+  <div class="section__intro" style="max-width: 100%; padding: 0 40px 36px;">
+    <p class="overline">The swell</p>
+    <h2 class="serif-display section__h" id="swellHeading"></h2>
+    <p class="section__sub" id="swellSub" style="max-width: 620px;"></p>
+  </div>
+  <div class="swell-map-wrap" id="swellMapWrap">
+    <div class="swell-map-now" id="swellMapNow" aria-live="polite">
+      <span class="swell-map-now__dot" aria-hidden="true"></span>
+      <span class="swell-map-now__label" id="swellMapNowLabel">In season right now</span>
+      <span class="swell-map-now__list" id="swellMapNowList"></span>
+    </div>
+    <div class="swell-map-filter" id="swellMapFilter" role="group" aria-label="Filter by skill level">
+      <span class="swell-map-filter__label">Show</span>
+      <button class="swell-map-filter__btn is-active" type="button" data-level="all">All</button>
+      <button class="swell-map-filter__btn" type="button" data-level="beginner">Beginner</button>
+      <button class="swell-map-filter__btn" type="button" data-level="intermediate">Intermediate</button>
+      <button class="swell-map-filter__btn" type="button" data-level="advanced">Experienced</button>
+    </div>
+    <div class="swell-map" id="swellMap" role="region" aria-label="Coastal destinations map"></div>
+    <div class="swell-map-legend" aria-hidden="true">
+      <span class="swell-map-legend__item"><span class="swell-map-legend__dot swell-map-legend__dot--on"></span> In season</span>
+      <span class="swell-map-legend__item"><span class="swell-map-legend__dot swell-map-legend__dot--off"></span> Off-season</span>
+      <span class="swell-map-legend__item"><span class="swell-map-legend__dot swell-map-legend__dot--small"></span><span class="swell-map-legend__dot swell-map-legend__dot--large"></span> Bigger pin = bigger peak swell</span>
+    </div>
+    <div class="swell-map-note">Cross-referenced with <a href="https://www.surf-forecast.com/countries/India" target="_blank" rel="noopener" style="color: var(--mist); text-decoration: underline;">surf-forecast.com</a> spot data and the <a href="https://www.surfingfederationofindia.org/" target="_blank" rel="noopener" style="color: var(--mist); text-decoration: underline;">Surfing Federation of India</a>. Then weighted by what we've actually ridden.</div>
+    <div class="swell-info-panel" id="swellInfoPanel">
+      <button class="swell-info__close" onclick="closeSwellInfo()" aria-label="Close">&times;</button>
+      <h3 class="swell-info__name" id="swellInfoName"></h3>
+      <p class="swell-info__coords" id="swellInfoCoords"></p>
+      <div class="swell-info__swell">
+        <div class="swell-info__label">Peak season swell</div>
+        <div class="swell-info__bars" id="swellInfoBars"></div>
+      </div>
+      <div class="swell-info__meta">
+        <div class="swell-info__item">
+          <span class="swell-info__key">Water temperature</span>
+          <span class="swell-info__value" id="swellInfoTemp"></span>
+        </div>
+        <div class="swell-info__item">
+          <span class="swell-info__key">Difficulty</span>
+          <span class="swell-info__value" id="swellInfoDiff"></span>
+        </div>
+        <div class="swell-info__item">
+          <span class="swell-info__key">Season</span>
+          <span class="swell-info__value" id="swellInfoSeason"></span>
+        </div>
+      </div>
+      <p class="swell-info__hint">5 bars = strongest seasonal swell for this coast. Difficulty is a practical guide based on wave power, takeoff angle, and shoreline exposure — cross-checked with surf-forecast.com seasonal stats.</p>
+      <div class="swell-info__refs" id="swellInfoRefs"></div>
+      <p class="swell-info__quote" id="swellInfoQuote"></p>
+    </div>
+  </div>
+</section>
+
+<!-- CALENDAR -->
+<section class="section--calendar" id="calendar" aria-labelledby="calHeading">
+  <div class="section__intro">
+    <p class="overline">The calendar</p>
+    <h2 class="serif-display section__h" id="calHeading">Best place to surf.<br>Every month of the year.</h2>
+    <p class="section__sub" id="calSub"></p>
+    <div class="cal-level-filter" id="calLevelFilter" role="group" aria-label="Filter by skill level">
+      <span class="cal-level-filter__lbl">Surfing level:</span>
+      <button class="cal-level-filter__btn" type="button" data-level="beginner">Beginner</button>
+      <button class="cal-level-filter__btn is-active" type="button" data-level="intermediate">Intermediate</button>
+      <button class="cal-level-filter__btn" type="button" data-level="advanced">Experienced</button>
+    </div>
+  </div>
+  <div class="cal-strip" id="calStrip" role="tablist" aria-label="Months"></div>
+  <div class="cal-card" id="calCard" aria-live="polite"></div>
+  <a class="cal-program-link" id="calProgramLink" href="program.html">
+    <span class="cal-program-link__copy">Want a <em>custom yearly plan</em>? Build your own program — pick your level, start month, and how often you want to travel.</span>
+    <span class="cal-program-link__cta">Build my program</span>
+  </a>
+</section>
+
+<!-- ETHOS -->
+<section class="section--ethos" id="about" aria-labelledby="ethosHeading">
+  <p class="overline overline--ghost">The club</p>
+  <h2 class="serif-display section__h" id="ethosHeading"></h2>
+  <div class="ethos-grid" id="ethosGrid"></div>
+
+  <div class="ethos-mission">
+    <p class="ethos-mission__overline">Why we're doing this</p>
+    <h3 class="ethos-mission__h">Indian surf is growing.<br><em>We'd like to help, eventually.</em></h3>
+    <div class="ethos-mission__body">
+      <p>More people from Bangalore are paddling out every year. We started this club to make those trips easier and more fun.</p>
+      <p>Down the line, we'd love to open paid membership and put that money toward Indian surfers who need it — boards, coaching, contest fees. We'd want to do it properly, with people who know the scene better than us.</p>
+    </div>
+    <p class="ethos-mission__note"><em>None of that exists yet.</em> Right now we're just friends running trips. We'll get there if we earn it.</p>
+  </div>
+</section>
+
+<!-- LOGBOOK -->
+<section class="section--logbook" id="logbook" aria-labelledby="logHeading">
+  <div class="section__intro">
+    <p class="overline" id="logOverline"></p>
+    <h2 class="serif-display section__h" id="logHeading"></h2>
+    <p class="section__sub" id="logSub"></p>
+  </div>
+  <div class="log-grid" id="logGrid"></div>
+</section>
+
+
+<!-- FAQ SECTION -->
+<section class="section--faq" aria-labelledby="faqHeading" style="background: var(--sand); padding: 60px 0 0;">
+  <div class="section__intro" style="padding: 0 40px 36px;">
+    <p class="overline">FAQ</p>
+    <h2 class="serif-display section__h" id="faqHeading" style="margin-bottom: 32px;">Frequently Asked<br>Questions</h2>
+    <div class="faq-grid" style="display: grid; grid-template-columns: 1fr; gap: 24px; max-width: 600px; margin: 0 auto;">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" style="font-family: var(--mono); font-size: 13px; color: var(--ink); background: none; border: none; width: 100%; text-align: left; padding: 0; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center;">
+          <span>What is the Bangalore Surf Club?</span>
+          <span class="faq-arrow" style="transition: transform 0.2s;">&#9662;</span>
+        </button>
+        <div class="faq-a" style="font-family: var(--mono); font-size: 12px; color: var(--mist); display: none; margin-top: 8px;">A surf club for people in Bangalore. We run trips most months and anyone can come. We'd love to do more for Indian surfing down the line — see <em>Why we're doing this</em> above.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" style="font-family: var(--mono); font-size: 13px; color: var(--ink); background: none; border: none; width: 100%; text-align: left; padding: 0; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center;">
+          <span>How much does a trip cost?</span>
+          <span class="faq-arrow" style="transition: transform 0.2s;">&#9662;</span>
+        </button>
+        <div class="faq-a" style="font-family: var(--mono); font-size: 12px; color: var(--mist); display: none; margin-top: 8px;">Indian-coast weekends usually run <strong style="color: var(--ink);">₹6,000–12,000</strong> per person — that's transport, the stay, and a board rental or instruction if you need it. Sri Lanka is more like ₹25,000–40,000 once flights are in. We split everything inside the group. No markups, you see the receipts.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" style="font-family: var(--mono); font-size: 13px; color: var(--ink); background: none; border: none; width: 100%; text-align: left; padding: 0; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center;">
+          <span>I've never surfed before. Can I still come?</span>
+          <span class="faq-arrow" style="transition: transform 0.2s;">&#9662;</span>
+        </button>
+        <div class="faq-a" style="font-family: var(--mono); font-size: 12px; color: var(--mist); display: none; margin-top: 8px;">Yes. The calendar above marks beginner-friendly months — Varkala in winter, Pondicherry in March, Mulki in September, Weligama in December. We book a school session for first-timers and the rest of us are around between sets to share boards and tips. Most people here started exactly this way.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" style="font-family: var(--mono); font-size: 13px; color: var(--ink); background: none; border: none; width: 100%; text-align: left; padding: 0; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center;">
+          <span>How do trips actually work?</span>
+          <span class="faq-arrow" style="transition: transform 0.2s;">&#9662;</span>
+        </button>
+        <div class="faq-a" style="font-family: var(--mono); font-size: 12px; color: var(--mist); display: none; margin-top: 8px;">For each trip we sort the dates, the stay, transport, and instruction if anyone needs it. Costs split inside the group. You can come on the overnight van or just meet us at the coast. Both work.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" style="font-family: var(--mono); font-size: 13px; color: var(--ink); background: none; border: none; width: 100%; text-align: left; padding: 0; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center;">
+          <span>How do I join the next trip?</span>
+          <span class="faq-arrow" style="transition: transform 0.2s;">&#9662;</span>
+        </button>
+        <div class="faq-a" style="font-family: var(--mono); font-size: 12px; color: var(--mist); display: none; margin-top: 8px;">Hit the <em>Talk to us</em> button below and fill the short form. Tell us which trip you're eyeing and your surf level. We'll add you to the planning thread for that coast and send specifics within a day or two.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" style="font-family: var(--mono); font-size: 13px; color: var(--ink); background: none; border: none; width: 100%; text-align: left; padding: 0; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center;">
+          <span>I prefer fully planned surf trips. Any recommendations?</span>
+          <span class="faq-arrow" style="transition: transform 0.2s;">&#9662;</span>
+        </button>
+        <div class="faq-a" style="font-family: var(--mono); font-size: 12px; color: var(--mist); display: none; margin-top: 8px;">If you want a fully planned, instructor-led trip, our friends at <a href="https://surfclubindia.com" target="_blank" rel="noopener" style="color: var(--wave); text-decoration: underline;">Surfclub India</a> run all-inclusive surf trips across the country. Different setup from us, both worth knowing about.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN BAR -->
+<div class="join-bar" id="join">
+  <p class="join-bar__text" id="joinBarText"></p>
+  <a class="join-bar__btn" id="joinBarBtn" href="#">Talk to us →</a>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <span class="footer__logo" id="footerLogo"></span>
+  <div class="footer__right">
+    <span class="footer__copy">BLR → COAST · EVERY MONTH OF THE YEAR</span>
+    <a class="footer__ig" id="footerIg" href="#" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <circle cx="12" cy="12" r="4"/>
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+    </a>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <button class="modal__close" onclick="closeModal()" aria-label="Close">&times;</button>
+    <h2 class="modal__title" id="modalTitle"></h2>
+    <p class="modal__sub"   id="modalSub"></p>
+    <form class="modal__form" id="joinForm" novalidate>
+      <div class="form-field">
+        <label for="f-name" id="labelName"></label>
+        <input type="text" id="f-name" name="name" autocomplete="name" required/>
+      </div>
+      <div class="form-field">
+        <label for="f-link" id="labelLink"></label>
+        <input type="text" id="f-link" name="instagram_or_link" autocomplete="url"/>
+      </div>
+      <div class="form-field">
+        <label for="f-role">Who are you?</label>
+        <div class="form-select-wrap">
+          <select id="f-role" name="role" required></select>
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="f-msg" id="labelMsg"></label>
+        <textarea id="f-msg" name="message"></textarea>
+      </div>
+      <button type="submit" class="form-submit" id="formSubmit"></button>
+    </form>
+    <div class="form-success" id="formSuccess"></div>
+  </div>
+</div>
+
+<script>
+// FAQ accordion logic
+document.addEventListener('DOMContentLoaded', function() {
+  var faqQs = document.querySelectorAll('.faq-q');
+  faqQs.forEach(function(btn) {
+    // Ensure all answers are hidden by default
+    var a = btn.parentElement.querySelector('.faq-a');
+    var arrow = btn.querySelector('.faq-arrow');
+    if (a) a.style.display = 'none';
+    if (arrow) arrow.style.transform = 'rotate(0deg)';
+    btn.setAttribute('aria-expanded', 'false');
+    btn.addEventListener('click', function() {
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      // Collapse all
+      faqQs.forEach(function(otherBtn) {
+        otherBtn.setAttribute('aria-expanded', 'false');
+        var otherA = otherBtn.parentElement.querySelector('.faq-a');
+        var otherArrow = otherBtn.querySelector('.faq-arrow');
+        if (otherA) otherA.style.display = 'none';
+        if (otherArrow) otherArrow.style.transform = 'rotate(0deg)';
+      });
+      // Expand this one if it was not already expanded
+      if (!expanded) {
+        btn.setAttribute('aria-expanded', 'true');
+        var a = btn.parentElement.querySelector('.faq-a');
+        var arrow = btn.querySelector('.faq-arrow');
+        if (a) a.style.display = 'block';
+        if (arrow) arrow.style.transform = 'rotate(180deg)';
+      }
+    });
+  });
+});
+/* ---- Render from CONFIG ---- */
+var MONTH_INDEX = { jan:1, feb:2, mar:3, apr:4, may:5, jun:6, jul:7, aug:8, sep:9, oct:10, nov:11, dec:12 };
+var currentSwellDest = null;
+(function() {
+  const C = CONFIG;
+  const D = C.destinations;
+  const M = C.calendar;
+  const E = C.ethos;
+  const F = C.joinForm;
+  const SM = C.swellMap;
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function(c) {
+      return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
+    });
+  }
+  function escapeAttr(s) { return escapeHtml(s); }
+
+  // Hero
+  document.getElementById('heroKicker').textContent = C.club.name + ' — ' + C.club.established;
+  const h1 = document.getElementById('heroH1');
+  const before = C.club.tagline.replace(C.club.taglineAccent, '');
+  h1.innerHTML = before + '<em>' + C.club.taglineAccent + '</em>';
+  document.getElementById('heroCoords').textContent = C.club.coords;
+  // document.getElementById('heroStatN').textContent = D.length;
+  // document.getElementById('heroStatL').textContent = 'Coasts this year';
+  if (C.club.heroSub) {
+    const heroSubEl = document.getElementById('heroSub');
+    if (heroSubEl) heroSubEl.textContent = C.club.heroSub;
+  }
+
+  // Hero live pulse — current in-season coasts
+  (function() {
+    const now = new Date();
+    const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const monthLabel = monthNames[now.getMonth()] + ' ' + now.getFullYear();
+    const inSeason = D.filter(function(d) { return isDestInSeason(d, now.getMonth() + 1); });
+    const tagEl = document.getElementById('heroPulseTag');
+    const monthEl = document.getElementById('heroPulseMonth');
+    const countEl = document.getElementById('heroPulseCount');
+    const listEl = document.getElementById('heroPulseList');
+    if (!countEl || !listEl) return;
+    if (monthEl) monthEl.textContent = monthLabel;
+    if (inSeason.length === 0) {
+      if (tagEl) tagEl.textContent = 'Quiet week';
+      countEl.innerHTML = '<em>Between seasons</em>';
+      listEl.textContent = 'Next swell window opens soon — check the calendar.';
+    } else {
+      if (tagEl) tagEl.textContent = 'In season now';
+      const n = inSeason.length;
+      const noun = n === 1 ? 'coast' : 'coasts';
+      countEl.innerHTML = n + ' <em>' + noun + ' working</em>';
+      listEl.innerHTML = inSeason.map(function(d) {
+        return '<a href="#swell" onclick="event.preventDefault();scrollToSwellMap(\'' + d.name + '\');">' + escapeHtml(d.name) + '</a>';
+      }).join(' \u00b7 ');
+    }
+  })();
+
+  // Calendar section
+  document.getElementById('calSub').textContent = "Pick your level, then tap a month. We'll show where it works and what kind of surf you'll get.";
+  const strip = document.getElementById('calStrip');
+  const card = document.getElementById('calCard');
+  const levelFilter = document.getElementById('calLevelFilter');
+  const AUDIENCE_LABEL = {
+    beginner:     'Beginners welcome',
+    intermediate: 'Intermediate',
+    advanced:     'Experienced',
+    all:          'All levels'
+  };
+  const nowMonthIdx = new Date().getMonth(); // 0-11
+  let activeLevel = 'intermediate';
+  let activeMonthIdx = nowMonthIdx;
+  let activePickIdx = 0;
+
+  function swellTier(n) {
+    if (n >= 5) return 'peak';
+    if (n >= 4) return 'strong';
+    if (n >= 3) return 'mild';
+    return 'low';
+  }
+
+  function destByName(name) {
+    return D.find(function(d) { return d.name === name; });
+  }
+
+  // For a given month entry + level, return the list of picks (may be empty).
+  function picksFor(monthEntry, level) {
+    if (!monthEntry || !monthEntry.picks) return [];
+    return monthEntry.picks[level] || [];
+  }
+
+  // Pick swell rating for a destination in a given calendar month (1-12).
+  function destSwellForMonth(destObj, monthIdx1) {
+    if (!destObj) return 3;
+    return isDestInSeason(destObj, monthIdx1) ? destObj.swell : Math.max(1, destObj.swell - 2);
+  }
+
+  // Compute the strip-chip swell tier for a (month, level) cell — uses primary pick.
+  function chipTier(monthEntry, level, monthIdx0) {
+    const picks = picksFor(monthEntry, level);
+    if (!picks.length) return 'low';
+    const dest = destByName(picks[0].dest);
+    return swellTier(destSwellForMonth(dest, monthIdx0 + 1));
+  }
+
+  function renderCard(monthEntry, level, pickIdx) {
+    const picks = picksFor(monthEntry, level);
+    if (!picks.length) {
+      card.innerHTML =
+          '<div class="cal-card__head">'
+        +   '<span class="cal-card__month">' + escapeHtml(monthEntry.month) + '</span>'
+        +   '<span class="cal-card__dest">No fit this month.</span>'
+        + '</div>'
+        + '<div class="cal-card__empty">'
+        +   'No standout option for ' + escapeHtml(level === 'advanced' ? 'experienced' : level) + ' surfers in ' + escapeHtml(monthEntry.month) + '. '
+        +   'Try a different level — or wait it out, the next swell window is rarely far away.'
+        + '</div>';
+      card.onclick = null;
+      card.setAttribute('aria-label', monthEntry.month + ': no destination fit for ' + level);
+      return;
+    }
+
+    pickIdx = Math.max(0, Math.min(pickIdx || 0, picks.length - 1));
+    activePickIdx = pickIdx;
+    const pick = picks[pickIdx];
+    const destObj = destByName(pick.dest);
+    const region = destObj ? destObj.region : '';
+    const monthIdx1 = MONTH_INDEX[monthEntry.month.toLowerCase()] || (M.indexOf(monthEntry) + 1);
+    const swell = destSwellForMonth(destObj, monthIdx1);
+    const audKey = level;
+
+    let bars = '';
+    for (let i = 0; i < 5; i++) {
+      bars += '<div class="cal-card__bar' + (i < swell ? ' cal-card__bar--on' : '') + '"></div>';
+    }
+
+    let altsHtml = '';
+    if (picks.length > 1) {
+      altsHtml = '<div class="cal-card__alts">'
+        + '<span class="cal-card__alts-lbl">Also working:</span>'
+        + picks.map(function(p, i) {
+            return '<button type="button" class="cal-card__alt-chip' + (i === pickIdx ? ' is-active' : '') + '" data-pick-idx="' + i + '">'
+              + escapeHtml(p.dest) + '</button>';
+          }).join('')
+        + '</div>';
+    }
+
+    card.innerHTML =
+        '<div class="cal-card__head">'
+      +   '<span class="cal-card__month">' + escapeHtml(monthEntry.month) + '</span>'
+      +   '<span class="cal-card__dest">' + escapeHtml(pick.dest) + '</span>'
+      + '</div>'
+      + '<div class="cal-card__region">' + escapeHtml(region) + '</div>'
+      + '<div class="cal-card__row">'
+      +   '<div class="cal-card__swell">' + bars + '</div>'
+      +   '<div class="cal-card__pill cal-card__pill--' + audKey + '">' + (AUDIENCE_LABEL[audKey] || 'All levels') + '</div>'
+      + '</div>'
+      + (pick.note ? '<div class="cal-card__forwho">' + escapeHtml(pick.note) + '</div>' : '')
+      + '<span class="cal-card__link" data-cal-link="1">See ' + escapeHtml(pick.dest) + ' on the map</span>'
+      + altsHtml;
+
+    // Wire alternate chips
+    card.querySelectorAll('[data-pick-idx]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const i = parseInt(btn.getAttribute('data-pick-idx'), 10) || 0;
+        renderCard(monthEntry, level, i);
+      });
+    });
+    card.onclick = function(e) {
+      if (e.target.closest('[data-pick-idx]')) return;
+      scrollToSwellMap(pick.dest);
+    };
+    card.setAttribute('aria-label', monthEntry.month + ': ' + pick.dest + ', ' + region);
+  }
+
+  function rebuildStrip() {
+    strip.innerHTML = '';
+    M.forEach(function(c, i) {
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'cal-chip cal-chip--' + chipTier(c, activeLevel, i);
+      if (i === nowMonthIdx) chip.classList.add('cal-chip--now');
+      if (i === activeMonthIdx) chip.classList.add('is-active');
+      const picks = picksFor(c, activeLevel);
+      const primary = picks.length ? picks[0].dest : 'no fit';
+      chip.setAttribute('role', 'tab');
+      chip.setAttribute('aria-label', c.month + ': ' + primary);
+      chip.innerHTML =
+          '<span class="cal-chip__month">' + c.month + '</span>'
+        + '<span class="cal-chip__dot" aria-hidden="true"></span>';
+      chip.onclick = function() {
+        strip.querySelectorAll('.cal-chip').forEach(function(el) { el.classList.remove('is-active'); });
+        chip.classList.add('is-active');
+        activeMonthIdx = i;
+        activePickIdx = 0;
+        renderCard(c, activeLevel, 0);
+        updateProgramLink();
+      };
+      strip.appendChild(chip);
+    });
+  }
+
+  // Keep the "Build my program" link in sync with the active level/month.
+  const programLinkEl = document.getElementById('calProgramLink');
+  function updateProgramLink() {
+    if (!programLinkEl) return;
+    const startMonth = activeMonthIdx + 1; // 1-12
+    programLinkEl.setAttribute('href',
+      'program.html?skill=' + encodeURIComponent(activeLevel)
+      + '&start=' + startMonth
+      + '&cadence=2');
+  }
+
+  // Wire level filter buttons
+  if (levelFilter) {
+    levelFilter.querySelectorAll('.cal-level-filter__btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        const lvl = btn.getAttribute('data-level');
+        if (!lvl || lvl === activeLevel) return;
+        activeLevel = lvl;
+        levelFilter.querySelectorAll('.cal-level-filter__btn').forEach(function(b) { b.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+        rebuildStrip();
+        renderCard(M[activeMonthIdx], activeLevel, 0);
+        updateProgramLink();
+      });
+    });
+  }
+
+  rebuildStrip();
+  renderCard(M[activeMonthIdx], activeLevel, 0);
+  updateProgramLink();
+
+  // Ethos heading
+  document.getElementById('ethosHeading').innerHTML = 'Not a tour.<br>Not a class.<br><em>A standing crew.</em>';
+  const ethosGrid = document.getElementById('ethosGrid');
+  E.forEach(function(e) {
+    const cell = document.createElement('div');
+    cell.className = 'ethos-cell';
+    cell.innerHTML =
+      '<div class="ethos-cell__n">' + e.n + '</div>'
+      + '<div class="ethos-cell__title">' + e.title + '</div>'
+      + '<div class="ethos-cell__body">' + e.body + '</div>';
+    ethosGrid.appendChild(cell);
+  });
+
+  // Swell map section
+  document.getElementById('swellHeading').textContent = SM.heading;
+  document.getElementById('swellSub').textContent = SM.sub;
+  
+  // Generate swell map SVG
+  generateSwellMap(D);
+
+  // Logbook section (Letterboxd-style archive)
+  if (C.logbook) {
+    document.getElementById('logOverline').textContent = C.logbook.overline;
+    const logH = document.getElementById('logHeading');
+    logH.innerHTML = C.logbook.heading.split('\n').map(escapeHtml).join('<br>');
+    document.getElementById('logSub').textContent = C.logbook.sub;
+    const logGrid = document.getElementById('logGrid');
+    const igIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>';
+    C.logbook.entries.forEach(function(entry) {
+      const isLink = !!entry.instagram;
+      const tag = isLink ? 'a' : 'div';
+      const cell = document.createElement(tag);
+      let cls = 'log-cell';
+      if (entry.status === 'upcoming') cls += ' log-cell--upcoming';
+      if (isLink) cls += ' log-cell--link';
+      cell.className = cls;
+      if (isLink) {
+        cell.href = entry.instagram;
+        cell.target = '_blank';
+        cell.rel = 'noopener';
+      }
+      const statusLabel = entry.status === 'logged' ? 'Logged' : 'Up next';
+      const tileInner = entry.photo
+        ? '<img class="log-cell__photo" src="' + escapeAttr(entry.photo) + '"' + (entry.photo2x ? ' srcset="' + escapeAttr(entry.photo) + ' 1x, ' + escapeAttr(entry.photo2x) + ' 2x"' : '') + ' alt="' + escapeAttr(entry.location) + '" loading="lazy" decoding="async">'
+        : '<div class="log-cell__placeholder" aria-hidden="true">?</div>';
+      const igCorner = isLink ? '<span class="log-cell__ig-corner" aria-hidden="true">' + igIcon + '</span>' : '';
+      cell.innerHTML =
+          '<div class="log-cell__tile">'
+        +   '<span class="log-cell__pip">' + statusLabel + '</span>'
+        +   tileInner
+        +   igCorner
+        + '</div>'
+        + '<div class="log-cell__caption">'
+        +   '<span class="log-cell__month">' + escapeHtml(entry.month) + '</span>'
+        +   '<span class="log-cell__location">' + escapeHtml(entry.location) + '</span>'
+        + '</div>';
+      logGrid.appendChild(cell);
+    });
+  }
+
+  // Join bar
+  if (C.joinBar) {
+    document.getElementById('joinBarText').textContent = C.joinBar.text;
+    const btn = document.getElementById('joinBarBtn');
+    btn.textContent = C.joinBar.cta;
+    btn.setAttribute('href', '#');
+    btn.onclick = function(e) { e.preventDefault(); openModal(); };
+  } else {
+    document.getElementById('joinBarText').textContent = C.club.nextTrip;
+  }
+  document.getElementById('footerLogo').textContent = C.club.name;
+  document.getElementById('footerIg').href = C.club.instagram;
+
+  // Modal
+  document.getElementById('modalTitle').textContent = F.title;
+  document.getElementById('modalSub').textContent = F.sub;
+  document.getElementById('labelName').textContent = F.fields.name;
+  document.getElementById('labelLink').textContent = F.fields.link;
+  document.getElementById('labelMsg').textContent = F.fields.message;
+  document.getElementById('formSubmit').textContent = F.cta;
+  document.getElementById('formSuccess').textContent = F.success;
+  document.getElementById('f-name').placeholder = F.fields.name;
+  document.getElementById('f-link').placeholder = F.fields.link;
+  document.getElementById('f-msg').placeholder = F.fields.message;
+  const sel = document.getElementById('f-role');
+  F.fields.roleOptions.forEach(function(o) {
+    const opt = document.createElement('option');
+    opt.value = o.value;
+    opt.textContent = o.label;
+    sel.appendChild(opt);
+  });
+
+  // Form action
+  document.getElementById('joinForm').action = 'https://formspree.io/f/' + C.club.formspreeId;
+  document.getElementById('joinForm').method = 'POST';
+})();
+
+/* ---- Swell Map Functions ---- */
+
+function isDestInSeason(dest, currentMonth) {
+  if (!dest || !dest.month) return false;
+  const parts = dest.month.split('\u2013').map(s => s.trim().slice(0,3).toLowerCase());
+  if (parts.length === 1) return MONTH_INDEX[parts[0]] === currentMonth;
+  const start = MONTH_INDEX[parts[0]];
+  const end = MONTH_INDEX[parts[1]];
+  if (!start || !end) return false;
+  if (start <= end) return currentMonth >= start && currentMonth <= end;
+  // wraps year-end (e.g. Oct\u2013Mar)
+  return currentMonth >= start || currentMonth <= end;
+}
+
+function parsePinLevels(diff) {
+  const s = String(diff || '').toLowerCase();
+  if (s.indexOf('all') >= 0) return 'beginner intermediate advanced';
+  const out = [];
+  if (s.indexOf('beginner') >= 0)     out.push('beginner');
+  if (s.indexOf('intermediate') >= 0) out.push('intermediate');
+  if (s.indexOf('advanced') >= 0)     out.push('advanced');
+  return out.length ? out.join(' ') : 'intermediate';
+}
+
+function generateSwellMap(destinations) {
+  const mapEl = document.getElementById('swellMap');
+  if (!mapEl) return;
+
+  // Leaflet is loaded with `defer`, so it may not be ready when this IIFE runs.
+  // Retry on window load (or shortly after) once L is on the global.
+  if (typeof L === 'undefined') {
+    if (window._swellMapWaiting) return;
+    window._swellMapWaiting = true;
+    const retry = function() { window._swellMapWaiting = false; generateSwellMap(destinations); };
+    if (document.readyState === 'complete') setTimeout(retry, 50);
+    else window.addEventListener('load', retry, { once: true });
+    return;
+  }
+
+  // Local HTML escaper (escapeHtml in this file lives inside the renderer IIFE)
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function(c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  // Clear any prior render (Leaflet stamps its own DOM inside)
+  mapEl.innerHTML = '';
+
+  const map = L.map(mapEl, {
+    center: [11.5, 78.5],
+    zoom: 6,
+    minZoom: 5,
+    maxZoom: 12,
+    zoomControl: true,
+    scrollWheelZoom: false,        // don't hijack page scroll
+    doubleClickZoom: true,
+    keyboard: true,
+    worldCopyJump: false,
+    attributionControl: true,
+  });
+
+  // Enable scroll-zoom only after user interacts with the map
+  map.once('focus click', function() { map.scrollWheelZoom.enable(); });
+
+  // CartoDB Positron tiles — pale grey, minimal labels. Lets the pins pop.
+  // Free, no API key. Attribution required.
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+    maxZoom: 19,
+    crossOrigin: true,
+    subdomains: 'abcd',
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+  }).addTo(map);
+
+  // Subtle graticule overlay (every 2°)
+  const grat = L.layerGroup().addTo(map);
+  for (let lat = 4; lat <= 18; lat += 2) {
+    L.polyline([[lat, 70], [lat, 84]], {
+      color: '#0e0e0e', weight: 0.5, opacity: 0.18,
+      dashArray: '2,5', interactive: false,
+    }).addTo(grat);
+  }
+  for (let lng = 70; lng <= 84; lng += 2) {
+    L.polyline([[4, lng], [18, lng]], {
+      color: '#0e0e0e', weight: 0.5, opacity: 0.18,
+      dashArray: '2,5', interactive: false,
+    }).addTo(grat);
+  }
+
+  // Reference cities for orientation
+  const refs = [
+    { name: 'Bangalore', lat: 12.97, lng: 77.59, home: true  },
+    { name: 'Chennai',   lat: 13.08, lng: 80.27, home: false },
+    { name: 'Colombo',   lat: 6.93,  lng: 79.84, home: false },
+  ];
+  refs.forEach(function(r) {
+    const homeMark = '<span class="ref-home" title="Bangalore — home" aria-label="Bangalore — home">'
+      + '<svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true">'
+      +   '<path d="M12 3 3 11h2v9h5v-6h4v6h5v-9h2z" fill="currentColor"/>'
+      + '</svg>'
+      + '</span>';
+    L.marker([r.lat, r.lng], {
+      icon: L.divIcon({
+        className: 'swell-map-ref-icon' + (r.home ? ' swell-map-ref-icon--home' : ''),
+        html: r.home
+          ? homeMark
+          : '<span class="ref-dot"></span><span class="ref-label">' + r.name + '</span>',
+        iconSize: [0, 0],
+        iconAnchor: [0, 0],
+      }),
+      interactive: false,
+      keyboard: false,
+    }).addTo(map);
+  });
+
+  // Surf-spot pins
+  const currentMonth = new Date().getMonth() + 1;
+  destinations.forEach(function(dest) {
+    if (typeof dest.lat !== 'number' || typeof dest.lng !== 'number') return;
+    const inSeason = isDestInSeason(dest, currentMonth);
+    const levels = parsePinLevels(dest.difficulty);
+    const safeName = esc(dest.name);
+    const html =
+      '<div class="swell-map-pin ' + (inSeason ? 'swell-map-pin--on' : 'swell-map-pin--off') + '"' +
+      ' data-dest="' + safeName + '" data-levels="' + levels + '">' +
+        (inSeason ? '<span class="pin-pulse" aria-hidden="true"></span>' : '') +
+        '<span class="pin-dot" aria-hidden="true"></span>' +
+        '<span class="pin-label">' + safeName + '</span>' +
+      '</div>';
+
+    const marker = L.marker([dest.lat, dest.lng], {
+      icon: L.divIcon({
+        className: 'swell-pin-wrap',
+        html: html,
+        iconSize: [44, 44],
+        iconAnchor: [22, 22],
+      }),
+      title: dest.name,
+      keyboard: true,
+      riseOnHover: true,
+    }).addTo(map);
+
+    marker.on('click', function(e) {
+      L.DomEvent.stopPropagation(e);
+      displaySwellInfo(dest.name);
+      scrollToSwellMap(dest.name);
+    });
+  });
+
+  // Fit to India west coast + Sri Lanka with a little breathing room
+  map.fitBounds([[5.6, 73.0], [16.2, 82.6]], { padding: [16, 16] });
+
+  // Recalculate size once layout settles (fonts, parallax shadows)
+  setTimeout(function() { map.invalidateSize(); }, 200);
+
+  // Expose so scrollToSwellMap can pan to a destination
+  window._swellLeafletMap = map;
+
+  // Populate the "in season now" ribbon
+  const list = document.getElementById('swellMapNowList');
+  if (list) {
+    const inSeason = destinations.filter(d => isDestInSeason(d, currentMonth));
+    if (inSeason.length === 0) {
+      list.textContent = 'between seasons';
+    } else {
+      list.innerHTML = inSeason.map(d =>
+        '<a href="#swell" data-dest="' + d.name + '" onclick="event.preventDefault();scrollToSwellMap(\'' + d.name + '\');">' + d.name + '</a>'
+      ).join(' \u00b7 ');
+    }
+  }
+}
+
+function scrollToSwellMap(destName) {
+  const swellSection = document.getElementById('swell');
+  if (swellSection) {
+    swellSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Display info after scroll
+    setTimeout(function() {
+      displaySwellInfo(destName);
+      // Pan Leaflet map to the selected destination
+      const map = window._swellLeafletMap;
+      const dest = CONFIG.destinations.find(function(d) { return d.name === destName; });
+      if (map && dest && typeof dest.lat === 'number') {
+        map.flyTo([dest.lat, dest.lng], Math.max(map.getZoom(), 7), { duration: 0.7 });
+      }
+    }, 400);
+  }
+}
+
+function displaySwellInfo(destName) {
+  const dest = CONFIG.destinations.find(d => d.name === destName);
+  if (!dest) return;
+  
+  currentSwellDest = destName;
+  
+  // Update active pin
+  document.querySelectorAll('.swell-map-pin').forEach(function(pin) {
+    pin.classList.remove('active');
+  });
+  const activePin = document.querySelector('.swell-map-pin[data-dest="' + destName + '"]');
+  if (activePin) activePin.classList.add('active');
+  
+  // Update panel content
+  document.getElementById('swellInfoName').textContent = dest.name;
+  document.getElementById('swellInfoCoords').textContent = dest.coords;
+  document.getElementById('swellInfoTemp').textContent = dest.temp;
+  document.getElementById('swellInfoDiff').textContent = dest.difficulty;
+  const seasonEl = document.getElementById('swellInfoSeason');
+  if (seasonEl) {
+    const nowMonth = new Date().getMonth() + 1;
+    const inNow = isDestInSeason(dest, nowMonth);
+    seasonEl.textContent = dest.month + (inNow ? '  — in season now' : '  — off season');
+    seasonEl.style.color = inNow ? 'var(--wave-d)' : 'var(--mist)';
+  }
+  document.getElementById('swellInfoQuote').textContent = dest.quote;
+
+  // Per-spot reference link (real source: surf-forecast.com)
+  const refs = document.getElementById('swellInfoRefs');
+  if (refs) {
+    if (dest.sourceUrl) {
+      refs.innerHTML = '<span>Spot data:</span> '
+        + '<a href="' + dest.sourceUrl + '" target="_blank" rel="noopener">surf-forecast.com / ' + dest.name + ' \u2197</a>';
+    } else {
+      refs.innerHTML = '';
+    }
+  }
+
+  // Swell bars
+  const barsContainer = document.getElementById('swellInfoBars');
+  barsContainer.innerHTML = '';
+  for (let i = 0; i < 5; i++) {
+    const bar = document.createElement('div');
+    bar.className = 'swell-info__bar' + (i < dest.swell ? ' swell-info__bar--on' : '');
+    barsContainer.appendChild(bar);
+  }
+  
+  // Open panel
+  const panel = document.getElementById('swellInfoPanel');
+  panel.classList.add('open');
+}
+
+function closeSwellInfo() {
+  const panel = document.getElementById('swellInfoPanel');
+  panel.classList.remove('open');
+  
+  // Remove active state from pins
+  document.querySelectorAll('.swell-map-pin').forEach(function(pin) {
+    pin.classList.remove('active');
+  });
+  
+  currentSwellDest = null;
+}
+
+/* Close swell info panel on outside click */
+document.addEventListener('click', function(e) {
+  const panel = document.getElementById('swellInfoPanel');
+  if (!panel || !panel.classList.contains('open')) return;
+  if (panel.contains(e.target)) return;
+  // Ignore clicks on map pins (they handle their own toggle)
+  if (e.target.closest && e.target.closest('.swell-map-pin')) return;
+  // Ignore clicks on calendar cells (they open the panel programmatically)
+  if (e.target.closest && e.target.closest('.cal-cell')) return;
+  closeSwellInfo();
+});
+
+/* Close swell info panel on Escape */
+document.addEventListener('keydown', function(e) {
+  if (e.key !== 'Escape') return;
+  const panel = document.getElementById('swellInfoPanel');
+  if (panel && panel.classList.contains('open')) closeSwellInfo();
+});
+
+/* Skill-level filter for the swell map */
+(function() {
+  const wrap = document.getElementById('swellMapWrap');
+  const filter = document.getElementById('swellMapFilter');
+  if (!wrap || !filter) return;
+  filter.addEventListener('click', function(e) {
+    const btn = e.target.closest('.swell-map-filter__btn');
+    if (!btn) return;
+    const level = btn.getAttribute('data-level');
+    filter.querySelectorAll('.swell-map-filter__btn').forEach(function(b) { b.classList.remove('is-active'); });
+    btn.classList.add('is-active');
+    if (level === 'all') {
+      wrap.removeAttribute('data-filter');
+    } else {
+      wrap.setAttribute('data-filter', level);
+    }
+  });
+})();
+
+/* ---- Nav hamburger ---- */
+const hamburger = document.getElementById('hamburger');
+const drawer = document.getElementById('drawer');
+hamburger.addEventListener('click', function() {
+  const open = drawer.classList.toggle('open');
+  hamburger.classList.toggle('open', open);
+  hamburger.setAttribute('aria-expanded', String(open));
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+function closeDrawer() {
+  drawer.classList.remove('open');
+  hamburger.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+
+/* ---- Modal ---- */
+function openModal() {
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('f-name').focus();
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
+
+/* ---- Form submit ---- */
+document.getElementById('joinForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const name = document.getElementById('f-name').value.trim();
+  const role = document.getElementById('f-role').value;
+  if (!name || !role) {
+    document.getElementById('f-name').focus();
+    return;
+  }
+  const formId = CONFIG.club.formspreeId;
+  if (formId === 'YOUR_FORMSPREE_ID') {
+    // Dev mode — just show success
+    document.getElementById('joinForm').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+    return;
+  }
+  const data = new FormData(this);
+  fetch(this.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+    .then(function(r) {
+      if (r.ok) {
+        document.getElementById('joinForm').style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+      }
+    })
+    .catch(function() {
+      document.getElementById('joinForm').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    });
+});
+
+/* ---- SCROLL REVEAL ---- */
+(function() {
+  if (!('IntersectionObserver' in window)) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  // Targets: section intros + ethos cells + faq items + the join bar
+  var targets = [].concat(
+    Array.prototype.slice.call(document.querySelectorAll('.section__intro')),
+    Array.prototype.slice.call(document.querySelectorAll('.ethos-cell')),
+    Array.prototype.slice.call(document.querySelectorAll('.ethos-mission')),
+    Array.prototype.slice.call(document.querySelectorAll('.faq-item')),
+    Array.prototype.slice.call(document.querySelectorAll('.join-bar'))
+  );
+  targets.forEach(function(el, i) {
+    el.classList.add('reveal');
+    if (i % 3 === 1) el.classList.add('reveal--delay-1');
+    if (i % 3 === 2) el.classList.add('reveal--delay-2');
+  });
+
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  targets.forEach(function(el) { io.observe(el); });
+})();
+</script>
+</body>
+</html>
