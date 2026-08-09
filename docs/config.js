@@ -188,7 +188,7 @@ const CONFIG = {
         headline: "Shoulder-season run. Long weekend.",
         notes: "Chiller waves, good for anyone wanting to ease in. Reach out if you want to ride along.",
         instagram: "https://www.instagram.com/p/Dbia6kkkUq0/?utm_source=ig_web_copy_link",
-        photo: "images/covelong_july_2026.jpeg",
+        photo: "images/covelong_july_2026.jpg",
         spotlight: null
 
       },
@@ -198,8 +198,8 @@ const CONFIG = {
         status: "upcoming",
         headline: "Peak season. Freedom weekend.",
         notes: "Competition month. WSL Temple Shore returns to Mahabalipuram",
-        instagram: "https://www.instagram.com/p/Dbia6kkkUq0/?utm_source=ig_web_copy_link",
-        photo: "images/covelong_july_2026.jpeg",
+        instagram: "",
+        photo: "",
         spotlight: null
 
       }
