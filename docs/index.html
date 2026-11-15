@@ -1493,8 +1493,9 @@ body {
   padding: 26px 40px;
   background: var(--wave);
   flex-wrap: wrap;
-  position: relative;
-  z-index: 2;
+  position: sticky;
+  bottom: 0;
+  z-index: 20;
   margin-top: -28px;
   border-top-left-radius: 28px;
   border-top-right-radius: 28px;
@@ -1711,13 +1712,129 @@ body {
 }
 .form-submit:hover { background: var(--wave-d); }
 
+.form-note {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--mist);
+}
+
 .form-success {
   display: none;
   text-align: center;
   padding: 24px 0 8px;
+  color: var(--wave);
+}
+.form-success__message {
   font-family: var(--serif);
   font-size: 22px;
-  color: var(--wave);
+  line-height: 1.3;
+}
+.form-success__actions {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+.form-success__action,
+.form-success__note {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 280px;
+  padding: 12px 14px;
+  border-radius: 2px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.form-success__action {
+  background: var(--wave);
+  color: #fff;
+}
+.form-success__action:hover { opacity: 0.92; }
+.form-success__note {
+  background: rgba(138, 127, 114, 0.08);
+  color: var(--mist);
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+.confirm-box {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  z-index: 30;
+  width: min(92vw, 420px);
+  background: rgba(255,255,255,0.96);
+  border: 1px solid rgba(138, 127, 114, 0.18);
+  border-radius: 12px;
+  box-shadow: 0 22px 46px rgba(17, 24, 39, 0.14);
+  padding: 22px 20px 18px;
+}
+.confirm-box.hidden {
+  display: none;
+}
+.confirm-box__title {
+  margin: 0 0 10px;
+  font-family: var(--serif);
+  font-size: clamp(24px, 4vw, 30px);
+  line-height: 1.1;
+  color: var(--ink);
+}
+.confirm-box__copy {
+  margin: 0 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--mist);
+}
+.confirm-box__logo {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: radial-gradient(circle at 30% 30%, #fdf2f8, #f2d7ea 38%, #dcb0c9 100%);
+  color: #fff;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6);
+}
+.confirm-box__logo svg {
+  width: 24px;
+  height: 24px;
+}
+.confirm-box__actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+.confirm-box__btn {
+  border: none;
+  border-radius: 2px;
+  padding: 11px 14px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+.confirm-box__btn:hover { opacity: 0.94; }
+.confirm-box__btn--primary {
+  background: var(--wave);
+  color: #fff;
+}
+.confirm-box__btn--secondary {
+  background: rgba(138,127,114,0.08);
+  color: var(--ink);
 }
 
 /* ---- RESPONSIVE ---- */
@@ -2109,12 +2226,26 @@ body {
         </div>
       </div>
       <div class="form-field">
+        <p class="form-note">After you submit, you can also send the same note on Instagram or join the WhatsApp community.</p>
+      </div>
+      <div class="form-field">
         <label for="f-msg" id="labelMsg"></label>
         <textarea id="f-msg" name="message"></textarea>
       </div>
       <button type="submit" class="form-submit" id="formSubmit"></button>
     </form>
-    <div class="form-success" id="formSuccess"></div>
+    <div class="form-success" id="formSuccess">
+      <div class="form-success__message"></div>
+      <div class="form-success__actions" id="formSuccessActions"></div>
+    </div>
+    <div class="confirm-box hidden" id="confirmBox" aria-live="polite" aria-modal="true" role="dialog">
+      <h3 class="confirm-box__title" id="confirmBoxTitle"></h3>
+      <p class="confirm-box__copy" id="confirmBoxCopy"></p>
+      <div class="confirm-box__actions">
+        <button type="button" class="confirm-box__btn confirm-box__btn--secondary" id="confirmBoxSecondary"></button>
+        <button type="button" class="confirm-box__btn confirm-box__btn--primary" id="confirmBoxPrimary"></button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -2464,10 +2595,11 @@ var currentSwellDest = null;
   document.getElementById('labelLink').textContent = F.fields.link;
   document.getElementById('labelMsg').textContent = F.fields.message;
   document.getElementById('formSubmit').textContent = F.cta;
-  document.getElementById('formSuccess').textContent = F.success;
+  document.querySelector('.form-success__message').textContent = F.success;
   document.getElementById('f-name').placeholder = F.fields.name;
   document.getElementById('f-link').placeholder = F.fields.link;
   document.getElementById('f-msg').placeholder = F.fields.message;
+
   const sel = document.getElementById('f-role');
   F.fields.roleOptions.forEach(function(o) {
     const opt = document.createElement('option');
@@ -2546,13 +2678,11 @@ function generateSwellMap(destinations) {
   // Enable scroll-zoom only after user interacts with the map
   map.once('focus click', function() { map.scrollWheelZoom.enable(); });
 
-  // CartoDB Positron tiles — pale grey, minimal labels. Lets the pins pop.
-  // Free, no API key. Attribution required.
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+  // Use the default OpenStreetMap tiles instead of Carto basemaps, which now require an API key.
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     crossOrigin: true,
-    subdomains: 'abcd',
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
 
   // Subtle graticule overlay (every 2°)
@@ -2806,33 +2936,153 @@ document.addEventListener('keydown', function(e) {
 });
 
 /* ---- Form submit ---- */
+function getInstagramDmUrl() {
+  const rawHandle = (CONFIG.club.instagramHandle || CONFIG.club.instagram || '').replace(/^@/, '').trim();
+  const normalizedHandle = rawHandle
+    .replace(/^https?:\/\/(?:www\.)?instagram\.com\//i, '')
+    .replace(/\/.*$/, '')
+    .replace(/\?.*$/, '');
+  const igUser = normalizedHandle || 'blrsurfclub';
+  return 'https://ig.me/m/' + igUser;
+}
+
+function showSuccessState() {
+  const form = document.getElementById('joinForm');
+  const success = document.getElementById('formSuccess');
+  const actions = document.getElementById('formSuccessActions');
+  form.style.display = 'none';
+  success.style.display = 'block';
+  actions.innerHTML = '';
+
+  const instagramUrl = getInstagramDmUrl();
+  const whatsappUrl = (CONFIG.club.whatsappCommunityLink || '').trim();
+
+  if (instagramUrl) {
+    const igButton = document.createElement('a');
+    igButton.href = instagramUrl;
+    igButton.target = '_blank';
+    igButton.rel = 'noopener noreferrer';
+    igButton.className = 'form-success__action';
+    igButton.textContent = 'Send on Instagram';
+    actions.appendChild(igButton);
+  }
+
+  if (whatsappUrl) {
+    const waButton = document.createElement('a');
+    waButton.href = whatsappUrl;
+    waButton.target = '_blank';
+    waButton.rel = 'noopener noreferrer';
+    waButton.className = 'form-success__action';
+    waButton.textContent = 'Join WhatsApp community';
+    actions.appendChild(waButton);
+  }
+
+  if (!instagramUrl && !whatsappUrl) {
+    const note = document.createElement('p');
+    note.className = 'form-success__note';
+    note.textContent = 'We’ll be in touch before the next trip.';
+    actions.appendChild(note);
+  }
+}
+
+function hideCustomConfirm() {
+  const box = document.getElementById('confirmBox');
+  if (box) box.classList.add('hidden');
+}
+
+function showCustomConfirm(title, copy, primaryLabel, secondaryLabel, onPrimary, onSecondary) {
+  const box = document.getElementById('confirmBox');
+  const titleEl = document.getElementById('confirmBoxTitle');
+  const copyEl = document.getElementById('confirmBoxCopy');
+  const primary = document.getElementById('confirmBoxPrimary');
+  const secondary = document.getElementById('confirmBoxSecondary');
+  const form = document.getElementById('joinForm');
+
+  if (box && titleEl && copyEl && primary && secondary && form) {
+    titleEl.textContent = title;
+    copyEl.innerHTML = copy;
+    primary.textContent = primaryLabel;
+    secondary.textContent = secondaryLabel;
+    primary.onclick = onPrimary;
+    secondary.onclick = onSecondary;
+    box.classList.remove('hidden');
+  }
+}
+
 document.getElementById('joinForm').addEventListener('submit', function(e) {
   e.preventDefault();
   const name = document.getElementById('f-name').value.trim();
   const role = document.getElementById('f-role').value;
+  const link = document.getElementById('f-link').value.trim();
+  const message = document.getElementById('f-msg').value.trim();
+
   if (!name || !role) {
     document.getElementById('f-name').focus();
     return;
   }
+
+  const lines = [
+    'Hi BSC, my name is ' + name,
+    role && role !== 'new' ? 'I’m looking for the ' + role + ' level crew.' : 'I’m new to surfing and want to get started.',
+    link ? 'Instagram/phone: ' + link : '',
+    message ? 'Message: ' + message : '',
+  ].filter(Boolean);
+  const text = lines.join('\n');
   const formId = CONFIG.club.formspreeId;
-  if (formId === 'YOUR_FORMSPREE_ID') {
-    // Dev mode — just show success
-    document.getElementById('joinForm').style.display = 'none';
-    document.getElementById('formSuccess').style.display = 'block';
-    return;
-  }
-  const data = new FormData(this);
-  fetch(this.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
-    .then(function(r) {
-      if (r.ok) {
-        document.getElementById('joinForm').style.display = 'none';
-        document.getElementById('formSuccess').style.display = 'block';
-      }
-    })
-    .catch(function() {
-      document.getElementById('joinForm').style.display = 'none';
-      document.getElementById('formSuccess').style.display = 'block';
-    });
+  const formEl = this;
+
+  const instagramUrl = getInstagramDmUrl();
+  const openInstagram = function() {
+    hideCustomConfirm();
+    const url = instagramUrl + '?text=' + encodeURIComponent(text);
+    window.open(url, '_blank', 'noopener,noreferrer');
+    showSuccessState();
+  };
+
+  const instagramIcon = '<span class="confirm-box__logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg></span>';
+
+  const continueToForm = function() {
+    hideCustomConfirm();
+    if (formId === 'YOUR_FORMSPREE_ID') {
+      showSuccessState();
+      return;
+    }
+
+    const data = new FormData(formEl);
+    fetch(formEl.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+      .then(function(r) {
+        if (r.ok) {
+          showSuccessState();
+        } else {
+          throw new Error('Formspree submit failed');
+        }
+      })
+      .catch(function() {
+        showSuccessState();
+      });
+  };
+
+  showCustomConfirm(
+    'Would you rather contact us on Instagram?',
+    instagramIcon,
+    'Yes, open Instagram',
+    'No, continue',
+    openInstagram,
+    function() {
+      hideCustomConfirm();
+      showCustomConfirm(
+        'No problem!',
+        'Just make sure that your number or email is correct so we can contact you back.',
+        'Send my message',
+        'Edit details',
+        continueToForm,
+        function() {
+          hideCustomConfirm();
+          document.getElementById('f-name').focus();
+        }
+      );
+    }
+  );
 });
 
 /* ---- SCROLL REVEAL ---- */

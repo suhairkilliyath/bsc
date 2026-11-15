@@ -9,6 +9,10 @@ const CONFIG = {
     coords: "12.9716° N / 77.5946° E → coast",
     nextTrip: "Next up: Covelong — May 2026",
     contactEmail: "hello@blsurf.club",
+    // Keep this empty to avoid exposing a personal number in the public site.
+    whatsappNumber: "",
+    whatsappCommunityLink: "",
+    instagramHandle: "blrsurfclub",
     instagram: "https://instagram.com/blrsurfclub",
     formspreeId:"mkokaawo",
   },
@@ -245,7 +249,7 @@ const CONFIG = {
     sub: "Tell us which trip you're eyeing, or just say hi. We'll write back in a day or two.",
     fields: {
       name: "Your name",
-      link: "Instagram or phone (optional)",
+      link: "Email or phone (optional)",
       roleOptions: [
         { value: "",            label: "Where are you at?" },
         { value: "new",         label: "I've never surfed — want to try" },
