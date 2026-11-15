@@ -2222,7 +2222,7 @@ body {
       <div class="form-field">
         <label for="f-role">Who are you?</label>
         <div class="form-select-wrap">
-          <select id="f-role" name="role" required></select>
+          <select id="f-role" name="role"></select>
         </div>
       </div>
       <div class="form-field">
@@ -3016,7 +3016,7 @@ document.getElementById('joinForm').addEventListener('submit', function(e) {
   const link = document.getElementById('f-link').value.trim();
   const message = document.getElementById('f-msg').value.trim();
 
-  if (!name || !role) {
+  if (!name) {
     document.getElementById('f-name').focus();
     return;
   }
